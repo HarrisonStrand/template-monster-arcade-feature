@@ -3,7 +3,7 @@ export default class Snake {
 
   constructor(p5, w, h) {
     this.body = [];
-    this.body[0] = p5.createVector(p5.floor(w / 2), p5.floor(h / 2));
+    this.body[0] = p5.createVector(p5.floor(w * 0), p5.floor(h / 2));
     this.xdir = 0;
     this.ydir = 0;
     this.len = 0;

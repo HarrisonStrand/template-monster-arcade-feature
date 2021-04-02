@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import Snake from './snake';
+import Obstacle from './obstacle';
 
 @Component({
   selector: 'app-arcade1',
@@ -12,13 +13,16 @@ export class Arcade1Component implements OnInit {
 
   ngOnInit(): void {
     let snake: any;
-    let rez = 20;
-    let food: any;
+    let obstacles: Array<any> = [];
+    let obstacle: any;
+    let rez = 15;
+    let	food: any;
     let w: any;
     let h: any;
 
     const sketch = (p5: any) => {
-      function foodLocation() {
+
+      function powerUp() {
         let x = p5.floor(p5.random(w));
         let y = p5.floor(p5.random(h));
         food = p5.createVector(x, y);
@@ -30,16 +34,25 @@ export class Arcade1Component implements OnInit {
         p5.createCanvas(400, 400);
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
-        p5.frameRate(30);
+        let numberOfObstacles = 6;
+        p5.frameRate(10);
         snake = new Snake(p5, w, h);
-        foodLocation();
+        obstacle = new Obstacle(p5, w, h);
+        for (let i = 0; i < numberOfObstacles; i++) {
+          obstacles[i] = new Obstacle(p5,2, 6, i*p5.random((3+6), (4+6)), 10);
+        }
+        powerUp();
       };
 
       p5.draw = () => {
         p5.scale(rez);
         p5.background(220);
+
         if (snake.eat(food)) {
-          foodLocation();
+          powerUp();
+        }
+        for(var i = 0; i < obstacles.length; i++) {
+          obstacles[i].show(p5);
         }
         snake.update();
         snake.show(p5);
@@ -49,6 +62,7 @@ export class Arcade1Component implements OnInit {
           p5.noLoop();
         }
 
+        // PowerUP
         p5.noStroke();
         p5.fill(255, 0, 0);
         p5.rect(food.x, food.y, 1, 1);
@@ -64,128 +78,19 @@ export class Arcade1Component implements OnInit {
         } else if (p5.keyCode === p5.UP_ARROW) {
           snake.setDir(0, -1);
         }
-      }
+      };
     };
     let canvas = new p5(sketch);
   }
 }
 
 
-//Snake.js
-// class Snake {
+//if (game is in initial state) {
+  //initial value of obstacles
+//} else if (snake hits door) {
+//  change value of obstacles positions
+//}
 
-//   constructor() {
-//     this.body = [];
-//     this.body[0] = createVector(floor(w / 2), floor(h / 2));
-//     this.xdir = 0;
-//     this.ydir = 0;
-//     this.len = 0;
-//   }
 
-//   setDir(x, y) {
-//     this.xdir = x;
-//     this.ydir = y;
-//   }
-
-//   update() {
-//     let head = this.body[this.body.length - 1].copy();
-//     this.body.shift();
-//     head.x += this.xdir;
-//     head.y += this.ydir;
-//     this.body.push(head);
-//   }
-
-//   grow() {
-//     let head = this.body[this.body.length - 1].copy();
-//     this.len++;
-//     this.body.push(head);
-
-//   }
-
-//   endGame() {
-//     let x = this.body[this.body.length - 1].x;
-//     let y = this.body[this.body.length - 1].y;
-//     if (x > w - 1 || x < 0 || y > h - 1 || y < 0) {
-//       return true;
-//     }
-//     for (let i = 0; i < this.body.length - 1; i++) {
-//       let part = this.body[i];
-//       if (part.x == x && part.y == y) {
-//         return true;
-//       }
-//     }
-//     return false;
-//   }
-
-//   eat(pos) {
-//     let x = this.body[this.body.length - 1].x;
-//     let y = this.body[this.body.length - 1].y;
-//     if (x == pos.x && y == pos.y) {
-//       this.grow();
-//       return true;
-//     }
-//     return false;
-//   }
-
-//   show() {
-//     for (let i = 0; i < this.body.length; i++) {
-//       fill(0);
-//       noStroke();
-//       rect(this.body[i].x, this.body[i].y, 1, 1);
-//     }
-//   }
-
-// }
-
-//Sketch.js
-// let snake;
-// let rez = 20;
-// let food;
-// let w;
-// let h;
-
-// function setup() {
-//   createCanvas(400, 400);
-//   w = floor(width / rez);
-//   h = floor(height / rez);
-//   frameRate(5);
-//   snake = new Snake();
-//   foodLocation();
-// }
-
-// function foodLocation() {
-//   let x = floor(random(w));
-//   let y = floor(random(h));
-//   food = createVector(x, y);
-// }
-
-// function keyPressed() {
-//   if (keyCode == LEFT_ARROW) {
-//     snake.setDir(-1, 0);
-//   } else if (keyCode === RIGHT_ARROW) {
-//     snake.setDir(1, 0);
-//   } else if (keyCode == DOWN_ARROW) {
-//     snake.setDir(0, 1);
-//   } else if (keyCode === UP_ARROW) {
-//     snake.setDir(0, -1);
-//   }
-// }
-
-// function draw() {
-//   scale(rez);
-//   background(220);
-//   if (snake.eat(food)) {
-//     foodLocation();
-//   }
-//   snake.update();
-//   snake.show();
-
-//   if (snake.endGame()) {
-//     background(255, 0, 0);
-//     noLoop();
-//   }
-
-//   noStroke();
-//   fill(255, 0, 0);
-//   rect(food.x, food.y, 1, 1);
-// }
+//every time the snake hits the door, we randomize the obstacles and the enemies ect. within the parameters of our choosing
+//when door hit, reset snake to original position and randomize obstacles
