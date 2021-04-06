@@ -37,13 +37,13 @@ export class Arcade1Component implements OnInit {
         p5.createCanvas(1000, 1000);
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
-        let numberOfObstacles = 10;
+        let numberOfObstacles = 6;
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
-        obstacle = new Obstacle(p5, w, h);
+        obstacle = new Obstacle(p5, 40, 40, 4, '#C2B280');
         powerUp = new PowerUp(p5, 30, 30, 1, "red");
         for (let i = 0; i < numberOfObstacles; i++) {
-          obstacles[i] = new Obstacle(p5, 2, 6, i * 4 + 2, 20);
+          obstacles[i] = new Obstacle(p5, 10, i *10 +4, 4, '#C2B280');
         }
         // powerUp();
 
@@ -64,7 +64,7 @@ export class Arcade1Component implements OnInit {
         p5.pop();
 
         for (var i = 0; i < obstacles.length; i++) {
-          obstacles[i].show(p5);
+          obstacles[i].render(p5);
         }
         snake.update();
         snake.show(p5, r);
@@ -75,12 +75,31 @@ export class Arcade1Component implements OnInit {
           getPowerUp()
         }
 
+        // single obstacle instance
+        if (snake.obstacleCollide(obstacle, p5)) {
+            console.log('COLLIDE')
+            // snake.setDir(0,0);
+            snake.xdir = 0;
+            snake.ydir = 0;
+          }
+
+        // array of obstacles instance
+        for (var i = 0; i < obstacles.length; i++) {
+          if (snake.obstacleCollide(obstacles[i], p5)) {
+            console.log('COLLIDE')
+            // snake.setDir(0,0);
+            snake.xdir = 0;
+            snake.ydir = 0;
+          }
+        }
+
         // if (snake.endGame(w, h)) {
         //   p5.background(255, 0, 0);
         //   p5.noLoop();
         // }
 
         powerUp.render(p5)
+        obstacle.render(p5)
       };
       p5.keyPressed = () => {
         if (p5.keyCode == p5.LEFT_ARROW) {
@@ -97,12 +116,3 @@ export class Arcade1Component implements OnInit {
     let canvas = new p5(sketch);
   }
 }
-
-//if (game is in initial state) {
-//initial value of obstacles
-//} else if (snake hits door) {
-//  change value of obstacles positions
-//}
-
-//every time the snake hits the door, we randomize the obstacles and the enemies ect. within the parameters of our choosing
-//when door hit, reset snake to original position and randomize obstacles
