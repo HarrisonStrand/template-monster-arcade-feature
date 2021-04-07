@@ -62,10 +62,10 @@ export class Arcade1Component implements OnInit {
         for(var k = 0; k < mVenom.length; k++) {
           mVenom[k].show(p5);
           mVenom[k].update(p5);
-          if(mVenom[k].offscreen()) {
-            mVenom.splice(k, 1);
-            break;
-          }
+          // if(mVenom[k].offscreen()) {
+          //   mVenom.splice(k, 1);
+          //   break;
+          // }
         }
 
         //OBSTACLE BORDER
@@ -233,14 +233,12 @@ export class Arcade1Component implements OnInit {
             //RESET SNAKE AND LAYOUT TO DEFAULT...
           }
         }
-
         powerUp.render(p5)
         obstacle.render(p5)
       };
       p5.keyPressed = () => {
         if (p5.key == " ") {
-          let venom = new Venom(p5, );
-          mVenom.push(venom);
+          mVenom.push(new Venom(p5, 10, 40));
           console.log(mVenom);
         } else if (p5.keyCode == p5.LEFT_ARROW) {
           snake.setDir(-1, 0);

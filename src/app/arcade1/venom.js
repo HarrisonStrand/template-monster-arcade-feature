@@ -12,8 +12,18 @@ export default function Venom(p5, x, y) {
     p5.noStroke();
     p5.fill("blue");
     p5.ellipse(this.x, this.y, this.r, this.r);
-    // p5.point(this.x, this.y);
     p5.pop();
+  };
+
+  this.setDir = function (x, y) {
+    this.xdir = x;
+    this.ydir = y;
+  };
+
+  this.update = function () {
+    let head = this.r;
+    head.x += this.xdir*10;
+    head.y += this.ydir*10;
   };
 
   // this.update = function() {
@@ -33,9 +43,9 @@ export default function Venom(p5, x, y) {
   //   }
   // };
 
-  this.move = function () {
-    this.y - 5;
-  };
+  // this.move = function () {
+  //   this.y - 5;
+  // };
 }
 
 // OPTION 2:
