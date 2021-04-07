@@ -106,4 +106,4 @@ export default class Snake {
       p5.rect(this.body[i].x, this.body[i].y, this.r, this.r);
     }
   }
-}
+} 

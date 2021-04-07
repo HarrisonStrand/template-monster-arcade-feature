@@ -3,7 +3,8 @@ import * as p5 from 'p5';
 import Snake from './snake';
 import Obstacle from './obstacle';
 import PowerUp from "./powerUp";
-import basicMap from './basicMap';
+import Venom from "./venom";
+import basiMap from './basicMap';
 
 @Component({
   selector: 'app-arcade1',
@@ -15,6 +16,8 @@ export class Arcade1Component implements OnInit {
 
   ngOnInit(): void {
     let snake: any;
+    let venom: any;
+    let mVenom: Array<any> = [];
     let obstacles: Array<any> = [];
     let obstacle: any;
     let rez = 10;
@@ -46,17 +49,19 @@ export class Arcade1Component implements OnInit {
         for (let i = 0; i < numberOfObstacles; i++) {
           obstacles[i] = new Obstacle(p5, 10, i *10 +4, 0, 4, '#C2B280');
         }
+        for(var k = 0; k < mVenom.length; k++) {
+          mVenom[k].show(p5);
+          mVenom[k].update(p5);
+          if(mVenom[k].offscreen()) {
+            mVenom.splice(k, 1);
+            break;
+          }
+        }
       };
 
-      p5.draw = () => {
+        p5.draw = () => {
         p5.scale(rez);
         p5.background(0);
-        // p5.loadPixels();
-        // for (var i = 0; i < basicMap.layers[0].data.length; i++) {
-        //   p5.pixels[i] = basicMap.layers[0].data[i];
-        //   p5.pixels[i+1] = 255;
-        // }
-        // p5.updatePixels();
 
         //Border
         p5.push();
@@ -97,6 +102,17 @@ export class Arcade1Component implements OnInit {
             snake.xdir = 0;
             snake.ydir = 0;
           }
+        }
+          
+          // Venom rendering
+          for(var k = 0; k < mVenom.length; k++) {
+            mVenom[k].show(p5);
+            // mVenom[k].update(p5);
+            if(mVenom[k].dissipate()) {
+              mVenom.splice(k, 1);
+              break;
+            }
+          }
 
         // if (snake.borderCollide(p5, w, h)) {
         //   console.log('border hit!')
@@ -105,14 +121,15 @@ export class Arcade1Component implements OnInit {
         // }
 
 
-        }
-
-
-        powerUp.render(p5)
-        obstacle.render(p5)
+        powerUp.render(p5);
+        obstacle.render(p5);
       };
       p5.keyPressed = () => {
-        if (p5.keyCode == p5.LEFT_ARROW) {
+        if (p5.key == " ") {
+          let venom = new Venom(p5, );
+          mVenom.push(venom);
+          console.log(mVenom);
+        } else if (p5.keyCode == p5.LEFT_ARROW) {
           snake.setDir(-1, 0);
         } else if (p5.keyCode === p5.RIGHT_ARROW) {
           snake.setDir(1, 0);
