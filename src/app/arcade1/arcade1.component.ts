@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import Snake from './snake';
 import Obstacle from './obstacle';
-import PowerUp from "./powerUp"
+import PowerUp from "./powerUp";
+import basicMap from './basicMap';
 
 @Component({
   selector: 'app-arcade1',
@@ -40,19 +41,22 @@ export class Arcade1Component implements OnInit {
         let numberOfObstacles = 6;
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
-        obstacle = new Obstacle(p5, 40, 40, 4, '#C2B280');
+        obstacle = new Obstacle(p5, 40, 40, 1, 4, '#a8ccd7CC');
         powerUp = new PowerUp(p5, 30, 30, 1, "red");
         for (let i = 0; i < numberOfObstacles; i++) {
-          obstacles[i] = new Obstacle(p5, 10, i *10 +4, 4, '#C2B280');
+          obstacles[i] = new Obstacle(p5, 10, i *10 +4, 0, 4, '#C2B280');
         }
-        // powerUp();
-
-        
       };
 
       p5.draw = () => {
         p5.scale(rez);
         p5.background(0);
+        // p5.loadPixels();
+        // for (var i = 0; i < basicMap.layers[0].data.length; i++) {
+        //   p5.pixels[i] = basicMap.layers[0].data[i];
+        //   p5.pixels[i+1] = 255;
+        // }
+        // p5.updatePixels();
 
         //Border
         p5.push();
@@ -76,27 +80,33 @@ export class Arcade1Component implements OnInit {
         }
 
         // single obstacle instance
-        if (snake.obstacleCollide(obstacle, p5)) {
+        if (snake.obstacleCollide(obstacle, p5) && obstacle.pos.z === 0) {
             console.log('COLLIDE')
-            // snake.setDir(0,0);
+            snake.setDir(0,0);
             snake.xdir = 0;
             snake.ydir = 0;
+          } else if (snake.obstacleCollide(obstacle, p5) && obstacle.pos.z > 0) {
+            console.log('THROUGH')
           }
 
         // array of obstacles instance
         for (var i = 0; i < obstacles.length; i++) {
           if (snake.obstacleCollide(obstacles[i], p5)) {
             console.log('COLLIDE')
-            // snake.setDir(0,0);
+            snake.setDir(0,0);
             snake.xdir = 0;
             snake.ydir = 0;
           }
+
+        // if (snake.borderCollide(p5, w, h)) {
+        //   console.log('border hit!')
+        //   snake.xdir = 0;
+        //   snake.ydir = 0;
+        // }
+
+
         }
 
-        // if (snake.endGame(w, h)) {
-        //   p5.background(255, 0, 0);
-        //   p5.noLoop();
-        // }
 
         powerUp.render(p5)
         obstacle.render(p5)

@@ -1,13 +1,13 @@
 //Obstacle.js
-export default function Obstacle(p5, x, y, r, color) {
-  this.pos = p5.createVector(x, y);
+export default function Obstacle(p5, x, y, z, r, color) {
+  this.pos = p5.createVector(x, y, z);
   this.r = r;
 
   this.render = function() {
     p5.push();
     p5.fill(color);
     p5.rectMode(p5.CENTER);
-    p5.translate(this.pos.x, this.pos.y);
+    p5.translate(this.pos.x, this.pos.y, this.pos.z);
     p5.rect(0, 0, this.r, this.r);
     p5.pop();
   }

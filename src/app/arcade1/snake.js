@@ -77,7 +77,23 @@ export default class Snake {
       return false;
     }
     if (dist <= obstacle.r * 2.5) { // radius size for snake
-      return true
+      return true;
+    }
+    if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
+      return false;
+    }
+    return false;
+  }
+
+  borderCollide(p5) {
+    const rez = 10;
+    const end_of_array = this.body.length -1
+    let dist = (this.body[end_of_array].x - p5.width / rez) * (this.body[end_of_array].x - p5.width / rez) + (this.body[end_of_array].y - p5.height / rez) * (this.body[end_of_array].y - p5.height / rez);
+    if (dist > (p5.width / rez + this.body[end_of_array].r) * (p5.height / rez + this.body[end_of_array].r)) {
+      return false;
+    }
+    if (dist <= p5.width / rez * p5.height / rez) { // radius size for snake
+      return true;
     }
     return false;
   }
