@@ -6,7 +6,7 @@ export default class Snake {
   constructor(p5, w, h, r) {
     this.r = 2; //snake size
     this.body = [];
-    this.body[0] = p5.createVector(.5, p5.floor(h / 2));
+    this.body[0] = p5.createVector(1.5, 49);//snake default location
     this.xdir = 0;
     this.ydir = 0;
     this.len = 0;
@@ -85,18 +85,33 @@ export default class Snake {
     return false;
   }
 
-  borderCollide(p5) {
-    const rez = 10;
+  doorTriggerCollide(obstacle, p5) {
     const end_of_array = this.body.length -1
-    let dist = (this.body[end_of_array].x - p5.width / rez) * (this.body[end_of_array].x - p5.width / rez) + (this.body[end_of_array].y - p5.height / rez) * (this.body[end_of_array].y - p5.height / rez);
-    if (dist > (p5.width / rez + this.body[end_of_array].r) * (p5.height / rez + this.body[end_of_array].r)) {
+    let dist = (this.body[end_of_array].x - obstacle.pos.x) * (this.body[end_of_array].x - obstacle.pos.x) + (this.body[end_of_array].y - obstacle.pos.y) * (this.body[end_of_array].y - obstacle.pos.y);
+    if (dist > (obstacle.r + this.body[end_of_array].r) * (obstacle.r + this.body[end_of_array].r)) {
       return false;
     }
-    if (dist <= p5.width / rez * p5.height / rez) { // radius size for snake
+    if (dist <= obstacle.r * 2.5) { // radius size for snake
       return true;
+    }
+    if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
+      return false;
     }
     return false;
   }
+
+  // borderCollide(p5) {
+  //   const rez = 10;
+  //   const end_of_array = this.body.length -1
+  //   let dist = (this.body[end_of_array].x - p5.width / rez) * (this.body[end_of_array].x - p5.width / rez) + (this.body[end_of_array].y - p5.height / rez) * (this.body[end_of_array].y - p5.height / rez);
+  //   if (dist > (p5.width / rez + this.body[end_of_array].r) * (p5.height / rez + this.body[end_of_array].r)) {
+  //     return false;
+  //   }
+  //   if (dist <= p5.width / rez * p5.height / rez) { // radius size for snake
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   show(p5) {
     for (let i = 0; i < this.body.length; i++) {
