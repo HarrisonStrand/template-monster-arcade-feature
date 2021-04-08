@@ -145,11 +145,14 @@ export class Arcade1Component implements OnInit {
     };
 
     const sketch = (p5: any) => {
+      
       function getPowerUp() {
-        let x = p5.floor(p5.random(w));
-        let y = p5.floor(p5.random(h));
-
-        powerUp = new PowerUp(p5, w, y, 1, 'red'); // removed random methods from x and y.
+        let x = p5.random(3, 97);
+        let y = p5.random(3, 97);
+        powerUp = new PowerUp(p5, x, y, 1, 'red'); // removed random methods from x and y.
+        if (powerUp.x+4 == obstacle.x && powerUp.y+4 == obstacle.y) {
+          getPowerUp();
+        }
       }
 
       p5.preload = () => {};
@@ -215,6 +218,23 @@ export class Arcade1Component implements OnInit {
           );
         }
       };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       p5.draw = () => {
         p5.scale(rez);
