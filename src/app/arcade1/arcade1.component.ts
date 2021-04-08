@@ -34,18 +34,6 @@ export class Arcade1Component implements OnInit {
     let h: any;
     let powerUp: any;
 
-    // const collide = (obstacle: any, snake: any) => {
-    //   const snakeHead = snake.body[snake.body.length -1]
-    //   const obsDiameter = obstacle.r * 2
-
-    //   if (snakeHead.x > (obstacle.pos.x - obsDiameter) && snakeHead.x < (obstacle.pos.x + obsDiameter) && snakeHead.y > (obstacle.pos.y - obsDiameter) && snakeHead.y < (obstacle.pos.y + obsDiameter)){
-    //     snake.setDir(0,0)
-    //     console.log(snake.xdir)
-    //   } else {
-    //     move = 1;
-    //   }
-    // }
-
     const collide = (obstacle: any, snake: any) => {
       let axisHit = {
         totalDist: false,
@@ -64,10 +52,7 @@ export class Arcade1Component implements OnInit {
       const dist = distx + disty;
 
       if (
-        distx >
-        (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
-      ) {
+        distx >(obstacle.r + snake.body[end_of_array].r) * (obstacle.r + snake.body[end_of_array].r)) {
         axisHit.x = distx;
       }
       if (distx <= obstacle.r * 2.5) {
@@ -77,11 +62,7 @@ export class Arcade1Component implements OnInit {
       if (distx <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
         axisHit.x = distx;
       }
-      if (
-        disty >
-        (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
-      ) {
+      if (disty > (obstacle.r + snake.body[end_of_array].r) * (obstacle.r + snake.body[end_of_array].r)) {
         axisHit.y = disty;
       }
       if (disty <= obstacle.r * 2.5) {
@@ -91,11 +72,7 @@ export class Arcade1Component implements OnInit {
       if (disty <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
         axisHit.y = disty;
       }
-      if (
-        dist >
-        (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
-      ) {
+      if (dist > (obstacle.r + snake.body[end_of_array].r) * (obstacle.r + snake.body[end_of_array].r)) {
         axisHit.totalDist = false;
       }
       if (dist <= obstacle.r * 2.5) {
@@ -105,47 +82,11 @@ export class Arcade1Component implements OnInit {
       if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
         axisHit.totalDist = false;
       }
-
       return axisHit;
-    };
-    //   if (dist > (obstacle.r + snake.body[end_of_array].r) * (obstacle.r + snake.body[end_of_array].r)) {
-    //     return false;
-    //   }
-    //   if (dist <= obstacle.r * 2.5) { // radius size for snake
-    //     return true;
-    //   }
-    //   if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
-    //     return false;
-    //   }
-    //   return false;
-    // }
-
-    const doorTriggerCollide = (obstacle: any, snake: any) => {
-      const end_of_array = snake.body.length - 1;
-      let dist =
-        (snake.body[end_of_array].x - obstacle.pos.x) *
-          (snake.body[end_of_array].x - obstacle.pos.x) +
-        (snake.body[end_of_array].y - obstacle.pos.y) *
-          (snake.body[end_of_array].y - obstacle.pos.y);
-      if (
-        dist >
-        (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
-      ) {
-        return false;
-      }
-      if (dist <= obstacle.r * 2.5) {
-        // radius size for snake
-        return true;
-      }
-      if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
-        return false;
-      }
-      return false;
     };
 
     const sketch = (p5: any) => {
-      
+
       function getPowerUp() {
         let x = p5.random(3, 97);
         let y = p5.random(3, 97);
@@ -162,7 +103,7 @@ export class Arcade1Component implements OnInit {
         p5.pixelDensity(1);
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
-        let numberOfObstacles = 6;
+        let numberOfObstacles = 9;
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
         obstacle = new Obstacle(p5, 40, 40, 1, 4, '#a8ccd7CC');
@@ -170,8 +111,9 @@ export class Arcade1Component implements OnInit {
 
         //RANDOM INNER OBSTACLE LAYOUT
         for (let i = 0; i < numberOfObstacles; i++) {
-          obstacles[i] = new Obstacle(p5, 10, i * 10 + 8, 0, 4, '#C2B280');
+          obstacles[i] = new Obstacle(p5, 10, i * 10 + 9, 0, 4, '#C2B280');
         }
+          
         for (var k = 0; k < mVenom.length; k++) {
           mVenom[k].show(p5);
           mVenom[k].update(p5);
@@ -221,26 +163,11 @@ export class Arcade1Component implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       p5.draw = () => {
         p5.scale(rez);
         p5.background(0);
 
-        //Border
+        //Red Border
         p5.push();
         p5.fill(0);
         p5.strokeWeight(0.8);
@@ -248,18 +175,6 @@ export class Arcade1Component implements OnInit {
         p5.rectMode(p5.CENTER);
         p5.rect(p5.width / 2 / 10, p5.height / 2 / 10, 100, 100);
         p5.pop();
-
-        //LOAD PIXELS SLOWS DOWN FRAMERATE - TOO MUCH COMPUTED
-        // p5.loadPixels();
-        // for (var y = 0; y < p5.height; y++) {
-        //   for( var x = 0; x < p5.width; x++) {
-        //     var index = (x + y * p5.width) * 4;
-        //       p5.pixels[index +0] = 0;
-        //       p5.pixels[index +1] = 0;
-        //       p5.pixels[index +2] = 255;
-        //   }
-        // }
-        // p5.updatePixels();
 
         for (var i = 0; i < obstacles.length; i++) {
           obstacles[i].render(p5);
@@ -316,11 +231,9 @@ export class Arcade1Component implements OnInit {
           p5.pop();
         }
 
-        for (let i = 0; i < obstacles.length; i++) {
-          
-          // if (collide(obstacles[i], snake).totalDist) {
-            while(collide(obstacles[i], snake).totalDist) {
-              console.log(collide(obstacles[i], snake).x, collide(obstacles[i], snake).y)
+        const allObstacles = obstacles.concat(topBorder, rightBorderTop, rightBorderBottom, bottomBorder, leftBorderBottom, leftBorderTop);
+        for (let i = 0; i < allObstacles.length; i++) {
+            while(collide(allObstacles[i], snake).totalDist) {
               if (snake.xdir > 0) {
                 snake.body[snake.body.length -1].x -= .2;
               } else if (snake.xdir < 0) {
@@ -332,7 +245,6 @@ export class Arcade1Component implements OnInit {
               }
               move = false;
             }
-          // }
         }
 
         snake.show(p5, r);
@@ -346,26 +258,6 @@ export class Arcade1Component implements OnInit {
           getPowerUp();
         }
 
-        // single obstacle instance
-        // if (snake.obstacleCollide(obstacle, p5) && obstacle.pos.z === 0) {
-        //     console.log('COLLIDE')
-        //     snake.setDir(0,0);
-        //     snake.xdir = 0;
-        //     snake.ydir = 0;
-        //   } else if (snake.obstacleCollide(obstacle, p5) && obstacle.pos.z > 0) {
-        //     console.log('THROUGH')
-        //   }
-
-        // array of all obstacles including border
-        // const allObstacles = obstacles.concat(topBorder, rightBorderTop, rightBorderBottom, bottomBorder, leftBorderBottom, leftBorderTop);
-        // for (var i = 0; i < allObstacles.length; i++) {
-        //   if (snake.obstacleCollide(allObstacles[i], p5)) {
-        //     console.log('COLLIDE')
-        //     snake.xdir = 0;
-        //     snake.ydir = 0;
-        //   }
-        // }
-
         // Venom rendering
         for (var k = 0; k < mVenom.length; k++) {
           mVenom[k].show(p5);
@@ -376,24 +268,22 @@ export class Arcade1Component implements OnInit {
           }
         }
 
-        // if (snake.borderCollide(p5, w, h)) {
-        //   console.log('border hit!')
-        //   snake.xdir = 0;
-        //   snake.ydir = 0;
-        // }
-
         powerUp.render(p5);
         obstacle.render(p5);
 
-        // for(var i = 0; i < doorTrigger.length; i++) {
-        //   if (snake.obstacleCollide(doorTrigger[i], p5)) {
-        //     console.log('DOOR TRIGGERED')
-        //     //RESET SNAKE AND LAYOUT TO DEFAULT...
-        //   }
-        // }
+        for(var i = 0; i < doorTrigger.length; i++) {
+          if (collide(doorTrigger[i], snake).totalDist) {
+            console.log('DOOR TRIGGERED')
+            //RESET SNAKE AND LAYOUT TO DEFAULT...
+          }
+        }
         powerUp.render(p5);
         obstacle.render(p5);
+
+        
       };
+
+      
       p5.keyPressed = () => {
         if (p5.key == ' ') {
           mVenom.push(new Venom(p5, 10, 40));
