@@ -70,45 +70,41 @@ export default class Snake {
     return false;
   }
 
-  obstacleCollide(obstacle, p5) {
-    const end_of_array = this.body.length -1
-    let dist = (this.body[end_of_array].x - obstacle.pos.x) * (this.body[end_of_array].x - obstacle.pos.x) + (this.body[end_of_array].y - obstacle.pos.y) * (this.body[end_of_array].y - obstacle.pos.y);
-    if (dist > (obstacle.r + this.body[end_of_array].r) * (obstacle.r + this.body[end_of_array].r)) {
-      return false;
-    }
-    if (dist <= obstacle.r * 2.5) { // radius size for snake
-      return true;
-    }
-    if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
-      return false;
-    }
-    return false;
-  }
-
-  doorTriggerCollide(obstacle, p5) {
-    const end_of_array = this.body.length -1
-    let dist = (this.body[end_of_array].x - obstacle.pos.x) * (this.body[end_of_array].x - obstacle.pos.x) + (this.body[end_of_array].y - obstacle.pos.y) * (this.body[end_of_array].y - obstacle.pos.y);
-    if (dist > (obstacle.r + this.body[end_of_array].r) * (obstacle.r + this.body[end_of_array].r)) {
-      return false;
-    }
-    if (dist <= obstacle.r * 2.5) { // radius size for snake
-      return true;
-    }
-    if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
-      return false;
-    }
-    return false;
-  }
-
-  // borderCollide(p5) {
-  //   const rez = 10;
+  // obstacleCollide(obstacle, p5) {
   //   const end_of_array = this.body.length -1
-  //   let dist = (this.body[end_of_array].x - p5.width / rez) * (this.body[end_of_array].x - p5.width / rez) + (this.body[end_of_array].y - p5.height / rez) * (this.body[end_of_array].y - p5.height / rez);
-  //   if (dist > (p5.width / rez + this.body[end_of_array].r) * (p5.height / rez + this.body[end_of_array].r)) {
+  //   let dist = (this.body[end_of_array].x - obstacle.pos.x) * (this.body[end_of_array].x - obstacle.pos.x) + (this.body[end_of_array].y - obstacle.pos.y) * (this.body[end_of_array].y - obstacle.pos.y);
+  //   if (dist > (obstacle.r + this.body[end_of_array].r) * (obstacle.r + this.body[end_of_array].r)) {
   //     return false;
   //   }
-  //   if (dist <= p5.width / rez * p5.height / rez) { // radius size for snake
+  //   if (dist <= obstacle.r * 2.5) { // radius size for snake
   //     return true;
+  //   }
+  //   if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
+  //     return false;
+  //   }
+  //   return false;
+  // }
+
+  // obstacleCollide(obstacle, p5) {
+  //   const snakeHead = this.body[this.body.length -1]
+  //   const obsDiameter = obstacle.r * 2
+
+  //   if (snakeHead.x > (obstacle.pos.x - obsDiameter) && snakeHead.x < (obstacle.pos.x + obsDiameter) && snakeHead.y > (obstacle.pos.y - obsDiameter) && snakeHead.y < (obstacle.pos.y + obsDiameter)){   
+      
+  //   }
+  // }
+
+  // doorTriggerCollide(obstacle, p5) {
+  //   const end_of_array = this.body.length -1
+  //   let dist = (this.body[end_of_array].x - obstacle.pos.x) * (this.body[end_of_array].x - obstacle.pos.x) + (this.body[end_of_array].y - obstacle.pos.y) * (this.body[end_of_array].y - obstacle.pos.y);
+  //   if (dist > (obstacle.r + this.body[end_of_array].r) * (obstacle.r + this.body[end_of_array].r)) {
+  //     return false;
+  //   }
+  //   if (dist <= obstacle.r * 2.5) { // radius size for snake
+  //     return true;
+  //   }
+  //   if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
+  //     return false;
   //   }
   //   return false;
   // }
