@@ -1,10 +1,14 @@
+// barrier resets the snake - DONE - might have to do some magic to keep the same score and take one life away
+// maybe make the border No death and the obstacles and tail death???
+// snake tail resets the snake
+// barrier designs for first three levels
+
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import Snake from './snake';
 import Obstacle from './obstacle';
 import PowerUp from './powerUp';
 import Venom from './venom';
-import basicMap from './basicMap';
 
 @Component({
   selector: 'app-arcade1',
@@ -28,13 +32,14 @@ export class Arcade1Component implements OnInit {
     let leftBorderTop: Array<any> = [];
     let leftBorderBottom: Array<any> = [];
     let obstacle: any;
+    let newObstacle: any;
     let rez = 10;
     let r = 1;
     let w: any;
     let h: any;
     let powerUp: any;
 
-    const collide = (obstacle: any, snake: any) => {
+    const collide = (obstacle: any, snake: any,) => {
       let axisHit = {
         totalDist: false,
         x: 0,
@@ -52,7 +57,10 @@ export class Arcade1Component implements OnInit {
       const dist = distx + disty;
 
       if (
-        distx >(obstacle.r + snake.body[end_of_array].r) * (obstacle.r + snake.body[end_of_array].r)) {
+        distx >
+        (obstacle.r + snake.body[end_of_array].r) *
+          (obstacle.r + snake.body[end_of_array].r)
+      ) {
         axisHit.x = distx;
       }
       if (distx <= obstacle.r * 2.5) {
@@ -62,7 +70,11 @@ export class Arcade1Component implements OnInit {
       if (distx <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
         axisHit.x = distx;
       }
-      if (disty > (obstacle.r + snake.body[end_of_array].r) * (obstacle.r + snake.body[end_of_array].r)) {
+      if (
+        disty >
+        (obstacle.r + snake.body[end_of_array].r) *
+          (obstacle.r + snake.body[end_of_array].r)
+      ) {
         axisHit.y = disty;
       }
       if (disty <= obstacle.r * 2.5) {
@@ -72,7 +84,11 @@ export class Arcade1Component implements OnInit {
       if (disty <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
         axisHit.y = disty;
       }
-      if (dist > (obstacle.r + snake.body[end_of_array].r) * (obstacle.r + snake.body[end_of_array].r)) {
+      if (
+        dist >
+        (obstacle.r + snake.body[end_of_array].r) *
+          (obstacle.r + snake.body[end_of_array].r)
+      ) {
         axisHit.totalDist = false;
       }
       if (dist <= obstacle.r * 2.5) {
@@ -86,13 +102,14 @@ export class Arcade1Component implements OnInit {
     };
 
     const sketch = (p5: any) => {
-
       function getPowerUp() {
         let x = p5.random(3, 97);
         let y = p5.random(3, 97);
         powerUp = new PowerUp(p5, x, y, 1, 'red'); // removed random methods from x and y.
-        if (powerUp.x+4 == obstacle.x && powerUp.y+4 == obstacle.y) {
-          getPowerUp();
+        for (let i = 0; i < obstacles.length; i++) {
+          if (powerUp.x + 10 == obstacles[i].x && powerUp.y + 10 == obstacles[i].y) {
+            getPowerUp();
+          }
         }
       }
 
@@ -103,17 +120,30 @@ export class Arcade1Component implements OnInit {
         p5.pixelDensity(1);
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
-        let numberOfObstacles = 9;
+        let numberOfObstacles = 40;
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
-        obstacle = new Obstacle(p5, 40, 40, 1, 4, '#a8ccd7CC');
-        powerUp = new PowerUp(p5, 30, 30, 1, 'red');
+        obstacle = new Obstacle(p5, 40, 40, 1, 4, '#a8ccd7CC'); // glass square to go through
+        powerUp = new PowerUp(p5, p5.random(3,97), p5.random(3,97), 1, 'red');
 
         //RANDOM INNER OBSTACLE LAYOUT
-        for (let i = 0; i < numberOfObstacles; i++) {
-          obstacles[i] = new Obstacle(p5, 10, i * 10 + 9, 0, 4, '#C2B280');
+        while (obstacles.length < numberOfObstacles) {
+          newObstacle = new Obstacle(p5, p5.random(3, 97), p5.random(3, 97), 0, 4, '#C2B280');
+          var overlapping = false;
+          for( let j = 0; j < obstacles.length; j++) {
+            var other = obstacles[j];
+            var d = p5.dist(newObstacle.x, newObstacle.y, other.x, other.y);
+            console.log(newObstacle)
+            if (d < (newObstacle.r + other.r)) {
+              overlapping = true;
+              break;
+            }
+          }
+          if (!overlapping) {
+            obstacles.push(newObstacle);
+          }
         }
-          
+
         for (var k = 0; k < mVenom.length; k++) {
           mVenom[k].show(p5);
           mVenom[k].update(p5);
@@ -160,8 +190,6 @@ export class Arcade1Component implements OnInit {
           );
         }
       };
-
-
 
       p5.draw = () => {
         p5.scale(rez);
@@ -231,26 +259,36 @@ export class Arcade1Component implements OnInit {
           p5.pop();
         }
 
-        const allObstacles = obstacles.concat(topBorder, rightBorderTop, rightBorderBottom, bottomBorder, leftBorderBottom, leftBorderTop);
+        const allObstacles = obstacles.concat(
+          topBorder,
+          rightBorderTop,
+          rightBorderBottom,
+          bottomBorder,
+          leftBorderBottom,
+          leftBorderTop
+        );
+
         for (let i = 0; i < allObstacles.length; i++) {
-            while(collide(allObstacles[i], snake).totalDist) {
-              if (snake.xdir > 0) {
-                snake.body[snake.body.length -1].x -= .2;
-              } else if (snake.xdir < 0) {
-                snake.body[snake.body.length -1].x += .2;
-              } else if (snake.ydir > 0) {
-                snake.body[snake.body.length -1].y -= .2;
-              } else if (snake.ydir < 0) {
-                snake.body[snake.body.length -1].y += .2;
-              }
-              move = false;
-            }
+          if (collide(allObstacles[i], snake).totalDist) {
+            p5.setup(); // this resets but I'm not sure if it will keep the score or lives lost
+          // while (collide(allObstacles[i], snake).totalDist) {
+            // if (snake.xdir > 0) {
+            //   snake.body[snake.body.length - 1].x -= 0.2;
+            // } else if (snake.xdir < 0) {
+            //   snake.body[snake.body.length - 1].x += 0.2;
+            // } else if (snake.ydir > 0) {
+            //   snake.body[snake.body.length - 1].y -= 0.2;
+            // } else if (snake.ydir < 0) {
+            //   snake.body[snake.body.length - 1].y += 0.2;
+            // }
+            // move = false;
+          // }
+          }
         }
 
         snake.show(p5, r);
         if (move) {
           snake.update();
-
         }
 
         if (snake.eat(powerUp, p5)) {
@@ -271,19 +309,16 @@ export class Arcade1Component implements OnInit {
         powerUp.render(p5);
         obstacle.render(p5);
 
-        for(var i = 0; i < doorTrigger.length; i++) {
+        for (var i = 0; i < doorTrigger.length; i++) {
           if (collide(doorTrigger[i], snake).totalDist) {
-            console.log('DOOR TRIGGERED')
+            console.log('DOOR TRIGGERED');
             //RESET SNAKE AND LAYOUT TO DEFAULT...
           }
         }
         powerUp.render(p5);
         obstacle.render(p5);
-
-        
       };
 
-      
       p5.keyPressed = () => {
         if (p5.key == ' ') {
           mVenom.push(new Venom(p5, 10, 40));

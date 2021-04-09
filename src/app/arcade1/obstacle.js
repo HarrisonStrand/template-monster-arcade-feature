@@ -1,7 +1,19 @@
 //Obstacle.js
 export default function Obstacle(p5, x, y, z, r, color1) {
   this.pos = p5.createVector(x, y, z);
+  this.x = x;
+  this.y = y;
+  this.z = z;
   this.r = r;
+
+  this.intersects = function(other) {
+    var d = p5.dist(this.x, this.y, other.x, other.y);
+    if(d < this.r + other.r) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   this.render = function() {
     p5.push();
