@@ -57,7 +57,7 @@ export default class Snake {
   }
   
   
-  eat(powerUp, p5) {
+  eatPowerUp(powerUp, p5) {
     const end_of_array = this.body.length -1
     let dist = (this.body[end_of_array].x - powerUp.pos.x) * (this.body[end_of_array].x - powerUp.pos.x) + (this.body[end_of_array].y - powerUp.pos.y) * (this.body[end_of_array].y - powerUp.pos.y);
     if (dist > (powerUp.r + this.body[end_of_array].r) * (powerUp.r + this.body[end_of_array].r)) {
@@ -69,44 +69,17 @@ export default class Snake {
     return false;
   }
 
-  // obstacleCollide(obstacle, p5) {
-  //   const end_of_array = this.body.length -1
-  //   let dist = (this.body[end_of_array].x - obstacle.pos.x) * (this.body[end_of_array].x - obstacle.pos.x) + (this.body[end_of_array].y - obstacle.pos.y) * (this.body[end_of_array].y - obstacle.pos.y);
-  //   if (dist > (obstacle.r + this.body[end_of_array].r) * (obstacle.r + this.body[end_of_array].r)) {
-  //     return false;
-  //   }
-  //   if (dist <= obstacle.r * 2.5) { // radius size for snake
-  //     return true;
-  //   }
-  //   if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
-  //     return false;
-  //   }
-  //   return false;
-  // }
-
-  // obstacleCollide(obstacle, p5) {
-  //   const snakeHead = this.body[this.body.length -1]
-  //   const obsDiameter = obstacle.r * 2
-
-  //   if (snakeHead.x > (obstacle.pos.x - obsDiameter) && snakeHead.x < (obstacle.pos.x + obsDiameter) && snakeHead.y > (obstacle.pos.y - obsDiameter) && snakeHead.y < (obstacle.pos.y + obsDiameter)){   
-      
-  //   }
-  // }
-
-  // doorTriggerCollide(obstacle, p5) {
-  //   const end_of_array = this.body.length -1
-  //   let dist = (this.body[end_of_array].x - obstacle.pos.x) * (this.body[end_of_array].x - obstacle.pos.x) + (this.body[end_of_array].y - obstacle.pos.y) * (this.body[end_of_array].y - obstacle.pos.y);
-  //   if (dist > (obstacle.r + this.body[end_of_array].r) * (obstacle.r + this.body[end_of_array].r)) {
-  //     return false;
-  //   }
-  //   if (dist <= obstacle.r * 2.5) { // radius size for snake
-  //     return true;
-  //   }
-  //   if (dist <= obstacle.r * 2.5 && obstacle.pos.z < 0) {
-  //     return false;
-  //   }
-  //   return false;
-  // }
+  eatPoint(point, p5) {
+    const end_of_array = this.body.length -1
+    let dist = (this.body[end_of_array].x - point.pos.x) * (this.body[end_of_array].x - point.pos.x) + (this.body[end_of_array].y - point.pos.y) * (this.body[end_of_array].y - point.pos.y);
+    if (dist > (point.r + this.body[end_of_array].r) * (point.r + this.body[end_of_array].r)) {
+      return false;
+    }
+    if (dist <= point.r * 1.5) { // radius size for snake
+      return true
+    }
+    return false;
+  }
 
   show(p5) {
     for (let i = 0; i < this.body.length; i++) {
