@@ -3,6 +3,9 @@
 // snake tail resets the snake
 // barrier designs for first three levels
 
+// hitting an obstacle resets the snake and rearranges the obstacles
+// we need to be able to hit the door trigger and have a new setup without losing score count
+
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import Snake from './snake';
@@ -120,7 +123,7 @@ export class Arcade1Component implements OnInit {
         p5.pixelDensity(1);
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
-        let numberOfObstacles = 40;
+        let numberOfObstacles = 10;
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
         obstacle = new Obstacle(p5, 40, 40, 1, 4, '#a8ccd7CC'); // glass square to go through
@@ -133,7 +136,6 @@ export class Arcade1Component implements OnInit {
           for( let j = 0; j < obstacles.length; j++) {
             var other = obstacles[j];
             var d = p5.dist(newObstacle.x, newObstacle.y, other.x, other.y);
-            console.log(newObstacle)
             if (d < (newObstacle.r + other.r)) {
               overlapping = true;
               break;
@@ -268,9 +270,11 @@ export class Arcade1Component implements OnInit {
           leftBorderTop
         );
 
+        
         for (let i = 0; i < allObstacles.length; i++) {
           if (collide(allObstacles[i], snake).totalDist) {
             p5.setup(); // this resets but I'm not sure if it will keep the score or lives lost
+            // console.log(points);
           // while (collide(allObstacles[i], snake).totalDist) {
             // if (snake.xdir > 0) {
             //   snake.body[snake.body.length - 1].x -= 0.2;
@@ -291,9 +295,12 @@ export class Arcade1Component implements OnInit {
           snake.update();
         }
 
+
         if (snake.eat(powerUp, p5)) {
+          snake.points += 1;
           snake.grow();
           getPowerUp();
+          console.log(snake.points);
         }
 
         // Venom rendering

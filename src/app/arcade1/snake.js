@@ -10,6 +10,7 @@ export default class Snake {
     this.xdir = 0;
     this.ydir = 0;
     this.len = 0;
+    this.points = 0;
   }
 
   verticies(p5) {
@@ -58,7 +59,6 @@ export default class Snake {
   
   
   eat(powerUp, p5) {
-
     const end_of_array = this.body.length -1
     let dist = (this.body[end_of_array].x - powerUp.pos.x) * (this.body[end_of_array].x - powerUp.pos.x) + (this.body[end_of_array].y - powerUp.pos.y) * (this.body[end_of_array].y - powerUp.pos.y);
     if (dist > (powerUp.r + this.body[end_of_array].r) * (powerUp.r + this.body[end_of_array].r)) {
