@@ -75,7 +75,7 @@ export default class Snake {
     if (dist > (point.r + this.body[end_of_array].r) * (point.r + this.body[end_of_array].r)) {
       return false;
     }
-    if (dist <= point.r * 1.5) { // radius size for snake
+    if (dist <= point.r * 3) { // radius size for snake
       return true
     }
     return false;

@@ -1,5 +1,5 @@
 //Points.js
-export default function Points(p5, x, y, r, color) {
+export default function Point(p5, x, y, r, color) {
   this.pos = p5.createVector(x, y);
   this.x = x;
   this.y = y;

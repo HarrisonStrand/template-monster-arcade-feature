@@ -1,7 +1,6 @@
 // snake tail resets the snake
 // enemies that follow?
 // food and powerups that do different things??
-// we need to be able to hit the door trigger and have a new setup without losing score count
 
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
@@ -43,8 +42,8 @@ export class Arcade1Component implements OnInit {
     let h: any;
     let powerUp: any;
     let scoreCount: number = 0;
-    let numberOfObstacles: number = 10 + 1;
-    let numberOfPoints: number = 100 + 1;
+    let numberOfObstacles: number = 40;
+    let numberOfPoints: number = 100;
 
     const collide = (obstacle: any, snake: any) => {
       let axisHit = {
@@ -124,9 +123,13 @@ export class Arcade1Component implements OnInit {
         }
       }
 
-      function getPoint() {
-        scoreCount += 1;
-        console.log(scoreCount);
+      function getPoint(points: any, value: any) {
+          var index = points.indexOf(value);
+          if (index > -1) {
+            points.splice(index, 1);
+          }
+          scoreCount += 1;
+          console.log(scoreCount);
       }
 
       p5.preload = () => {};
@@ -172,34 +175,44 @@ export class Arcade1Component implements OnInit {
           // console.log(obstacles)
         }
         
+
+        //GRID PACMAN POINT GENERATION
         while (points.length < numberOfPoints) {
-          newPoint = new Point(
-            p5,
-            p5.random(3, 97),
-            p5.random(3, 97),
-            1,
-            'white'
-          );
-          var overlapping = false;
-          for (let j = 0; j < obstacles.length; j++) {
-            var other = obstacles[j];
-            var d = p5.dist(newPoint.x, newPoint.y, other.x, other.y);
-            if (d < newPoint.r + other.r) {
-              overlapping = true;
-              break;
+          for (var a = 3; a < numberOfPoints; a += 3) {
+            for (var b = 3; b < numberOfPoints; b += 3) {
+              // newPoint = new Point(p5, a, b, 1, 'white');
+              newPoint = new Point(
+                p5,
+                a,
+                b,
+                1,
+                'white'
+              );
+              //add the circles to the array at x = a and y = b
+              // points.push(newPoint);
+              var overlapping = false;
+              for (let j = 0; j < obstacles.length; j++) {
+                var other = obstacles[j];
+                var d = p5.dist(newPoint.x, newPoint.y, other.x, other.y);
+                if (d < newPoint.r + other.r) {
+                  overlapping = true;
+                  break;
+                }
+              }
+              for (let j = 0; j < points.length; j++) {
+                var other = points[j];
+                var d = p5.dist(newPoint.x, newPoint.y, other.x, other.y);
+                if (d < newPoint.r + other.r) {
+                  overlapping = true;
+                  break;
+                }
+              }
+              if (!overlapping) {
+                points.push(newPoint);
+              }
             }
           }
-          for (let j = 0; j < points.length; j++) {
-            var other = points[j];
-            var d = p5.dist(newPoint.x, newPoint.y, other.x, other.y);
-            if (d < newPoint.r + other.r) {
-              overlapping = true;
-              break;
-            }
-          }
-          if (!overlapping) {
-            points.push(newPoint);
-          }
+          // points.push(newPoint);
           // console.log(points)
         }
         
@@ -372,8 +385,7 @@ export class Arcade1Component implements OnInit {
 
         for (let i = 0; i < points.length; i++) {
           if(snake.eatPoint(points[i], p5)) {
-            console.log('eat point!')
-            getPoint();
+            getPoint(points, points[i]);
           }
         }
 
