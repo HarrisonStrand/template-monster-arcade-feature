@@ -1,8 +1,9 @@
 // barrier resets the snake - DONE - might have to do some magic to keep the same score and take one life away
 // maybe make the border No death and the obstacles and tail death???
 // snake tail resets the snake
-// barrier designs for first three levels
-
+// barriers do not block snake and next level door
+// enemies that follow?
+// food and powerups that do different things??
 // hitting an obstacle resets the snake and rearranges the obstacles
 // we need to be able to hit the door trigger and have a new setup without losing score count
 
@@ -41,8 +42,10 @@ export class Arcade1Component implements OnInit {
     let w: any;
     let h: any;
     let powerUp: any;
+    let scoreCount: number = 0;
+    let numberOfObstacles: number = 5;
 
-    const collide = (obstacle: any, snake: any,) => {
+    const collide = (obstacle: any, snake: any) => {
       let axisHit = {
         totalDist: false,
         x: 0,
@@ -110,7 +113,10 @@ export class Arcade1Component implements OnInit {
         let y = p5.random(3, 97);
         powerUp = new PowerUp(p5, x, y, 1, 'red'); // removed random methods from x and y.
         for (let i = 0; i < obstacles.length; i++) {
-          if (powerUp.x + 10 == obstacles[i].x && powerUp.y + 10 == obstacles[i].y) {
+          if (
+            powerUp.x + 10 == obstacles[i].x &&
+            powerUp.y + 10 == obstacles[i].y
+          ) {
             getPowerUp();
           }
         }
@@ -123,20 +129,27 @@ export class Arcade1Component implements OnInit {
         p5.pixelDensity(1);
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
-        let numberOfObstacles = 10;
+        // numberOfObstacles = 10;
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
         obstacle = new Obstacle(p5, 40, 40, 1, 4, '#a8ccd7CC'); // glass square to go through
-        powerUp = new PowerUp(p5, p5.random(3,97), p5.random(3,97), 1, 'red');
+        powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 1, 'red');
 
         //RANDOM INNER OBSTACLE LAYOUT
         while (obstacles.length < numberOfObstacles) {
-          newObstacle = new Obstacle(p5, p5.random(3, 97), p5.random(3, 97), 0, 4, '#C2B280');
+          newObstacle = new Obstacle(
+            p5,
+            p5.random(3, 97),
+            p5.random(3, 97),
+            0,
+            4,
+            '#C2B280'
+          );
           var overlapping = false;
-          for( let j = 0; j < obstacles.length; j++) {
+          for (let j = 0; j < obstacles.length; j++) {
             var other = obstacles[j];
             var d = p5.dist(newObstacle.x, newObstacle.y, other.x, other.y);
-            if (d < (newObstacle.r + other.r)) {
+            if (d < newObstacle.r + other.r) {
               overlapping = true;
               break;
             }
@@ -270,12 +283,12 @@ export class Arcade1Component implements OnInit {
           leftBorderTop
         );
 
-        
         for (let i = 0; i < allObstacles.length; i++) {
           if (collide(allObstacles[i], snake).totalDist) {
+            scoreCount = 0;
             p5.setup(); // this resets but I'm not sure if it will keep the score or lives lost
             // console.log(points);
-          // while (collide(allObstacles[i], snake).totalDist) {
+            // while (collide(allObstacles[i], snake).totalDist) {
             // if (snake.xdir > 0) {
             //   snake.body[snake.body.length - 1].x -= 0.2;
             // } else if (snake.xdir < 0) {
@@ -286,7 +299,7 @@ export class Arcade1Component implements OnInit {
             //   snake.body[snake.body.length - 1].y += 0.2;
             // }
             // move = false;
-          // }
+            // }
           }
         }
 
@@ -295,12 +308,11 @@ export class Arcade1Component implements OnInit {
           snake.update();
         }
 
-
         if (snake.eat(powerUp, p5)) {
-          snake.points += 1;
+          scoreCount += 1;
           snake.grow();
           getPowerUp();
-          console.log(snake.points);
+          console.log(scoreCount);
         }
 
         // Venom rendering
@@ -319,6 +331,8 @@ export class Arcade1Component implements OnInit {
         for (var i = 0; i < doorTrigger.length; i++) {
           if (collide(doorTrigger[i], snake).totalDist) {
             console.log('DOOR TRIGGERED');
+            numberOfObstacles += 5;
+            p5.setup();
             //RESET SNAKE AND LAYOUT TO DEFAULT...
           }
         }

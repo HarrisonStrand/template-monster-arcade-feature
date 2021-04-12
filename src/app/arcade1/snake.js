@@ -10,7 +10,6 @@ export default class Snake {
     this.xdir = 0;
     this.ydir = 0;
     this.len = 0;
-    this.points = 0;
   }
 
   verticies(p5) {
