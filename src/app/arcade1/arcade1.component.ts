@@ -36,14 +36,17 @@ export class Arcade1Component implements OnInit {
     let obstacle: any;
     let newObstacle: any;
     let newPoint: any;
+    let newPowerUp: any;
     let rez = 10;
     let r = 1;
     let w: any;
     let h: any;
     let powerUp: any;
+    // let powerUps: Array<any> = [];
     let scoreCount: number = 0;
     let numberOfObstacles: number = 40;
     let numberOfPoints: number = 100;
+    // let numberOfPowerUps: number = 10;
 
     const collide = (obstacle: any, snake: any) => {
       let axisHit = {
@@ -142,7 +145,7 @@ export class Arcade1Component implements OnInit {
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
         obstacle = new Obstacle(p5, 90, 55, 1, 4, '#a8ccd7CC'); // glass square to go through
-        point = new Point(p5, 40, 40, 1, 'white');
+        // point = new Point(p5, 40, 40, 1, 'white');
         powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 1, 'red');
 
         //RANDOM INNER OBSTACLE LAYOUT
@@ -174,7 +177,37 @@ export class Arcade1Component implements OnInit {
           }
           // console.log(obstacles)
         }
-        
+
+
+        // //POWERUP NO OVERLAP WITH OBJECTS AND POINTS
+        // while (powerUps.length < numberOfPowerUps) {
+        //   for (let a = 3; a <= numberOfPoints; a += 3) {
+        //     for (let b = 3; b <= numberOfPoints; b += 3) {
+        //       newPowerUp = new PowerUp(p5, a, b, 1, 'red');
+        //       var overlapping = false;
+        //       for (let j = 0; j < obstacles.length; j++) {
+        //         var other = obstacles[j];
+        //         var d = p5.dist(newPowerUp.x, newPowerUp.y, other.x, other.y);
+        //         if (d < newPowerUp.r + other.r) {
+        //           overlapping = true;
+        //           break;
+        //         }
+        //       }
+        //       for (let j = 0; j < points.length; j++) {
+        //         var other = points[j];
+        //         var d = p5.dist(newPowerUp.x, newPowerUp.y, other.x, other.y);
+        //         if (d < newPowerUp.r + other.r) {
+        //           overlapping = true;
+        //           break;
+        //         }
+        //       }
+        //       if (!overlapping) {
+        //         powerUps.push(newPowerUp);
+        //       }
+        //     }
+        //   }
+        // }
+
 
         //GRID PACMAN POINT GENERATION
         while (points.length < numberOfPoints) {
@@ -212,8 +245,6 @@ export class Arcade1Component implements OnInit {
               }
             }
           }
-          // points.push(newPoint);
-          // console.log(points)
         }
         
 
@@ -277,18 +308,21 @@ export class Arcade1Component implements OnInit {
         p5.rect(p5.width / 2 / 10, p5.height / 2 / 10, 100, 100);
         p5.pop();
 
-
+        
         for (var i = 1; i < obstacles.length; i++) {
           obstacles[i].render(p5);
         }
-
+        
         for (var i = 1; i < points.length; i++) {
           points[i].render(p5);
-          // console.log(points)
         }
-        //FIRST INDEX OF OBSTACLES DOES NOT FOLLOW PARAMETER BLOCKING RULES
 
-        // console.log(obstacles)
+        // for (let i = 90; i < numberOfPoints; i += 30 ){
+        //   powerUps[i].render(p5);
+        // }
+
+        obstacle.render(p5); //glass
+        powerUp.render(p5);
 
         //OBSTACLE BORDER RENDER
         for (var i = 0; i < topBorder.length; i++) {
@@ -378,10 +412,10 @@ export class Arcade1Component implements OnInit {
           snake.update();
         }
 
-        if (snake.eatPowerUp(powerUp, p5)) {
-          snake.grow();
-          getPowerUp();
-        }
+          if (snake.eatPowerUp(powerUp, p5)) {
+            snake.grow();
+            getPowerUp();
+          }
 
         for (let i = 0; i < points.length; i++) {
           if(snake.eatPoint(points[i], p5)) {
@@ -402,14 +436,14 @@ export class Arcade1Component implements OnInit {
         for (var i = 0; i < doorTrigger.length; i++) {
           if (collide(doorTrigger[i], snake).totalDist) {
             obstacles.length = 0;
+            points.length = 0;
             console.log('DOOR TRIGGERED');
             numberOfObstacles += 5;
             p5.setup();
             //RESET SNAKE AND LAYOUT TO DEFAULT...
           }
         }
-        powerUp.render(p5);
-        obstacle.render(p5);
+
       };
 
       p5.keyPressed = () => {
