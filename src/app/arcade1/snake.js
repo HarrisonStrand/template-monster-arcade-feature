@@ -1,3 +1,4 @@
+import * as p5 from 'p5';
 import { lineIntersect } from './utilities'
 
 //Snake.js
