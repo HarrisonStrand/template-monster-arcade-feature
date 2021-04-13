@@ -42,8 +42,10 @@ export class Arcade1Component implements OnInit {
     let powerUp: any;
     let powerUps: Array<any> = [];
     let scoreCount: number = 0;
-    let numberOfObstacles: number = 40;
+    let numberOfObstacles: number = 20;
+    let sizeOfObstacles: number = 8;
     let numberOfPoints: number = 100;
+    let pointSpread: number = 3; // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS
     let numberOfPowerUps: number = 4;
 
     const collide = (obstacle: any, snake: any) => {
@@ -160,7 +162,7 @@ export class Arcade1Component implements OnInit {
             p5.random(3, 97),
             p5.random(3, 97),
             0,
-            4,
+            sizeOfObstacles,
             '#C2B280'
           );
           var overlapping = false;
@@ -210,8 +212,8 @@ export class Arcade1Component implements OnInit {
 
         //GRID PACMAN POINT GENERATION
         while (points.length < numberOfPoints) {
-          for (var a = 3; a < numberOfPoints; a += 3) {
-            for (var b = 3; b < numberOfPoints; b += 3) {
+          for (var a = 4; a < numberOfPoints; a += pointSpread) {
+            for (var b = 4; b < numberOfPoints; b += pointSpread) {
               point = new Point(
                 p5,
                 a,
@@ -305,7 +307,7 @@ export class Arcade1Component implements OnInit {
         p5.pop();
 
         
-        for (var i = 1; i < obstacles.length; i++) {
+        for (var i = 0; i < obstacles.length; i++) {
           obstacles[i].render(p5);
         }
         
