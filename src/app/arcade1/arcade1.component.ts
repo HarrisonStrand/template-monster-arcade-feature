@@ -1,6 +1,9 @@
 // snake tail resets the snake
-// enemies that follow?
+// enemies that follow? increase speed per level??
 // food and powerups that do different things??
+// door trigger rendered by default. after keys are collected, take away rendering. door will still trigger
+// SNAKE LIVES AS ARRAY OF IMAGES - IF DEATH, SPLICE ONE SNAKE OUT OF THE ARRAY
+// if lives are < 1 flash GAME OVER and instructions for keypress to reset the game - also make conditional for allowing game reset keypress only if lives are 0
 
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
@@ -42,11 +45,15 @@ export class Arcade1Component implements OnInit {
     let powerUp: any;
     let powerUps: Array<any> = [];
     let scoreCount: number = 0;
-    let numberOfObstacles: number = 20;
-    let sizeOfObstacles: number = 8;
+    let numberOfObstacles: number = 10;
+    let sizeOfObstacles: number = 8; // NO HIGHER THAN 8!! MAYBE DO RANDOM??
     let numberOfPoints: number = 100;
-    let pointSpread: number = 3; // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS
+    let pointSpread: number = 4; // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS
     let numberOfPowerUps: number = 4;
+    let mainFont: any;
+    let levelIndicator: number = 1;
+    let livesLeft: number = 3;
+    let snakeLives: any; //LOAD SNAKE PNG
 
     const collide = (obstacle: any, snake: any) => {
       let axisHit = {
@@ -139,14 +146,18 @@ export class Arcade1Component implements OnInit {
           if (index > -1) {
             points.splice(index, 1);
           }
-          scoreCount += 1;
+          scoreCount += 100;
           console.log(scoreCount);
       }
 
-      p5.preload = () => {};
+
+      p5.preload = () => {
+        snakeLives = p5.loadImage('../../assets/img/snake.png');
+        mainFont = p5.loadFont('../../assets/fonts/Sabo-Filled.otf')
+      };
 
       p5.setup = () => {
-        p5.createCanvas(1000, 1000);
+        p5.createCanvas(1400, 1000);
         p5.pixelDensity(1);
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
@@ -155,12 +166,18 @@ export class Arcade1Component implements OnInit {
         obstacle = new Obstacle(p5, 90, 55, 1, 4, '#a8ccd7CC'); // glass square to go through
         // powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 1, 'red');
 
+        p5.loadImage('../../assets/img/snake.png', (snakeLives: any) => {
+          p5.image(snakeLives, 0, 0);
+        });
+        
+        // snakeLives = p5.loadImage('../../assets/img/snake.png');
+
         //RANDOM INNER OBSTACLE LAYOUT
         while (obstacles.length < numberOfObstacles) {
           newObstacle = new Obstacle(
             p5,
-            p5.random(3, 97),
-            p5.random(3, 97),
+            p5.random(3, 96),
+            p5.random(3, 96),
             0,
             sizeOfObstacles,
             '#C2B280'
@@ -174,7 +191,7 @@ export class Arcade1Component implements OnInit {
               overlapping = true;
               break;
             }
-            if ((newObstacle.x < 10 || newObstacle.x > 90) && (newObstacle.y > 40 && newObstacle.y < 60) ) {
+            if ((newObstacle.x < 10 || newObstacle.x > 90) && (newObstacle.y > 30 && newObstacle.y < 70) ) {
               blocking = true;
             }
           }
@@ -186,19 +203,19 @@ export class Arcade1Component implements OnInit {
 
         // //POWERUP NO OVERLAP WITH OBJECTS AND POINTS
         while (powerUps.length < numberOfPowerUps) {
-          powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 1, 'red');
+          powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 2, 'red');
               var overlapping = false;
               for (let j = 0; j < obstacles.length; j++) {
                 var other = obstacles[j];
-                var d = p5.dist(powerUp.pos.x, powerUp.pos.y, other.pos.x, other.pos.y);
-                if (d < powerUp.r + other.r) {
+                var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+                if (d < powerUp.r * 4 + other.r) {
                   overlapping = true;
                   break;
                 }
               }
               for (let j = 0; j < points.length; j++) {
                 var other = points[j];
-                var d = p5.dist(powerUp.pos.x, powerUp.pos.y, other.pos.x, other.pos.y);
+                var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
                 if (d < powerUp.r + other.r) {
                   overlapping = true;
                   break;
@@ -263,7 +280,7 @@ export class Arcade1Component implements OnInit {
           rightBorderTop[i] = new Obstacle(p5, 99, i * 2 + 1, 0, 2, '#C2B280');
         }
         for (let i = 0; i < 3; i++) {
-          doorTrigger[i] = new Obstacle(p5, 101, i * 2 + 47, 0, 2, 'blue');
+          doorTrigger[i] = new Obstacle(p5, 99, i * 2 + 47, 0, 2, 'blue');
         }
         for (let i = 0; i < 23; i++) {
           rightBorderBottom[i] = new Obstacle(
@@ -300,10 +317,10 @@ export class Arcade1Component implements OnInit {
         //Red Border
         p5.push();
         p5.fill(0);
-        p5.strokeWeight(0.8);
+        p5.strokeWeight(0.5);
         p5.stroke('red');
-        p5.rectMode(p5.CENTER);
-        p5.rect(p5.width / 2 / 10, p5.height / 2 / 10, 100, 100);
+        // p5.rectMode(p5.CENTER);
+        p5.rect(p5.width / 2.8 / 10, p5.height / 2 / 10, 99, 100);
         p5.pop();
 
         
@@ -315,16 +332,57 @@ export class Arcade1Component implements OnInit {
           points[i].render(p5);
         }
 
-        // for (let i = 90; i < numberOfPoints; i += 30 ){
-        //   powerUps[i].render(p5);
-        // }
-
-        // powerUp.render(p5);
         for (var i = 1; i < powerUps.length; i++) {
           powerUps[i].render(p5);
         }
         
         obstacle.render(p5); //glass
+
+        //SCORE TEXT RENDERING
+        p5.push();
+        p5.textFont(mainFont);
+        p5.textSize(8);
+        p5.fill(100, 0, 255);
+        p5.stroke(255);
+        p5.strokeWeight(.1)
+        p5.text("Score:", 104, 10);
+        p5.pop();
+        
+        //SCORE NUMBER RENDERING
+        p5.push();
+        p5.textFont(mainFont);
+        p5.textSize(5);
+        p5.fill(100, 0, 255);
+        p5.stroke(255);
+        p5.strokeWeight(.1)
+        p5.text(scoreCount, 104, 15);
+        p5.drawingContext.shadowOffsetX = 5;
+        p5.drawingContext.shadowOffsetY = -5;
+        p5.drawingContext.shadowBlur = 10;
+        p5.drawingContext.shadowColor = 'white';
+        p5.pop();
+
+        //LIVES LEFT TEXT RENDERING
+        p5.push();
+        p5.textFont(mainFont);
+        p5.textSize(8);
+        p5.fill(100, 0, 255);
+        p5.stroke(255);
+        p5.strokeWeight(.1)
+        p5.text("Lives:" + livesLeft, 103, 25);
+        p5.pop();
+        
+        //LIVES LEFT IMAGE RENDERING
+        
+        //LIVES LEFT TEXT RENDERING
+        p5.push();
+        p5.textFont(mainFont);
+        p5.textSize(8);
+        p5.fill(100, 0, 255);
+        p5.stroke(255);
+        p5.strokeWeight(.1)
+        p5.text("Level:" + levelIndicator, 103, 36);
+        p5.pop();
 
         //OBSTACLE BORDER RENDER
         for (var i = 0; i < topBorder.length; i++) {
@@ -406,6 +464,7 @@ export class Arcade1Component implements OnInit {
           if (collide(obstacles[i], snake).totalDist) {
             scoreCount = 0;
             p5.setup();
+            livesLeft -= 1;
           }
         }
 
@@ -444,6 +503,7 @@ export class Arcade1Component implements OnInit {
             console.log('DOOR TRIGGERED');
             numberOfObstacles += 5;
             p5.setup();
+            levelIndicator += 1;
             //RESET SNAKE AND LAYOUT TO DEFAULT...
           }
         }

@@ -9,7 +9,7 @@ export default function PowerUp(p5, x, y, r, color) {
     p5.fill(color);
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
-    p5.rect(0, 0, this.r, this.r);
+    p5.ellipse(0, 0, this.r, this.r);
     p5.pop();
   }
 
