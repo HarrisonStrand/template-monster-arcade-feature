@@ -1,5 +1,7 @@
 export default function PowerUp(p5, x, y, r, color) {
   this.pos = p5.createVector(x, y);
+  this.x = x;
+  this.y = y;
   this.r = r;
 
   this.render = function() {

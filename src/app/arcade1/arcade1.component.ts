@@ -110,8 +110,13 @@ export class Arcade1Component implements OnInit {
 
     const sketch = (p5: any) => {
 
-      function getPowerUp(num = 9, limit = 96) {
-          powerUp.render(p5);
+      function getPowerUp(powerUps: any, value: any) {
+        var index = powerUps.indexOf(value);
+        if (index > -1) {
+          powerUps.splice(index, 1);
+        }
+          let num = 9;
+          let limit = 96;
           const random = p5.random() * limit;
           const res = p5.round( random / num ) * num;
         let x = res;
@@ -122,7 +127,7 @@ export class Arcade1Component implements OnInit {
             powerUp.x == obstacles[i].x + 5 &&
             powerUp.y == obstacles[i].y + 5
           ) {
-            getPowerUp();
+            getPowerUp(powerUps, powerUps[i]);
           }
         }
       }
@@ -183,16 +188,16 @@ export class Arcade1Component implements OnInit {
               var overlapping = false;
               for (let j = 0; j < obstacles.length; j++) {
                 var other = obstacles[j];
-                var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
-                if (d < powerUp.r * 6 + other.r) {
+                var d = p5.dist(powerUp.pos.x, powerUp.pos.y, other.pos.x, other.pos.y);
+                if (d < powerUp.r + other.r) {
                   overlapping = true;
                   break;
                 }
               }
               for (let j = 0; j < points.length; j++) {
                 var other = points[j];
-                var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
-                if (d < powerUp.r * 50 + other.r) {
+                var d = p5.dist(powerUp.pos.x, powerUp.pos.y, other.pos.x, other.pos.y);
+                if (d < powerUp.r + other.r) {
                   overlapping = true;
                   break;
                 }
@@ -312,12 +317,12 @@ export class Arcade1Component implements OnInit {
         //   powerUps[i].render(p5);
         // }
 
-        obstacle.render(p5); //glass
         // powerUp.render(p5);
-        for (var i = 0; i < powerUps.length; i++) {
+        for (var i = 1; i < powerUps.length; i++) {
           powerUps[i].render(p5);
         }
         
+        obstacle.render(p5); //glass
 
         //OBSTACLE BORDER RENDER
         for (var i = 0; i < topBorder.length; i++) {
@@ -407,10 +412,12 @@ export class Arcade1Component implements OnInit {
           snake.update();
         }
 
-          if (snake.eatPowerUp(powerUp, p5)) {
+        for (let i = 0; i < powerUps.length; i++) {
+          if (snake.eatPowerUp(powerUps[i], p5)) {
             snake.grow();
-            getPowerUp();
+            getPowerUp(powerUps, powerUps[i]);
           }
+        }
 
         for (let i = 0; i < points.length; i++) {
           if(snake.eatPoint(points[i], p5)) {
