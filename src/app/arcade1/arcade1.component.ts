@@ -21,7 +21,6 @@ export class Arcade1Component implements OnInit {
   ngOnInit(): void {
     let snake: any;
     let move: boolean = false;
-    let point: any;
     let points: Array<any> = [];
     let venom: any;
     let mVenom: Array<any> = [];
@@ -35,18 +34,17 @@ export class Arcade1Component implements OnInit {
     let leftBorderBottom: Array<any> = [];
     let obstacle: any;
     let newObstacle: any;
-    let newPoint: any;
-    let newPowerUp: any;
+    let point: any;
     let rez = 10;
     let r = 1;
     let w: any;
     let h: any;
     let powerUp: any;
-    // let powerUps: Array<any> = [];
+    let powerUps: Array<any> = [];
     let scoreCount: number = 0;
     let numberOfObstacles: number = 40;
     let numberOfPoints: number = 100;
-    // let numberOfPowerUps: number = 10;
+    let numberOfPowerUps: number = 4;
 
     const collide = (obstacle: any, snake: any) => {
       let axisHit = {
@@ -112,9 +110,12 @@ export class Arcade1Component implements OnInit {
 
     const sketch = (p5: any) => {
 
-      function getPowerUp() {
-        let x = p5.random(3, 97);
-        let y = p5.random(3, 97);
+      function getPowerUp(num = 9, limit = 96) {
+          powerUp.render(p5);
+          const random = p5.random() * limit;
+          const res = p5.round( random / num ) * num;
+        let x = res;
+        let y = res;
         powerUp = new PowerUp(p5, x, y, 1, 'red'); // removed random methods from x and y.
         for (let i = 0; i < obstacles.length; i++) {
           if (
@@ -145,8 +146,7 @@ export class Arcade1Component implements OnInit {
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
         obstacle = new Obstacle(p5, 90, 55, 1, 4, '#a8ccd7CC'); // glass square to go through
-        // point = new Point(p5, 40, 40, 1, 'white');
-        powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 1, 'red');
+        // powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 1, 'red');
 
         //RANDOM INNER OBSTACLE LAYOUT
         while (obstacles.length < numberOfObstacles) {
@@ -168,80 +168,71 @@ export class Arcade1Component implements OnInit {
               break;
             }
             if ((newObstacle.x < 10 || newObstacle.x > 90) && (newObstacle.y > 40 && newObstacle.y < 60) ) {
-              // console.log(newObstacle)
               blocking = true;
             }
           }
           if (!overlapping && !blocking) {
             obstacles.push(newObstacle);
           }
-          // console.log(obstacles)
         }
 
 
         // //POWERUP NO OVERLAP WITH OBJECTS AND POINTS
-        // while (powerUps.length < numberOfPowerUps) {
-        //   for (let a = 3; a <= numberOfPoints; a += 3) {
-        //     for (let b = 3; b <= numberOfPoints; b += 3) {
-        //       newPowerUp = new PowerUp(p5, a, b, 1, 'red');
-        //       var overlapping = false;
-        //       for (let j = 0; j < obstacles.length; j++) {
-        //         var other = obstacles[j];
-        //         var d = p5.dist(newPowerUp.x, newPowerUp.y, other.x, other.y);
-        //         if (d < newPowerUp.r + other.r) {
-        //           overlapping = true;
-        //           break;
-        //         }
-        //       }
-        //       for (let j = 0; j < points.length; j++) {
-        //         var other = points[j];
-        //         var d = p5.dist(newPowerUp.x, newPowerUp.y, other.x, other.y);
-        //         if (d < newPowerUp.r + other.r) {
-        //           overlapping = true;
-        //           break;
-        //         }
-        //       }
-        //       if (!overlapping) {
-        //         powerUps.push(newPowerUp);
-        //       }
-        //     }
-        //   }
-        // }
-
-
-        //GRID PACMAN POINT GENERATION
-        while (points.length < numberOfPoints) {
-          for (var a = 3; a < numberOfPoints; a += 3) {
-            for (var b = 3; b < numberOfPoints; b += 3) {
-              // newPoint = new Point(p5, a, b, 1, 'white');
-              newPoint = new Point(
-                p5,
-                a,
-                b,
-                1,
-                'white'
-              );
-              //add the circles to the array at x = a and y = b
-              // points.push(newPoint);
+        while (powerUps.length < numberOfPowerUps) {
+          powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 1, 'red');
               var overlapping = false;
               for (let j = 0; j < obstacles.length; j++) {
                 var other = obstacles[j];
-                var d = p5.dist(newPoint.x, newPoint.y, other.x, other.y);
-                if (d < newPoint.r + other.r) {
+                var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+                if (d < powerUp.r * 6 + other.r) {
                   overlapping = true;
                   break;
                 }
               }
               for (let j = 0; j < points.length; j++) {
                 var other = points[j];
-                var d = p5.dist(newPoint.x, newPoint.y, other.x, other.y);
-                if (d < newPoint.r + other.r) {
+                var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+                if (d < powerUp.r * 50 + other.r) {
                   overlapping = true;
                   break;
                 }
               }
               if (!overlapping) {
-                points.push(newPoint);
+                powerUps.push(powerUp)
+              }
+        }
+
+
+        //GRID PACMAN POINT GENERATION
+        while (points.length < numberOfPoints) {
+          for (var a = 3; a < numberOfPoints; a += 3) {
+            for (var b = 3; b < numberOfPoints; b += 3) {
+              point = new Point(
+                p5,
+                a,
+                b,
+                1,
+                'white'
+              );
+              var overlapping = false;
+              for (let j = 0; j < obstacles.length; j++) {
+                var other = obstacles[j];
+                var d = p5.dist(point.x, point.y, other.x, other.y);
+                if (d < point.r + other.r) {
+                  overlapping = true;
+                  break;
+                }
+              }
+              for (let j = 0; j < points.length; j++) {
+                var other = points[j];
+                var d = p5.dist(point.x, point.y, other.x, other.y);
+                if (d < point.r + other.r) {
+                  overlapping = true;
+                  break;
+                }
+              }
+              if (!overlapping) {
+                points.push(point);
               }
             }
           }
@@ -322,7 +313,11 @@ export class Arcade1Component implements OnInit {
         // }
 
         obstacle.render(p5); //glass
-        powerUp.render(p5);
+        // powerUp.render(p5);
+        for (var i = 0; i < powerUps.length; i++) {
+          powerUps[i].render(p5);
+        }
+        
 
         //OBSTACLE BORDER RENDER
         for (var i = 0; i < topBorder.length; i++) {
