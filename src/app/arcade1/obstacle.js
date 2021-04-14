@@ -10,7 +10,7 @@ export default function Obstacle(p5, x, y, z, r, color1) {
     p5.push();
     p5.noFill()
     p5.stroke(color1);
-    p5.strokeWeight(p5.random(.5, .6))
+    p5.strokeWeight(p5.random(.5, .7))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
     p5.rect(0, 0, this.r, this.r);

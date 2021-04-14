@@ -1,10 +1,13 @@
 import * as p5 from "p5";
 import { lineIntersect } from "./utilities";
 
-export default function Venom(p5, x, y) {
+export default function Venom(p5, x, y, r, angle) {
+  // this.pos = p5.createVector(spos.x, spos.y);
   this.x = x;
   this.y = y;
-  this.r = 1;
+  this.r = r;
+  // this.vel = p5.Vector.fromAngle(angle);
+  // this.vel.p5.mult(10);
   this.toDelete = false;
 
   this.show = function (p5) {
@@ -21,7 +24,7 @@ export default function Venom(p5, x, y) {
   };
 
   this.update = function () {
-    let head = this.r;
+    let head = r;
     head.x += this.xdir*10;
     head.y += this.ydir*10;
   };

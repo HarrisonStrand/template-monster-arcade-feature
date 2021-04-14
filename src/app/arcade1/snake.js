@@ -4,13 +4,14 @@ import { lineIntersect } from './utilities'
 //Snake.js
 export default class Snake {
 
-  constructor(p5, w, h, r) {
+  constructor(p5, x, y, r, dir) {
     this.r = 2; //snake size
     this.body = [];
     this.body[0] = p5.createVector(1.5, 49);//snake default location
     this.xdir = 0;
     this.ydir = 0;
     this.len = 0;
+    this.dir = '';
   }
 
   verticies(p5) {
@@ -23,6 +24,7 @@ export default class Snake {
     return snakeVerticies;
   }
 
+
   setDir(x, y) {
     this.xdir = x;
     this.ydir = y;
@@ -34,6 +36,18 @@ export default class Snake {
     head.x += this.xdir/2;
     head.y += this.ydir/2;
     this.body.push(head);
+    if (this.xdir == 1) {
+      this.dir = 'RIGHT';
+    } else if (this.xdir == -1) {
+      this.dir = 'LEFT';
+    } else if (this.ydir == 1) {
+      this.dir = 'DOWN';
+    } else if (this.ydir == -1) {
+      this.dir = 'UP';
+    } else {
+      this.dir = '';
+    }
+    console.log(this.dir)
   }
   
   grow() {
@@ -41,22 +55,6 @@ export default class Snake {
       this.len++;
       this.body.push(head);
   }
-
-  endGame(w, h) {
-    let x = this.body[this.body.length - 1].x;
-    let y = this.body[this.body.length - 1].y;
-    if (x > w - 1 || x < 0 || y > h - 1 || y < 0) {
-      return true;
-    }
-    for (let i = 0; i < this.body.length - 1; i++) {
-      let part = this.body[i];
-      if (part.x == x && part.y == y) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
   
   eatPowerUp(powerUp, p5) {
     const end_of_array = this.body.length -1

@@ -4,6 +4,9 @@
 // door trigger rendered by default. after keys are collected, take away rendering. door will still trigger
 // SNAKE LIVES AS ARRAY OF IMAGES - IF DEATH, SPLICE ONE SNAKE OUT OF THE ARRAY
 // if lives are < 1 flash GAME OVER and instructions for keypress to reset the game - also make conditional for allowing game reset keypress only if lives are 0
+// stroke color of obstacles are darker as they go in to appear like a hole
+// Copy powerups for key logic
+// prevent doorway until keys are collected - if array is empty - then un render the doorway objects
 
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
@@ -286,7 +289,14 @@ export class Arcade1Component implements OnInit {
           rightBorderTop[i] = new Border(p5, 99, i * 2 + 1, 0, 2, borderColor1);
         }
         for (let i = 0; i < 3; i++) {
-          doorTrigger[i] = new Border(p5, 99, i * 2 + 47, 0, 2, doorTriggerColor);
+          doorTrigger[i] = new Border(
+            p5,
+            99,
+            i * 2 + 47,
+            0,
+            2,
+            doorTriggerColor
+          );
         }
         for (let i = 0; i < 23; i++) {
           rightBorderBottom[i] = new Border(
@@ -368,7 +378,7 @@ export class Arcade1Component implements OnInit {
         p5.strokeWeight(p5.random(0.1, 0.15));
         p5.text(scoreCount, 104, 15);
         p5.pop();
-        
+
         //LIVES LEFT TEXT RENDERING
         if (livesLeft >= 0 || p5.key == 'y') {
           p5.push();
@@ -404,13 +414,13 @@ export class Arcade1Component implements OnInit {
           p5.fill(255, 0, 0);
           p5.stroke(255);
           p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text("press y to continue", 107, 60);
+          p5.text('press y to continue', 107, 60);
           p5.pop();
         }
 
         //LIVES LEFT IMAGE RENDERING
 
-              //SNAKE IMAGE RENDERING GOES HERE...
+        //SNAKE IMAGE RENDERING GOES HERE...
 
         //LEVEL INDICATOR RENDERING
         p5.push();
@@ -510,12 +520,11 @@ export class Arcade1Component implements OnInit {
           }
         }
 
-        if(livesLeft >= 0) {
-
+        if (livesLeft >= 0) {
           snake.show(p5, r);
           if (move) {
             p5.push();
-            p5.strokeWeight(p5.random(.5, .75));
+            p5.strokeWeight(p5.random(0.5, 0.75));
             p5.pop();
             snake.update();
           }
@@ -535,13 +544,27 @@ export class Arcade1Component implements OnInit {
         }
 
         // Venom rendering
-        for (var k = 0; k < mVenom.length; k++) {
-          mVenom[k].show(p5);
-          // mVenom[k].update(p5);
-          if (mVenom[k].dissipate()) {
-            mVenom.splice(k, 1);
-            break;
+        // for (var k = 0; k < mVenom.length; k++) {
+        //   mVenom[k].show(p5);
+        //   // mVenom[k].update(p5);
+        //   if (mVenom[k].dissipate()) {
+        //     mVenom.splice(k, 1);
+        //     break;
+        //   }
+        // }
+
+        for (var i = mVenom.length - 1; i >= 0; i--) {
+          mVenom[i].show(p5);
+          if (snake.dir == 'RIGHT') {
+            //venom velocity +1 on x
+          } else if (snake.dir == 'LEFT') {
+            //venom velocity -1 on x
+          } else if (snake.dir == 'DOWN') {
+            //venom velocity +1 on y
+          } else if (snake.dir == 'UP') {
+            //venom velocity -1 on y
           }
+          // mVenom[i].update();
         }
 
         for (var i = 0; i < doorTrigger.length; i++) {
@@ -559,8 +582,11 @@ export class Arcade1Component implements OnInit {
 
       p5.keyPressed = () => {
         if (p5.key == ' ') {
-          mVenom.push(new Venom(p5, 10, 40));
+          mVenom.push(
+            new Venom(p5, snake.body[0].x, snake.body[0].y, 1, snake.dir)
+          );
           console.log(mVenom);
+          // mVenom.push(new Venom(p5, 40, 40));
         } else if (p5.keyCode == p5.LEFT_ARROW) {
           move = true;
           snake.setDir(-1, 0);
