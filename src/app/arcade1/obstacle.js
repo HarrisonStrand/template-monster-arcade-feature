@@ -1,5 +1,5 @@
 //Obstacle.js
-export default function Obstacle(p5, x, y, z, r, color1) {
+export default function Obstacle(p5, x, y, z, r) {
   this.pos = p5.createVector(x, y, z);
   this.x = x;
   this.y = y;
@@ -9,7 +9,7 @@ export default function Obstacle(p5, x, y, z, r, color1) {
   this.render = function() {
     p5.push();
     p5.noFill()
-    p5.stroke(color1);
+    p5.stroke('#0400ff');
     p5.strokeWeight(p5.random(.5, .7))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
@@ -18,7 +18,7 @@ export default function Obstacle(p5, x, y, z, r, color1) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(color1);
+    p5.stroke('#0300BB');
     p5.strokeWeight(p5.random(.4, .5))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
@@ -27,7 +27,7 @@ export default function Obstacle(p5, x, y, z, r, color1) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(color1);
+    p5.stroke('#030088');
     p5.strokeWeight(p5.random(.3, .4))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
@@ -36,7 +36,7 @@ export default function Obstacle(p5, x, y, z, r, color1) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(color1);
+    p5.stroke('#02006D');
     p5.strokeWeight(p5.random(.2, .3))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
@@ -45,7 +45,7 @@ export default function Obstacle(p5, x, y, z, r, color1) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(color1);
+    p5.stroke('#020061');
     p5.strokeWeight(p5.random(.1, .2))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
@@ -54,7 +54,7 @@ export default function Obstacle(p5, x, y, z, r, color1) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(color1);
+    p5.stroke('#030159');
     p5.strokeWeight(p5.random(.05, .1))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
@@ -63,7 +63,7 @@ export default function Obstacle(p5, x, y, z, r, color1) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(color1);
+    p5.stroke('#010054');
     p5.strokeWeight(p5.random(.05, .1))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);

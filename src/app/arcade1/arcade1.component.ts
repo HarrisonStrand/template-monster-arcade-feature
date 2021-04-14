@@ -27,6 +27,7 @@ export class Arcade1Component implements OnInit {
     const obstacleColor1 = '#0010CF';
     const borderColor1 = '#aaa9ad';
     const doorTriggerColor = 'blue';
+    const mainTextFillColor = '#4E0DFF';
     let snake: any;
     let move: boolean = false;
     let points: Array<any> = [];
@@ -205,7 +206,7 @@ export class Arcade1Component implements OnInit {
           p5.random(3, 97),
           2
         );
-        obstacle = new Obstacle(p5, 90, 55, 1, 4, '#a8ccd7CC'); // glass square to go through
+        obstacle = new Obstacle(p5, 90, 55, 1, 4); // glass square to go through
 
         //RANDOM INNER OBSTACLE LAYOUT
         while (obstacles.length < numberOfObstacles) {
@@ -215,7 +216,6 @@ export class Arcade1Component implements OnInit {
             p5.random(3, 96),
             0,
             sizeOfObstacles,
-            obstacleColor1
           );
           var overlapping = false;
           var blocking = false;
@@ -426,7 +426,7 @@ export class Arcade1Component implements OnInit {
         p5.push();
         p5.textFont(mainFont);
         p5.textSize(8);
-        p5.fill(100, 0, 255);
+        p5.fill(mainTextFillColor);
         p5.stroke(255);
         p5.strokeWeight(p5.random(0.1, 0.15));
         p5.text('Score:', 104, 10);
@@ -436,22 +436,128 @@ export class Arcade1Component implements OnInit {
         p5.push();
         p5.textFont(mainFont);
         p5.textSize(5);
-        p5.fill(100, 0, 255);
+        p5.fill(mainTextFillColor);
         p5.stroke(255);
         p5.strokeWeight(p5.random(0.1, 0.15));
         p5.text(scoreCount, 104, 15);
         p5.pop();
 
-        //LIVES LEFT TEXT RENDERING
+        //SIDEBAR TEXT RENDERING
         if (livesLeft >= 0 || p5.key == 'y') {
+          
+          // LIVES LEFT
           p5.push();
           p5.textFont(mainFont);
           p5.textSize(8);
-          p5.fill(100, 0, 255);
+          p5.fill(mainTextFillColor);
           p5.stroke(255);
           p5.strokeWeight(p5.random(0.1, 0.15));
           p5.text('Lives:' + livesLeft, 103, 25);
           p5.pop();
+
+          //LEGEND
+          p5.push();
+          p5.textFont(mainFont);
+          p5.textSize(5);
+          p5.fill(200);
+          p5.stroke(255);
+          p5.strokeWeight(p5.random(0.1, 0.15));
+          p5.text('legend:', 108, 35);
+          p5.pop();
+
+          ////POWERUP////
+
+          //shadow
+          p5.push();
+          p5.fill('rgba(255, 0, 0, .3)');
+          p5.stroke('rgba(255, 0, 0, .3)')
+          p5.strokeWeight(p5.random(0, 2));
+          p5.rectMode(p5.CENTER);
+          p5.translate(109, 39);
+          p5.ellipse(0, 0, 3, 3);
+          p5.pop();
+
+          //main
+          p5.push();
+          p5.fill('red');
+          p5.rectMode(p5.CENTER);
+          p5.translate(109, 39);
+          p5.ellipse(0, 0, 3, 3);
+          p5.pop();
+
+          //P TEXT
+          p5.push();
+          p5.fill('white');
+          p5.textSize(2);
+          p5.text('P', 109 -.6, 39 +.6);
+          p5.pop();
+          
+          // TEXT
+          p5.push();
+          p5.textFont(mainFont);
+          p5.textSize(3);
+          p5.fill(200);
+          p5.stroke(255);
+          p5.strokeWeight(p5.random(0.1, 0.15));
+          p5.text(' - powerup', 111, 40);
+          p5.pop();
+
+          ////KEY////
+
+          //shadow
+          p5.push();
+          p5.fill('rgba(218,165,32, .3)');
+          p5.stroke('rgba(218,165,32, .3)')
+          p5.strokeWeight(p5.random(0, 2));
+          p5.rectMode(p5.CENTER);
+          p5.translate(109, 45);
+          p5.ellipse(0, 0, 3, 3);
+          p5.pop();
+
+          //main
+          p5.push();
+          p5.fill('rgb(218,165,32)');
+          p5.rectMode(p5.CENTER);
+          p5.translate(109, 45);
+          p5.ellipse(0, 0, 3, 3);
+          p5.pop();
+
+          //K TEXT
+          p5.push();
+          p5.fill('black');
+          p5.textSize(2);
+          p5.text('K', 109 -.6, 45 +.6);
+          p5.pop();
+
+          // TEXT
+          p5.push();
+          p5.textFont(mainFont);
+          p5.textSize(3);
+          p5.fill(200);
+          p5.stroke(255);
+          p5.strokeWeight(p5.random(0.1, 0.15));
+          p5.text(' - key', 111, 46);
+          p5.pop();
+
+          ////POINTS////
+
+          p5.push();
+          p5.fill('white');
+          p5.rectMode(p5.CENTER);
+          p5.translate(109, 50);
+          p5.ellipse(p5.random(0, .07), 0, 2, 2);
+          p5.pop();
+
+          // TEXT
+          p5.push();
+          p5.textFont(mainFont);
+          p5.textSize(3);
+          p5.fill(200);
+          p5.stroke(255);
+          p5.strokeWeight(p5.random(0.1, 0.15));
+          p5.text(' - +100 Points', 111, 51);
+          p5.pop();
+
         } else {
 
           //GAME
@@ -484,115 +590,12 @@ export class Arcade1Component implements OnInit {
           p5.text('press y to continue', 107, 60);
           p5.pop();
         }
-        
-        //LEGEND
-        p5.push();
-        p5.textFont(mainFont);
-        p5.textSize(5);
-        p5.fill(200);
-        p5.stroke(255);
-        p5.strokeWeight(p5.random(0.1, 0.15));
-        p5.text('legend:', 108, 35);
-        p5.pop();
-
-        ////POWERUP////
-
-        //shadow
-        p5.push();
-        p5.fill('rgba(255, 0, 0, .3)');
-        p5.stroke('rgba(255, 0, 0, .3)')
-        p5.strokeWeight(p5.random(0, 2));
-        p5.rectMode(p5.CENTER);
-        p5.translate(109, 39);
-        p5.ellipse(0, 0, 3, 3);
-        p5.pop();
-
-        //main
-        p5.push();
-        p5.fill('red');
-        p5.rectMode(p5.CENTER);
-        p5.translate(109, 39);
-        p5.ellipse(0, 0, 3, 3);
-        p5.pop();
-
-        //P TEXT
-        p5.push();
-        p5.fill('white');
-        p5.textSize(2);
-        p5.text('P', 109 -.6, 39 +.6);
-        p5.pop();
-        
-        // TEXT
-        p5.push();
-        p5.textFont(mainFont);
-        p5.textSize(3);
-        p5.fill(200);
-        p5.stroke(255);
-        p5.strokeWeight(p5.random(0.1, 0.15));
-        p5.text(' - powerup', 111, 40);
-        p5.pop();
-
-        ////KEY////
-
-        //shadow
-        p5.push();
-        p5.fill('rgba(218,165,32, .3)');
-        p5.stroke('rgba(218,165,32, .3)')
-        p5.strokeWeight(p5.random(0, 2));
-        p5.rectMode(p5.CENTER);
-        p5.translate(109, 45);
-        p5.ellipse(0, 0, 3, 3);
-        p5.pop();
-
-        //main
-        p5.push();
-        p5.fill('rgb(218,165,32)');
-        p5.rectMode(p5.CENTER);
-        p5.translate(109, 45);
-        p5.ellipse(0, 0, 3, 3);
-        p5.pop();
-
-        //K TEXT
-        p5.push();
-        p5.fill('black');
-        p5.textSize(2);
-        p5.text('K', 109 -.6, 45 +.6);
-        p5.pop();
-
-        // TEXT
-        p5.push();
-        p5.textFont(mainFont);
-        p5.textSize(3);
-        p5.fill(200);
-        p5.stroke(255);
-        p5.strokeWeight(p5.random(0.1, 0.15));
-        p5.text(' - key', 111, 46);
-        p5.pop();
-
-        ////POINTS////
-
-        p5.push();
-        p5.fill('white');
-        p5.rectMode(p5.CENTER);
-        p5.translate(109, 50);
-        p5.ellipse(p5.random(0, .07), 0, 2, 2);
-        p5.pop();
-
-        // TEXT
-        p5.push();
-        p5.textFont(mainFont);
-        p5.textSize(3);
-        p5.fill(200);
-        p5.stroke(255);
-        p5.strokeWeight(p5.random(0.1, 0.15));
-        p5.text(' - +100 Points', 111, 51);
-        p5.pop();
 
         //KEYS REMAINING RENDERING
         p5.push();
         p5.textFont(mainFont);
         p5.textSize(3);
-        p5.fill(100, 0, 255);
+        p5.fill(mainTextFillColor);
         p5.stroke(255);
         p5.strokeWeight(p5.random(0.07, 0.1));
         p5.text('Keys Remaining:' + keysToCollect, 105, 96);
@@ -602,7 +605,7 @@ export class Arcade1Component implements OnInit {
         p5.push();
         p5.textFont(mainFont);
         p5.textSize(8);
-        p5.fill(100, 0, 255);
+        p5.fill(mainTextFillColor);
         p5.stroke(255);
         p5.strokeWeight(p5.random(0.1, 0.15));
         p5.text('Level:' + levelIndicator, 103, 90);
