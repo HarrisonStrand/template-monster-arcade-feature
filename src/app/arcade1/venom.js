@@ -8,7 +8,7 @@ export default function Venom(p5, x, y, r, angle) {
   this.r = r;
   // this.vel = p5.Vector.fromAngle(angle);
   // this.vel.p5.mult(10);
-  this.toDelete = false;
+  // this.toDelete = false;
 
   this.show = function (p5) {
     p5.push();

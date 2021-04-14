@@ -47,7 +47,7 @@ export default class Snake {
     } else {
       this.dir = '';
     }
-    console.log(this.dir)
+    // console.log(this.dir)
   }
   
   grow() {
@@ -63,6 +63,18 @@ export default class Snake {
       return false;
     }
     if (dist <= powerUp.r * 1.75) { // radius size for snake
+      return true
+    }
+    return false;
+  }
+  
+  eatKey(key, p5) {
+    const end_of_array = this.body.length -1
+    let dist = (this.body[end_of_array].x - key.pos.x) * (this.body[end_of_array].x - key.pos.x) + (this.body[end_of_array].y - key.pos.y) * (this.body[end_of_array].y - key.pos.y);
+    if (dist > (key.r + this.body[end_of_array].r) * (key.r + this.body[end_of_array].r)) {
+      return false;
+    }
+    if (dist <= key.r * 1.75) { // radius size for snake
       return true
     }
     return false;
