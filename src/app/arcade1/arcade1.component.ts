@@ -22,7 +22,7 @@ import Venom from './venom';
   styleUrls: ['./arcade1.component.css'],
 })
 export class Arcade1Component implements OnInit {
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     const borderColor1 = '#aaa9ad';
@@ -48,6 +48,7 @@ export class Arcade1Component implements OnInit {
     let h: any;
     let powerUp: any;
     let powerUps: Array<any> = [];
+    let menu: boolean;
     let key: any;
     let keys: Array<any> = [];
     let scoreCount: number = 0;
@@ -82,7 +83,7 @@ export class Arcade1Component implements OnInit {
       if (
         distx >
         (obstacle.r + snake.body[end_of_array].r) *
-        (obstacle.r + snake.body[end_of_array].r)
+          (obstacle.r + snake.body[end_of_array].r)
       ) {
         axisHit.x = distx;
       }
@@ -96,7 +97,7 @@ export class Arcade1Component implements OnInit {
       if (
         disty >
         (obstacle.r + snake.body[end_of_array].r) *
-        (obstacle.r + snake.body[end_of_array].r)
+          (obstacle.r + snake.body[end_of_array].r)
       ) {
         axisHit.y = disty;
       }
@@ -110,7 +111,7 @@ export class Arcade1Component implements OnInit {
       if (
         dist >
         (obstacle.r + snake.body[end_of_array].r) *
-        (obstacle.r + snake.body[end_of_array].r)
+          (obstacle.r + snake.body[end_of_array].r)
       ) {
         axisHit.totalDist = false;
       }
@@ -140,7 +141,7 @@ export class Arcade1Component implements OnInit {
         for (let i = 0; i < obstacles.length; i++) {
           if (
             p5.floor(powerUp.x) == p5.floor(obstacles[i].x + 5) &&
-            p5.floor(powerUp.y) == p5.floor(obstacles[i].y + 5)  // DOES NOT WORK!!!
+            p5.floor(powerUp.y) == p5.floor(obstacles[i].y + 5) // DOES NOT WORK!!!
           ) {
             getPowerUp(powerUps, powerUps[i]);
           }
@@ -159,14 +160,9 @@ export class Arcade1Component implements OnInit {
         const res = p5.round(random / num) * num;
         let x = res;
         let y = res;
-        key = new Key(
-          p5,
-          p5.random(3, 97),
-          p5.random(3, 97),
-          2
-        );
+        key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
         keysToCollect -= 1;
-        keys.push(key)
+        keys.push(key);
         for (let i = 0; i < obstacles.length; i++) {
           if (
             p5.floor(key.x) == p5.floor(obstacles[i].x + 5) &&
@@ -199,13 +195,9 @@ export class Arcade1Component implements OnInit {
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
         p5.frameRate(30);
+        menu = true;
         snake = new Snake(p5, w, h);
-        key = new Key(
-          p5,
-          p5.random(3, 97),
-          p5.random(3, 97),
-          2
-        );
+        key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
         obstacle = new Obstacle(p5, 90, 55, 1, 4); // glass square to go through
 
         //RANDOM INNER OBSTACLE LAYOUT
@@ -215,7 +207,7 @@ export class Arcade1Component implements OnInit {
             p5.random(3, 96),
             p5.random(3, 96),
             0,
-            sizeOfObstacles,
+            sizeOfObstacles
           );
           var overlapping = false;
           var blocking = false;
@@ -240,7 +232,7 @@ export class Arcade1Component implements OnInit {
         }
 
         // //POWERUP NO OVERLAP WITH OBJECTS AND POINTS
-        while (powerUps.length < numberOfPowerUps) {
+        while (powerUps.length < numberOfPowerUps && !menu) {
           powerUp = new PowerUp(
             p5,
             p5.random(3, 97),
@@ -272,12 +264,7 @@ export class Arcade1Component implements OnInit {
 
         // //KEYS NO OVERLAP WITH OBJECTS AND POINTS
         while (keys.length < numberOfKeys) {
-          key = new Key(
-            p5,
-            p5.random(3, 97),
-            p5.random(3, 97),
-            2
-          );
+          key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
           var overlapping = false;
           for (let j = 0; j < obstacles.length; j++) {
             var other = obstacles[j];
@@ -380,6 +367,101 @@ export class Arcade1Component implements OnInit {
             borderColor1
           );
         }
+        
+        powerUp = new PowerUp(p5, 51, 49, 2, 'red');
+        powerUps.push(powerUp);
+        console.log(powerUps)
+      };
+        
+      const drawMenu = () => {
+        p5.push();
+        p5.background(0);
+        p5.pop();
+
+        p5.push();
+        p5.noFill();
+        p5.stroke('blue');
+        p5.strokeWeight(p5.random(0.1, 0.3));
+        p5.rect(50, 50, 99.5, 99.5);
+        p5.pop();
+
+        p5.push();
+        p5.noFill();
+        p5.stroke('#77fc03');
+        p5.strokeWeight(p5.random(0.1, 0.3));
+        p5.rect(50, 50, 99, 99);
+        p5.pop();
+
+        p5.push();
+        p5.noFill();
+        p5.stroke('red');
+        p5.strokeWeight(p5.random(0.1, 0.3));
+        p5.rect(50, 50, 98.5, 98.5);
+        p5.pop();
+
+        //title
+        p5.push();
+        p5.textFont(mainFont);
+        p5.noFill();
+        p5.stroke('#77fc03');
+        p5.strokeWeight(p5.random(0.1, 0.2));
+        p5.textSize(10);
+        p5.text('SNAKE-EATER', 8, 35);
+        p5.pop();
+
+        p5.push();
+        p5.textFont(mainFont);
+        p5.noFill();
+        p5.stroke('blue');
+        p5.strokeWeight(p5.random(0, 0.15));
+        p5.textSize(9.9);
+        p5.text('SNAKE-EATER', 8.5, 35);
+        p5.pop();
+
+        p5.push();
+        p5.textFont(mainFont);
+        p5.noFill();
+        p5.stroke('#77fc03');
+        p5.strokeWeight(p5.random(0.1, 0.2));
+        p5.textSize(2.4);
+        p5.text('GOAL: COLLECT AS MANY FLIES AND POWERUPS AS YOU CAN!', 8, 45);
+        p5.pop();
+
+        p5.push();
+        p5.textFont(mainFont);
+        p5.noFill();
+        p5.stroke('#ff0000');
+        p5.strokeWeight(p5.random(0.1, 0.2));
+        p5.textSize(2.6);
+        p5.text('CONTROLS:', 43, 53);
+        p5.pop();
+
+        p5.push();
+        p5.textFont(mainFont);
+        p5.noFill();
+        p5.stroke('#ff0000');
+        p5.strokeWeight(p5.random(0.1, 0.2));
+        p5.textSize(3.2);
+        p5.text('MOVE: ARROW KEYS VENOM: SPACEBAR', 15, 60);
+        p5.pop();
+
+        p5.push();
+        p5.textFont(mainFont);
+        p5.noFill();
+        p5.stroke('#ff03ab');
+        p5.strokeWeight(p5.random(0.1, 0.2));
+        p5.textSize(5.7);
+        p5.text('START GAME: ENTER KEY', 8, 70);
+        p5.pop();
+
+        p5.push();
+        p5.textFont(mainFont);
+        p5.noFill();
+        p5.stroke('green');
+        p5.strokeWeight(p5.random(0, 0.15));
+        p5.textSize(5.6);
+        p5.text('START GAME: ENTER KEY', 8.75, 70);
+        p5.pop();
       };
 
       //DRAW//
@@ -388,414 +470,403 @@ export class Arcade1Component implements OnInit {
       p5.draw = () => {
         p5.scale(rez);
         p5.background(0);
-
-        //Red Border
-        // p5.push();
-        // p5.fill(0);
-        // p5.strokeWeight(0.5);
-        // p5.stroke('red');
-        // // p5.rectMode(p5.CENTER);
-        // p5.rect(p5.width / 2.8 / 10, p5.height / 2 / 10, 99, 100);
-        // p5.pop();
-
-        //OBSTACLES RENDER
-        for (var i = 0; i < obstacles.length; i++) {
-          obstacles[i].render(p5);
-        }
-
-        //POINTS RENDER
-        for (var i = 1; i < points.length; i++) {
-          points[i].render(p5);
-        }
-
-        //POWERUPS RENDER
-        for (var i = 1; i < powerUps.length; i++) {
-          powerUps[i].render(p5);
-        }
-
-        for (var i = 1; i < keys.length; i++) {
-          //KEYS RENDER
-          if (keysToCollect >= 1) {
-            keys[i].render(p5);
+        if (menu == true) {
+          numberOfPowerUps = 0;
+          drawMenu();
+          snake.demo();
+          snake.update(p5, r);
+          snake.show(p5, r);
+          for (let i = 0; i < powerUps.length; i++) {
+            powerUps[i].render(p5)
+            if (snake.eatPowerUp(powerUps[i], p5)) {
+                  snake.grow();
+                  snake.grow();
+                  snake.grow();
+                  snake.grow();
+                  snake.grow();
+                  snake.grow();
+                  getPowerUp(powerUps, powerUps[i]);
+            }
           }
-        }
+        } else {
 
-        // obstacle.render(p5); //glass
+          //OBSTACLES RENDER
+          for (var i = 0; i < obstacles.length; i++) {
+            obstacles[i].render(p5);
+          }
 
-        //SCORE TEXT RENDERING
-        p5.push();
-        p5.textFont(mainFont);
-        p5.textSize(8);
-        p5.fill(mainTextFillColor);
-        p5.stroke(255);
-        p5.strokeWeight(p5.random(0.1, 0.15));
-        p5.text('Score:', 104, 10);
-        p5.pop();
+          //POINTS RENDER
+          for (var i = 1; i < points.length; i++) {
+            points[i].render(p5);
+          }
 
-        //SCORE NUMBER RENDERING
-        p5.push();
-        p5.textFont(mainFont);
-        p5.textSize(5);
-        p5.fill(mainTextFillColor);
-        p5.stroke(255);
-        p5.strokeWeight(p5.random(0.1, 0.15));
-        p5.text(scoreCount, 104, 15);
-        p5.pop();
+          //POWERUPS RENDER
+          for (var i = 1; i < powerUps.length; i++) {
+            if (!menu) {
+              powerUps[i].render(p5);
+            }
+          }
 
-        //SIDEBAR TEXT RENDERING
-        if (livesLeft >= 0 || p5.key == 'y') {
+          for (var i = 1; i < keys.length; i++) {
+            //KEYS RENDER
+            if (keysToCollect >= 1) {
+              keys[i].render(p5);
+            }
+          }
 
-          // LIVES LEFT
+          //SCORE TEXT RENDERING
           p5.push();
           p5.textFont(mainFont);
           p5.textSize(8);
           p5.fill(mainTextFillColor);
           p5.stroke(255);
           p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text('Lives:' + livesLeft, 103, 25);
+          p5.text('Score:', 104, 10);
           p5.pop();
 
-          //LEGEND
+          //SCORE NUMBER RENDERING
           p5.push();
           p5.textFont(mainFont);
           p5.textSize(5);
-          p5.fill(200);
+          p5.fill(mainTextFillColor);
           p5.stroke(255);
           p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text('legend:', 108, 35);
+          p5.text(scoreCount, 104, 15);
           p5.pop();
 
-          ////POWERUP////
+          //SIDEBAR TEXT RENDERING
+          if (livesLeft >= 0 || p5.key == 'y') {
+            // LIVES LEFT
+            p5.push();
+            p5.textFont(mainFont);
+            p5.textSize(8);
+            p5.fill(mainTextFillColor);
+            p5.stroke(255);
+            p5.strokeWeight(p5.random(0.1, 0.15));
+            p5.text('Lives:' + livesLeft, 103, 25);
+            p5.pop();
 
-          //shadow
-          p5.push();
-          p5.fill('rgba(255, 0, 0, .3)');
-          p5.stroke('rgba(255, 0, 0, .3)')
-          p5.strokeWeight(p5.random(0, 2));
-          p5.rectMode(p5.CENTER);
-          p5.translate(109, 39);
-          p5.ellipse(0, 0, 3, 3);
-          p5.pop();
+            //LEGEND
+            p5.push();
+            p5.textFont(mainFont);
+            p5.textSize(5);
+            p5.fill(200);
+            p5.stroke(255);
+            p5.strokeWeight(p5.random(0.1, 0.15));
+            p5.text('legend:', 108, 35);
+            p5.pop();
 
-          //main
-          p5.push();
-          p5.fill('red');
-          p5.rectMode(p5.CENTER);
-          p5.translate(109, 39);
-          p5.ellipse(0, 0, 3, 3);
-          p5.pop();
+            ////POWERUP////
 
-          //P TEXT
-          p5.push();
-          p5.fill('white');
-          p5.textSize(2);
-          p5.text('P', 109 - .6, 39 + .6);
-          p5.pop();
+            //shadow
+            p5.push();
+            p5.fill('rgba(255, 0, 0, .3)');
+            p5.stroke('rgba(255, 0, 0, .3)');
+            p5.strokeWeight(p5.random(0, 2));
+            p5.rectMode(p5.CENTER);
+            p5.translate(109, 39);
+            p5.ellipse(0, 0, 3, 3);
+            p5.pop();
 
-          // TEXT
+            //main
+            p5.push();
+            p5.fill('red');
+            p5.rectMode(p5.CENTER);
+            p5.translate(109, 39);
+            p5.ellipse(0, 0, 3, 3);
+            p5.pop();
+
+            //P TEXT
+            p5.push();
+            p5.fill('white');
+            p5.textSize(2);
+            p5.text('P', 109 - 0.6, 39 + 0.6);
+            p5.pop();
+
+            // TEXT
+            p5.push();
+            p5.textFont(mainFont);
+            p5.textSize(3);
+            p5.fill(200);
+            p5.stroke(255);
+            p5.strokeWeight(p5.random(0.1, 0.15));
+            p5.text(' - powerup', 111, 40);
+            p5.pop();
+
+            ////KEY////
+
+            //shadow
+            p5.push();
+            p5.fill('rgba(218,165,32, .3)');
+            p5.stroke('rgba(218,165,32, .3)');
+            p5.strokeWeight(p5.random(0, 2));
+            p5.rectMode(p5.CENTER);
+            p5.translate(109, 45);
+            p5.ellipse(0, 0, 3, 3);
+            p5.pop();
+
+            //main
+            p5.push();
+            p5.fill('rgb(218,165,32)');
+            p5.rectMode(p5.CENTER);
+            p5.translate(109, 45);
+            p5.ellipse(0, 0, 3, 3);
+            p5.pop();
+
+            //K TEXT
+            p5.push();
+            p5.fill('black');
+            p5.textSize(2);
+            p5.text('K', 109 - 0.6, 45 + 0.6);
+            p5.pop();
+
+            // TEXT
+            p5.push();
+            p5.textFont(mainFont);
+            p5.textSize(3);
+            p5.fill(200);
+            p5.stroke(255);
+            p5.strokeWeight(p5.random(0.1, 0.15));
+            p5.text(' - key', 111, 46);
+            p5.pop();
+
+            ////POINTS////
+
+            p5.push();
+            p5.fill('white');
+            p5.rectMode(p5.CENTER);
+            p5.translate(109, 50);
+            p5.ellipse(p5.random(0, 0.07), 0, 2, 2);
+            p5.pop();
+
+            // TEXT
+            p5.push();
+            p5.textFont(mainFont);
+            p5.textSize(3);
+            p5.fill(200);
+            p5.stroke(255);
+            p5.strokeWeight(p5.random(0.1, 0.15));
+            p5.text(' - +100 Points', 111, 51);
+            p5.pop();
+          } else {
+            //GAME
+            p5.push();
+            p5.textFont(mainFont);
+            p5.textSize(8);
+            p5.fill(255, 0, 0);
+            p5.stroke(255);
+            p5.strokeWeight(p5.random(0.1, 0.15));
+            p5.text('GAME', 108, 45);
+            p5.pop();
+
+            //OVER
+            p5.push();
+            p5.textFont(mainFont);
+            p5.textSize(8);
+            p5.fill(255, 0, 0);
+            p5.stroke(255);
+            p5.strokeWeight(p5.random(0.1, 0.15));
+            p5.text('OVER', 108, 55);
+            p5.pop();
+
+            //PRESS Y TO CONTINUE
+            p5.push();
+            p5.textFont(mainFont);
+            p5.textSize(2);
+            p5.fill(255, 0, 0);
+            p5.stroke(255);
+            p5.strokeWeight(p5.random(0.1, 0.15));
+            p5.text('press y to continue', 107, 60);
+            p5.pop();
+          }
+
+          //KEYS REMAINING RENDERING
           p5.push();
           p5.textFont(mainFont);
           p5.textSize(3);
-          p5.fill(200);
+          p5.fill(mainTextFillColor);
           p5.stroke(255);
-          p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text(' - powerup', 111, 40);
+          p5.strokeWeight(p5.random(0.07, 0.1));
+          p5.text('Keys Remaining:' + keysToCollect, 105, 96);
           p5.pop();
 
-          ////KEY////
-
-          //shadow
-          p5.push();
-          p5.fill('rgba(218,165,32, .3)');
-          p5.stroke('rgba(218,165,32, .3)')
-          p5.strokeWeight(p5.random(0, 2));
-          p5.rectMode(p5.CENTER);
-          p5.translate(109, 45);
-          p5.ellipse(0, 0, 3, 3);
-          p5.pop();
-
-          //main
-          p5.push();
-          p5.fill('rgb(218,165,32)');
-          p5.rectMode(p5.CENTER);
-          p5.translate(109, 45);
-          p5.ellipse(0, 0, 3, 3);
-          p5.pop();
-
-          //K TEXT
-          p5.push();
-          p5.fill('black');
-          p5.textSize(2);
-          p5.text('K', 109 - .6, 45 + .6);
-          p5.pop();
-
-          // TEXT
-          p5.push();
-          p5.textFont(mainFont);
-          p5.textSize(3);
-          p5.fill(200);
-          p5.stroke(255);
-          p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text(' - key', 111, 46);
-          p5.pop();
-
-          ////POINTS////
-
-          p5.push();
-          p5.fill('white');
-          p5.rectMode(p5.CENTER);
-          p5.translate(109, 50);
-          p5.ellipse(p5.random(0, .07), 0, 2, 2);
-          p5.pop();
-
-          // TEXT
-          p5.push();
-          p5.textFont(mainFont);
-          p5.textSize(3);
-          p5.fill(200);
-          p5.stroke(255);
-          p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text(' - +100 Points', 111, 51);
-          p5.pop();
-
-        } else {
-
-          //GAME
+          //LEVEL INDICATOR RENDERING
           p5.push();
           p5.textFont(mainFont);
           p5.textSize(8);
-          p5.fill(255, 0, 0);
+          p5.fill(mainTextFillColor);
           p5.stroke(255);
           p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text('GAME', 108, 45);
+          p5.text('Level:' + levelIndicator, 103, 90);
           p5.pop();
 
-          //OVER
-          p5.push();
-          p5.textFont(mainFont);
-          p5.textSize(8);
-          p5.fill(255, 0, 0);
-          p5.stroke(255);
-          p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text('OVER', 108, 55);
-          p5.pop();
-
-          //PRESS Y TO CONTINUE
-          p5.push();
-          p5.textFont(mainFont);
-          p5.textSize(2);
-          p5.fill(255, 0, 0);
-          p5.stroke(255);
-          p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text('press y to continue', 107, 60);
-          p5.pop();
-        }
-
-        //KEYS REMAINING RENDERING
-        p5.push();
-        p5.textFont(mainFont);
-        p5.textSize(3);
-        p5.fill(mainTextFillColor);
-        p5.stroke(255);
-        p5.strokeWeight(p5.random(0.07, 0.1));
-        p5.text('Keys Remaining:' + keysToCollect, 105, 96);
-        p5.pop();
-
-        //LEVEL INDICATOR RENDERING
-        p5.push();
-        p5.textFont(mainFont);
-        p5.textSize(8);
-        p5.fill(mainTextFillColor);
-        p5.stroke(255);
-        p5.strokeWeight(p5.random(0.1, 0.15));
-        p5.text('Level:' + levelIndicator, 103, 90);
-        p5.pop();
-
-        //OBSTACLE BORDER RENDER
-        for (var i = 0; i < topBorder.length; i++) {
-          p5.push();
-          p5.strokeWeight(0.2);
-          p5.stroke(0);
-          topBorder[i].render(p5);
-          p5.pop();
-        }
-        for (var i = 0; i < rightBorderTop.length; i++) {
-          p5.push();
-          p5.strokeWeight(0.2);
-          p5.stroke(0);
-          rightBorderTop[i].render(p5);
-          p5.pop();
-        }
-        for (var i = 0; i < doorTrigger.length; i++) {
-          if (keysToCollect > 0) {
+          //OBSTACLE BORDER RENDER
+          for (var i = 0; i < topBorder.length; i++) {
             p5.push();
             p5.strokeWeight(0.2);
             p5.stroke(0);
-            doorTrigger[i].render(p5);
+            topBorder[i].render(p5);
             p5.pop();
           }
-        }
-        for (var i = 0; i < rightBorderBottom.length; i++) {
-          p5.push();
-          p5.strokeWeight(0.2);
-          p5.stroke(0);
-          rightBorderBottom[i].render(p5);
-          p5.pop();
-        }
-        for (var i = 0; i < bottomBorder.length; i++) {
-          p5.push();
-          p5.strokeWeight(0.2);
-          p5.stroke(0);
-          bottomBorder[i].render(p5);
-          p5.pop();
-        }
-        for (var i = 0; i < leftBorderTop.length; i++) {
-          p5.push();
-          p5.strokeWeight(0.2);
-          p5.stroke(0);
-          leftBorderTop[i].render(p5);
-          p5.pop();
-        }
-        for (var i = 0; i < leftBorderBottom.length; i++) {
-          p5.push();
-          p5.strokeWeight(0.2);
-          p5.stroke(0);
-          leftBorderBottom[i].render(p5);
-          p5.pop();
-        }
-
-        const borderObstacles = topBorder.concat(
-          rightBorderTop,
-          rightBorderBottom,
-          bottomBorder,
-          leftBorderBottom,
-          leftBorderTop
-        );
-
-        for (let i = 0; i < borderObstacles.length; i++) {
-          if (collide(borderObstacles[i], snake).totalDist) {
-            while (collide(borderObstacles[i], snake).totalDist) {
-              if (snake.xdir > 0) {
-                snake.body[snake.body.length - 1].x -= 0.2;
-              } else if (snake.xdir < 0) {
-                snake.body[snake.body.length - 1].x += 0.2;
-              } else if (snake.ydir > 0) {
-                snake.body[snake.body.length - 1].y -= 0.2;
-              } else if (snake.ydir < 0) {
-                snake.body[snake.body.length - 1].y += 0.2;
-              }
-              move = false;
-            }
-          }
-        }
-
-        for (let i = 0; i < obstacles.length; i++) {
-          if (collide(obstacles[i], snake).totalDist) {
-            if (livesLeft >= 0) {
-              p5.setup();
-              livesLeft -= 1;
-            } else {
-              scoreCount = 0;
-              p5.setup();
-            }
-          }
-        }
-
-        if (livesLeft >= 0) {
-          snake.show(p5, r);
-          if (move) {
+          for (var i = 0; i < rightBorderTop.length; i++) {
             p5.push();
-            p5.strokeWeight(p5.random(0.5, 0.75));
+            p5.strokeWeight(0.2);
+            p5.stroke(0);
+            rightBorderTop[i].render(p5);
             p5.pop();
-            snake.update();
           }
-        }
-
-        for (let i = 0; i < powerUps.length; i++) {
-          if (snake.eatPowerUp(powerUps[i], p5)) {
-            snake.grow();
-            getPowerUp(powerUps, powerUps[i]);
-          }
-        }
-
-        for (let i = 0; i < keys.length; i++) {
-          if (snake.eatKey(keys[i], p5)) {
-            getKey(keys, keys[i]);
-            console.log(keys)
-          }
-        }
-
-        for (let i = 0; i < points.length; i++) {
-          if (snake.eatPoint(points[i], p5)) {
-            getPoint(points, points[i]);
-          }
-        }
-
-
-
-        // Venom rendering
-        // for (var k = 0; k < mVenom.length; k++) {
-        //   mVenom[k].show(p5);
-        //   // mVenom[k].update(p5);
-        //   if (mVenom[k].dissipate()) {
-        //     mVenom.splice(k, 1);
-        //     break;
-        //   }
-        // }
-
-        for (var i = mVenom.length - 1; i >= 0; i--) {
-          mVenom[i].update(snake)
-          mVenom[i].show(p5);
-
-          // if (snake.dir == 'RIGHT') {
-          //   //venom velocity +1 on x
-          // } else if (snake.dir == 'LEFT') {
-          //   //venom velocity -1 on x
-          // } else if (snake.dir == 'DOWN') {
-          //   //venom velocity +1 on y
-          // } else if (snake.dir == 'UP') {
-          //   //venom velocity -1 on y
-          // }
-        }
-
-        for (var i = 0; i < doorTrigger.length; i++) {
-          //NEXT LEVEL TRIGGER
-          if (collide(doorTrigger[i], snake).totalDist && keysToCollect <= 0) {
-            obstacles.length = 0;
-            points.length = 0;
-            // numberOfObstacles += 5;
-            p5.setup();
-            levelIndicator += 1;
-            for (var i = 1; i <= levelIndicator; i++) {
-              keysToCollect++;
+          for (var i = 0; i < doorTrigger.length; i++) {
+            if (keysToCollect > 0) {
+              p5.push();
+              p5.strokeWeight(0.2);
+              p5.stroke(0);
+              doorTrigger[i].render(p5);
+              p5.pop();
             }
-            //RESET SNAKE AND LAYOUT TO DEFAULT...
-          } else if (collide(doorTrigger[i], snake).totalDist) {
-            while (collide(doorTrigger[i], snake).totalDist) {
-              if (snake.xdir > 0) {
-                snake.body[snake.body.length - 1].x -= 0.2;
-              } else if (snake.xdir < 0) {
-                snake.body[snake.body.length - 1].x += 0.2;
-              } else if (snake.ydir > 0) {
-                snake.body[snake.body.length - 1].y -= 0.2;
-              } else if (snake.ydir < 0) {
-                snake.body[snake.body.length - 1].y += 0.2;
+          }
+          for (var i = 0; i < rightBorderBottom.length; i++) {
+            p5.push();
+            p5.strokeWeight(0.2);
+            p5.stroke(0);
+            rightBorderBottom[i].render(p5);
+            p5.pop();
+          }
+          for (var i = 0; i < bottomBorder.length; i++) {
+            p5.push();
+            p5.strokeWeight(0.2);
+            p5.stroke(0);
+            bottomBorder[i].render(p5);
+            p5.pop();
+          }
+          for (var i = 0; i < leftBorderTop.length; i++) {
+            p5.push();
+            p5.strokeWeight(0.2);
+            p5.stroke(0);
+            leftBorderTop[i].render(p5);
+            p5.pop();
+          }
+          for (var i = 0; i < leftBorderBottom.length; i++) {
+            p5.push();
+            p5.strokeWeight(0.2);
+            p5.stroke(0);
+            leftBorderBottom[i].render(p5);
+            p5.pop();
+          }
+
+          const borderObstacles = topBorder.concat(
+            rightBorderTop,
+            rightBorderBottom,
+            bottomBorder,
+            leftBorderBottom,
+            leftBorderTop
+          );
+
+          for (let i = 0; i < borderObstacles.length; i++) {
+            if (collide(borderObstacles[i], snake).totalDist) {
+              while (collide(borderObstacles[i], snake).totalDist) {
+                if (snake.xdir > 0) {
+                  snake.body[snake.body.length - 1].x -= 0.2;
+                } else if (snake.xdir < 0) {
+                  snake.body[snake.body.length - 1].x += 0.2;
+                } else if (snake.ydir > 0) {
+                  snake.body[snake.body.length - 1].y -= 0.2;
+                } else if (snake.ydir < 0) {
+                  snake.body[snake.body.length - 1].y += 0.2;
+                }
+                move = false;
               }
-              move = false;
+            }
+          }
+
+          for (let i = 0; i < obstacles.length; i++) {
+            if (collide(obstacles[i], snake).totalDist) {
+              if (livesLeft >= 0) {
+                p5.setup();
+                livesLeft -= 1;
+              } else {
+                scoreCount = 0;
+                p5.setup();
+              }
+            }
+          }
+
+          if (livesLeft >= 0) {
+            snake.show(p5, r);
+            if (move) {
+              p5.push();
+              p5.strokeWeight(p5.random(0.5, 0.75));
+              p5.pop();
+              snake.update();
+            }
+          }
+
+          for (let i = 0; i < powerUps.length; i++) {
+            if (snake.eatPowerUp(powerUps[i], p5)) {
+              snake.grow();
+              getPowerUp(powerUps, powerUps[i]);
+            }
+          }
+
+          for (let i = 0; i < keys.length; i++) {
+            if (snake.eatKey(keys[i], p5)) {
+              getKey(keys, keys[i]);
+              console.log(keys);
+            }
+          }
+
+          for (let i = 0; i < points.length; i++) {
+            if (snake.eatPoint(points[i], p5)) {
+              getPoint(points, points[i]);
+            }
+          }
+
+          for (var i = mVenom.length - 1; i >= 0; i--) {
+            mVenom[i].update(snake);
+            mVenom[i].show(p5);
+          }
+
+          for (var i = 0; i < doorTrigger.length; i++) {
+            //NEXT LEVEL TRIGGER
+            if (
+              collide(doorTrigger[i], snake).totalDist &&
+              keysToCollect <= 0
+            ) {
+              obstacles.length = 0;
+              points.length = 0;
+              // numberOfObstacles += 5;
+              p5.setup();
+              levelIndicator += 1;
+              for (var i = 1; i <= levelIndicator; i++) {
+                keysToCollect++;
+              }
+              //RESET SNAKE AND LAYOUT TO DEFAULT...
+            } else if (collide(doorTrigger[i], snake).totalDist) {
+              while (collide(doorTrigger[i], snake).totalDist) {
+                if (snake.xdir > 0) {
+                  snake.body[snake.body.length - 1].x -= 0.2;
+                } else if (snake.xdir < 0) {
+                  snake.body[snake.body.length - 1].x += 0.2;
+                } else if (snake.ydir > 0) {
+                  snake.body[snake.body.length - 1].y -= 0.2;
+                } else if (snake.ydir < 0) {
+                  snake.body[snake.body.length - 1].y += 0.2;
+                }
+                move = false;
+              }
             }
           }
         }
       };
 
-
-
       p5.keyPressed = () => {
-        if (p5.key == ' ' && move) {
+        if (p5.keyCode == p5.ENTER) {
+          p5.setup();
+          menu = false;
+        } else if (p5.key == ' ' && move) {
           mVenom.push(
             new Venom(p5, snake.body[0].x, snake.body[0].y, 1, snake)
           );
           console.log(mVenom);
-          // mVenom.push(new Venom(p5, 40, 40));
         } else if (p5.keyCode == p5.LEFT_ARROW) {
           move = true;
           snake.setDir(-1, 0);

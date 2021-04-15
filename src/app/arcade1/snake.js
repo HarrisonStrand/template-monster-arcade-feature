@@ -14,6 +14,10 @@ export default class Snake {
     this.dir = '';
   }
 
+  demo() {
+    this.xdir = 1;
+  }
+
   verticies(p5) {
     var snakeVerticies = [
       this.body[this.body.length -1].add(p5.createVector(-this.r / 2, this.r /2), this.body[0]), // bottom left corner
