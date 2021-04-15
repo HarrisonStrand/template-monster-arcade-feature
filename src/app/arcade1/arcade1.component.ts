@@ -2,9 +2,16 @@
 // Random enemy objects that move across the map?
 // food and powerups that do different things??
 // SNAKE LIVES AS ARRAY OF IMAGES - IF DEATH, SPLICE ONE SNAKE OUT OF THE ARRAY
-// stroke color of obstacles are darker as they go in to appear like a hole
-// snake flashes red color with a time wait before reset when hitting obstacles
+// snake flashes red color with a time wait before reset when hitting obstacles - indicating death
 // fix overlapping bug for keys, powerups, and obstacles when next level is triggered
+
+// powerups render on level 1!
+// create set new room function
+// total reset function
+
+
+//lengthen snake
+//refactor?
 
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
@@ -15,6 +22,9 @@ import Point from './points';
 import PowerUp from './powerUp';
 import Key from './key';
 import Venom from './venom';
+import Hud from './hud'
+import { drawMenu } from "./menu"
+import { collide, getPowerUp, getKey } from "./utilities"
 
 @Component({
   selector: 'app-arcade1',
@@ -25,151 +35,77 @@ export class Arcade1Component implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+
     const borderColor1 = '#aaa9ad';
     const doorTriggerColor = 'blue';
     const mainTextFillColor = '#4E0DFF';
     let snake: any;
     let move: boolean = false;
-    let points: Array<any> = [];
     let mVenom: Array<any> = [];
     let obstacles: Array<any> = [];
+    let hud: any;
+    // turn into border object
     let topBorder: Array<any> = [];
     let rightBorderTop: Array<any> = [];
-    let doorTrigger: Array<any> = [];
     let rightBorderBottom: Array<any> = [];
     let bottomBorder: Array<any> = [];
     let leftBorderTop: Array<any> = [];
     let leftBorderBottom: Array<any> = [];
+    //
+    let doorTrigger: Array<any> = [];
     let obstacle: any;
     let point: any;
     let rez = 10;
-    let r = 1;
     let w: any;
     let h: any;
     let powerUp: any;
+    let menuPowerUp: any;
     let powerUps: Array<any> = [];
-    let menu: boolean;
+    let menuPowerUps: Array<any> = [];
+    let menu: boolean = true;
     let key: any;
     let keys: Array<any> = [];
     let scoreCount: number = 0;
     let numberOfObstacles: number = 20;
     let sizeOfObstacles: number = 8; // NO HIGHER THAN 8!! MAYBE DO RANDOM??
+    let points: Array<any> = [];
     let numberOfPoints: number = 100;
     let pointSpread: number = 4; // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS
-    let numberOfPowerUps: number = 4; // ALWAYS ONE MORE THAN YOU WANT - BUG TO FIX
-    let numberOfKeys: number = 2; // ALWAYS ONE MORE THAN YOU WANT - BUG TO FIX
+    let numberOfPowerUps: number = 3;
+    let numberOfKeys: number = 2;
     let keysToCollect: number = 1;
     let mainFont: any;
     let levelIndicator: number = 1;
     let livesLeft: number = 3;
 
-    const collide = (obstacle: any, snake: any) => {
-      let axisHit = {
-        totalDist: false,
-        x: 0,
-        y: 0,
-      };
-
-      const end_of_array = snake.body.length - 1;
-      const distx =
-        (snake.body[end_of_array].x - obstacle.pos.x) *
-        (snake.body[end_of_array].x - obstacle.pos.x);
-      const disty =
-        (snake.body[end_of_array].y - obstacle.pos.y) *
-        (snake.body[end_of_array].y - obstacle.pos.y);
-
-      const dist = distx + disty;
-
-      if (
-        distx >
-        (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
-      ) {
-        axisHit.x = distx;
-      }
-      if (distx <= obstacle.r * 1.5) {
-        // radius size for snake
-        axisHit.x = distx;
-      }
-      if (distx <= obstacle.r * 1.5 && obstacle.pos.z < 0) {
-        axisHit.x = distx;
-      }
-      if (
-        disty >
-        (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
-      ) {
-        axisHit.y = disty;
-      }
-      if (disty <= obstacle.r * 1.5) {
-        // radius size for snake
-        axisHit.y = disty;
-      }
-      if (disty <= obstacle.r * 1.5 && obstacle.pos.z < 0) {
-        axisHit.y = disty;
-      }
-      if (
-        dist >
-        (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
-      ) {
-        axisHit.totalDist = false;
-      }
-      if (dist <= obstacle.r * 1.5) {
-        // radius size for snake
-        axisHit.totalDist = true;
-      }
-      if (dist <= obstacle.r * 1.5 && obstacle.pos.z < 0) {
-        axisHit.totalDist = false;
-      }
-      return axisHit;
-    };
 
     const sketch = (p5: any) => {
       //GET POWERUP
-      function getPowerUp(powerUps: any, value: any) {
-        var index = powerUps.indexOf(value);
-        if (index > -1) {
-          powerUps.splice(index, 1);
-        }
-        let num = 9;
-        let limit = 96;
-        const random = p5.random() * limit;
-        const res = p5.round(random / num) * num;
-        let x = res;
-        let y = res;
-        for (let i = 0; i < obstacles.length; i++) {
-          if (
-            p5.floor(powerUp.x) == p5.floor(obstacles[i].x + 5) &&
-            p5.floor(powerUp.y) == p5.floor(obstacles[i].y + 5) // DOES NOT WORK!!!
-          ) {
-            getPowerUp(powerUps, powerUps[i]);
-          }
-        }
-      }
+      // function getPowerUp(powerUps: any, value: any) {
+      //   var index = powerUps.indexOf(value);
+      //   if (index > -1) {
+      //     powerUps.splice(index, 1);
+      //   }
+      //   let num = 9;
+      //   let limit = 96;
+      //   const random = p5.random() * limit;
+      //   const res = p5.round(random / num) * num;
+      //   let x = res;
+      //   let y = res;
+      //   for (let i = 0; i < obstacles.length; i++) {
+      //     if (
+      //       p5.floor(powerUp.x) == p5.floor(obstacles[i].x + 5) &&
+      //       p5.floor(powerUp.y) == p5.floor(obstacles[i].y + 5) // DOES NOT WORK!!!
+      //     ) {
+      //       getPowerUp(powerUps, powerUps[i]);
+      //     }
+      //   }
+      // }
 
-      //GET KEY
-      function getKey(keys: any, value: any) {
-        var index = keys.indexOf(value);
+      function getMenuPowerUp(menuPowerUps: any, value: any) {
+        var index = menuPowerUps.indexOf(value);
         if (index > -1) {
-          keys.splice(index, 1);
-        }
-        let num = 9;
-        let limit = 96;
-        const random = p5.random() * limit;
-        const res = p5.round(random / num) * num;
-        let x = res;
-        let y = res;
-        key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
-        keysToCollect -= 1;
-        keys.push(key);
-        for (let i = 0; i < obstacles.length; i++) {
-          if (
-            p5.floor(key.x) == p5.floor(obstacles[i].x + 5) &&
-            p5.floor(key.y) == p5.floor(obstacles[i].y + 5) // DOES NOT WORK!!!
-          ) {
-            getKey(keys, keys[i]);
-          }
+          menuPowerUps.splice(index, 1);
         }
       }
 
@@ -186,19 +122,26 @@ export class Arcade1Component implements OnInit {
         mainFont = p5.loadFont('../../assets/fonts/Sabo-Filled.otf');
       };
 
-      //SETUP//
-      //////////////////////////////////////////////////////////////////////////////////////////////
+      const snakeReset = (p5: any) => {
+        snake = new Snake(p5, w, h);
+      }
 
-      p5.setup = () => {
+      const reset = (p5: any) => {
         p5.createCanvas(1400, 1000);
         p5.pixelDensity(1);
         w = p5.floor(p5.width / rez);
         h = p5.floor(p5.height / rez);
         p5.frameRate(30);
-        menu = true;
         snake = new Snake(p5, w, h);
         key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
         obstacle = new Obstacle(p5, 90, 55, 1, 4); // glass square to go through
+        hud = new Hud(mainFont, mainTextFillColor)
+
+        obstacles = []
+        keys = []
+        powerUps = []
+        points = []
+        
 
         //RANDOM INNER OBSTACLE LAYOUT
         while (obstacles.length < numberOfObstacles) {
@@ -231,6 +174,7 @@ export class Arcade1Component implements OnInit {
           }
         }
 
+        console.log(menu);
         // //POWERUP NO OVERLAP WITH OBJECTS AND POINTS
         while (powerUps.length < numberOfPowerUps && !menu) {
           powerUp = new PowerUp(
@@ -245,6 +189,14 @@ export class Arcade1Component implements OnInit {
             var other = obstacles[j];
             var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
             if (d < powerUp.r * 4 + other.r) {
+              overlapping = true;
+              break;
+            }
+          }
+          for (let j = 0; j < powerUps.length; j++) {
+            var other = powerUps[j];
+            var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+            if (d < powerUp.r + other.r) {
               overlapping = true;
               break;
             }
@@ -367,144 +319,51 @@ export class Arcade1Component implements OnInit {
             borderColor1
           );
         }
-        
-        powerUp = new PowerUp(p5, 51, 49, 2, 'red');
-        powerUps.push(powerUp);
-        console.log(powerUps)
+
+        menuPowerUp = new PowerUp(p5, 51, 49, 2, 'red');
+        menuPowerUps.push(menuPowerUp);
+
+      }
+
+      p5.setup = () => {
+        reset(p5)
       };
-        
-      const drawMenu = () => {
-        p5.push();
-        p5.background(0);
-        p5.pop();
-
-        p5.push();
-        p5.noFill();
-        p5.stroke('blue');
-        p5.strokeWeight(p5.random(0.1, 0.3));
-        p5.rect(50, 50, 99.5, 99.5);
-        p5.pop();
-
-        p5.push();
-        p5.noFill();
-        p5.stroke('#77fc03');
-        p5.strokeWeight(p5.random(0.1, 0.3));
-        p5.rect(50, 50, 99, 99);
-        p5.pop();
-
-        p5.push();
-        p5.noFill();
-        p5.stroke('red');
-        p5.strokeWeight(p5.random(0.1, 0.3));
-        p5.rect(50, 50, 98.5, 98.5);
-        p5.pop();
-
-        //title
-        p5.push();
-        p5.textFont(mainFont);
-        p5.noFill();
-        p5.stroke('#77fc03');
-        p5.strokeWeight(p5.random(0.1, 0.2));
-        p5.textSize(10);
-        p5.text('SNAKE-EATER', 8, 35);
-        p5.pop();
-
-        p5.push();
-        p5.textFont(mainFont);
-        p5.noFill();
-        p5.stroke('blue');
-        p5.strokeWeight(p5.random(0, 0.15));
-        p5.textSize(9.9);
-        p5.text('SNAKE-EATER', 8.5, 35);
-        p5.pop();
-
-        p5.push();
-        p5.textFont(mainFont);
-        p5.noFill();
-        p5.stroke('#77fc03');
-        p5.strokeWeight(p5.random(0.1, 0.2));
-        p5.textSize(2.4);
-        p5.text('GOAL: COLLECT AS MANY FLIES AND POWERUPS AS YOU CAN!', 8, 45);
-        p5.pop();
-
-        p5.push();
-        p5.textFont(mainFont);
-        p5.noFill();
-        p5.stroke('#ff0000');
-        p5.strokeWeight(p5.random(0.1, 0.2));
-        p5.textSize(2.6);
-        p5.text('CONTROLS:', 43, 53);
-        p5.pop();
-
-        p5.push();
-        p5.textFont(mainFont);
-        p5.noFill();
-        p5.stroke('#ff0000');
-        p5.strokeWeight(p5.random(0.1, 0.2));
-        p5.textSize(3.2);
-        p5.text('MOVE: ARROW KEYS VENOM: SPACEBAR', 15, 60);
-        p5.pop();
-
-        p5.push();
-        p5.textFont(mainFont);
-        p5.noFill();
-        p5.stroke('#ff03ab');
-        p5.strokeWeight(p5.random(0.1, 0.2));
-        p5.textSize(5.7);
-        p5.text('START GAME: ENTER KEY', 8, 70);
-        p5.pop();
-
-        p5.push();
-        p5.textFont(mainFont);
-        p5.noFill();
-        p5.stroke('green');
-        p5.strokeWeight(p5.random(0, 0.15));
-        p5.textSize(5.6);
-        p5.text('START GAME: ENTER KEY', 8.75, 70);
-        p5.pop();
-      };
-
-      //DRAW//
-      //////////////////////////////////////////////////////////////////////////////////////////////
 
       p5.draw = () => {
         p5.scale(rez);
         p5.background(0);
-        if (menu == true) {
-          numberOfPowerUps = 0;
-          drawMenu();
+        if (menu) {
+          drawMenu(p5, mainFont);
           snake.demo();
-          snake.update(p5, r);
-          snake.show(p5, r);
-          for (let i = 0; i < powerUps.length; i++) {
-            powerUps[i].render(p5)
-            if (snake.eatPowerUp(powerUps[i], p5)) {
-                  snake.grow();
-                  snake.grow();
-                  snake.grow();
-                  snake.grow();
-                  snake.grow();
-                  snake.grow();
-                  getPowerUp(powerUps, powerUps[i]);
+          snake.update();
+          snake.show(p5);
+          for (let i = 0; i < menuPowerUps.length; i++) {
+            menuPowerUps[i].render(p5);
+            if (snake.eatPowerUp(menuPowerUps[i], p5)) {
+              snake.grow();
+              snake.grow();
+              snake.grow();
+              snake.grow();
+              snake.grow();
+              snake.grow();
+              getMenuPowerUp(menuPowerUps, menuPowerUps[i]);
             }
           }
         } else {
-
+          hud.render(p5, scoreCount, livesLeft, keysToCollect, levelIndicator)
           //OBSTACLES RENDER
           for (var i = 0; i < obstacles.length; i++) {
             obstacles[i].render(p5);
           }
 
           //POINTS RENDER
-          for (var i = 1; i < points.length; i++) {
+          for (var i = 0; i < points.length; i++) {
             points[i].render(p5);
           }
 
           //POWERUPS RENDER
-          for (var i = 1; i < powerUps.length; i++) {
-            if (!menu) {
-              powerUps[i].render(p5);
-            }
+          for (var i = 0; i < powerUps.length; i++) {
+            powerUps[i].render(p5);
           }
 
           for (var i = 1; i < keys.length; i++) {
@@ -513,192 +372,6 @@ export class Arcade1Component implements OnInit {
               keys[i].render(p5);
             }
           }
-
-          //SCORE TEXT RENDERING
-          p5.push();
-          p5.textFont(mainFont);
-          p5.textSize(8);
-          p5.fill(mainTextFillColor);
-          p5.stroke(255);
-          p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text('Score:', 104, 10);
-          p5.pop();
-
-          //SCORE NUMBER RENDERING
-          p5.push();
-          p5.textFont(mainFont);
-          p5.textSize(5);
-          p5.fill(mainTextFillColor);
-          p5.stroke(255);
-          p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text(scoreCount, 104, 15);
-          p5.pop();
-
-          //SIDEBAR TEXT RENDERING
-          if (livesLeft >= 0 || p5.key == 'y') {
-            // LIVES LEFT
-            p5.push();
-            p5.textFont(mainFont);
-            p5.textSize(8);
-            p5.fill(mainTextFillColor);
-            p5.stroke(255);
-            p5.strokeWeight(p5.random(0.1, 0.15));
-            p5.text('Lives:' + livesLeft, 103, 25);
-            p5.pop();
-
-            //LEGEND
-            p5.push();
-            p5.textFont(mainFont);
-            p5.textSize(5);
-            p5.fill(200);
-            p5.stroke(255);
-            p5.strokeWeight(p5.random(0.1, 0.15));
-            p5.text('legend:', 108, 35);
-            p5.pop();
-
-            ////POWERUP////
-
-            //shadow
-            p5.push();
-            p5.fill('rgba(255, 0, 0, .3)');
-            p5.stroke('rgba(255, 0, 0, .3)');
-            p5.strokeWeight(p5.random(0, 2));
-            p5.rectMode(p5.CENTER);
-            p5.translate(109, 39);
-            p5.ellipse(0, 0, 3, 3);
-            p5.pop();
-
-            //main
-            p5.push();
-            p5.fill('red');
-            p5.rectMode(p5.CENTER);
-            p5.translate(109, 39);
-            p5.ellipse(0, 0, 3, 3);
-            p5.pop();
-
-            //P TEXT
-            p5.push();
-            p5.fill('white');
-            p5.textSize(2);
-            p5.text('P', 109 - 0.6, 39 + 0.6);
-            p5.pop();
-
-            // TEXT
-            p5.push();
-            p5.textFont(mainFont);
-            p5.textSize(3);
-            p5.fill(200);
-            p5.stroke(255);
-            p5.strokeWeight(p5.random(0.1, 0.15));
-            p5.text(' - powerup', 111, 40);
-            p5.pop();
-
-            ////KEY////
-
-            //shadow
-            p5.push();
-            p5.fill('rgba(218,165,32, .3)');
-            p5.stroke('rgba(218,165,32, .3)');
-            p5.strokeWeight(p5.random(0, 2));
-            p5.rectMode(p5.CENTER);
-            p5.translate(109, 45);
-            p5.ellipse(0, 0, 3, 3);
-            p5.pop();
-
-            //main
-            p5.push();
-            p5.fill('rgb(218,165,32)');
-            p5.rectMode(p5.CENTER);
-            p5.translate(109, 45);
-            p5.ellipse(0, 0, 3, 3);
-            p5.pop();
-
-            //K TEXT
-            p5.push();
-            p5.fill('black');
-            p5.textSize(2);
-            p5.text('K', 109 - 0.6, 45 + 0.6);
-            p5.pop();
-
-            // TEXT
-            p5.push();
-            p5.textFont(mainFont);
-            p5.textSize(3);
-            p5.fill(200);
-            p5.stroke(255);
-            p5.strokeWeight(p5.random(0.1, 0.15));
-            p5.text(' - key', 111, 46);
-            p5.pop();
-
-            ////POINTS////
-
-            p5.push();
-            p5.fill('white');
-            p5.rectMode(p5.CENTER);
-            p5.translate(109, 50);
-            p5.ellipse(p5.random(0, 0.07), 0, 2, 2);
-            p5.pop();
-
-            // TEXT
-            p5.push();
-            p5.textFont(mainFont);
-            p5.textSize(3);
-            p5.fill(200);
-            p5.stroke(255);
-            p5.strokeWeight(p5.random(0.1, 0.15));
-            p5.text(' - +100 Points', 111, 51);
-            p5.pop();
-          } else {
-            //GAME
-            p5.push();
-            p5.textFont(mainFont);
-            p5.textSize(8);
-            p5.fill(255, 0, 0);
-            p5.stroke(255);
-            p5.strokeWeight(p5.random(0.1, 0.15));
-            p5.text('GAME', 108, 45);
-            p5.pop();
-
-            //OVER
-            p5.push();
-            p5.textFont(mainFont);
-            p5.textSize(8);
-            p5.fill(255, 0, 0);
-            p5.stroke(255);
-            p5.strokeWeight(p5.random(0.1, 0.15));
-            p5.text('OVER', 108, 55);
-            p5.pop();
-
-            //PRESS Y TO CONTINUE
-            p5.push();
-            p5.textFont(mainFont);
-            p5.textSize(2);
-            p5.fill(255, 0, 0);
-            p5.stroke(255);
-            p5.strokeWeight(p5.random(0.1, 0.15));
-            p5.text('press y to continue', 107, 60);
-            p5.pop();
-          }
-
-          //KEYS REMAINING RENDERING
-          p5.push();
-          p5.textFont(mainFont);
-          p5.textSize(3);
-          p5.fill(mainTextFillColor);
-          p5.stroke(255);
-          p5.strokeWeight(p5.random(0.07, 0.1));
-          p5.text('Keys Remaining:' + keysToCollect, 105, 96);
-          p5.pop();
-
-          //LEVEL INDICATOR RENDERING
-          p5.push();
-          p5.textFont(mainFont);
-          p5.textSize(8);
-          p5.fill(mainTextFillColor);
-          p5.stroke(255);
-          p5.strokeWeight(p5.random(0.1, 0.15));
-          p5.text('Level:' + levelIndicator, 103, 90);
-          p5.pop();
 
           //OBSTACLE BORDER RENDER
           for (var i = 0; i < topBorder.length; i++) {
@@ -781,17 +454,15 @@ export class Arcade1Component implements OnInit {
           for (let i = 0; i < obstacles.length; i++) {
             if (collide(obstacles[i], snake).totalDist) {
               if (livesLeft >= 0) {
-                p5.setup();
+                snakeReset(p5);
+                menu = false;
                 livesLeft -= 1;
-              } else {
-                scoreCount = 0;
-                p5.setup();
               }
             }
           }
 
           if (livesLeft >= 0) {
-            snake.show(p5, r);
+            snake.show(p5);
             if (move) {
               p5.push();
               p5.strokeWeight(p5.random(0.5, 0.75));
@@ -809,7 +480,8 @@ export class Arcade1Component implements OnInit {
 
           for (let i = 0; i < keys.length; i++) {
             if (snake.eatKey(keys[i], p5)) {
-              getKey(keys, keys[i]);
+              getKey(p5, keys, keys[i]);
+              keysToCollect -= 1;
               console.log(keys);
             }
           }
@@ -823,6 +495,9 @@ export class Arcade1Component implements OnInit {
           for (var i = mVenom.length - 1; i >= 0; i--) {
             mVenom[i].update(snake);
             mVenom[i].show(p5);
+            if (mVenom[i].offscreen()) {
+              mVenom.splice(i, 1);
+            }
           }
 
           for (var i = 0; i < doorTrigger.length; i++) {
@@ -834,10 +509,14 @@ export class Arcade1Component implements OnInit {
               obstacles.length = 0;
               points.length = 0;
               // numberOfObstacles += 5;
-              p5.setup();
+              reset(p5);
+              menu = false;
               levelIndicator += 1;
               for (var i = 1; i <= levelIndicator; i++) {
                 keysToCollect++;
+                if (levelIndicator > 3) {
+                  keysToCollect = 3;
+                }
               }
               //RESET SNAKE AND LAYOUT TO DEFAULT...
             } else if (collide(doorTrigger[i], snake).totalDist) {
@@ -859,8 +538,9 @@ export class Arcade1Component implements OnInit {
       };
 
       p5.keyPressed = () => {
-        if (p5.keyCode == p5.ENTER) {
-          p5.setup();
+        if (p5.keyCode == p5.ENTER && menu) {
+          getMenuPowerUp(menuPowerUps, menuPowerUps[0]);
+          reset(p5);
           menu = false;
         } else if (p5.key == ' ' && move) {
           mVenom.push(
@@ -884,7 +564,7 @@ export class Arcade1Component implements OnInit {
           livesLeft = 3;
           obstacles.length = 0;
           points.length = 0;
-          p5.setup();
+          reset(p5);
         }
       };
     };

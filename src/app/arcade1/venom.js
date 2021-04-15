@@ -2,15 +2,11 @@ import * as p5 from "p5";
 import { lineIntersect } from "./utilities";
 
 export default function Venom(p5, x, y, r, snake) {
-  // this.pos = p5.createVector(spos.x, spos.y);
   this.x = x;
   this.y = y;
   this.r = r;
   this.xdir = snake.xdir;
   this.ydir = snake.ydir;
-  // this.vel = p5.Vector.fromAngle(angle);
-  // this.vel.p5.mult(10);
-  // this.toDelete = false;
 
   this.show = function (p5) {
     p5.push();
@@ -30,7 +26,13 @@ export default function Venom(p5, x, y, r, snake) {
     this.y += this.ydir*2;
   };
 
-  this.dissipate = function () {
-    this.toDelete = true;
-  };
+  this.offscreen = function() {
+    if (this.x > 100 || this.x < 0) {
+      return true;
+    }
+    if (this.y > 100 || this.y < 0) {
+      return true;
+    }
+    return false;
+  }
 }
