@@ -4,6 +4,7 @@
 // SNAKE LIVES AS ARRAY OF IMAGES - IF DEATH, SPLICE ONE SNAKE OUT OF THE ARRAY
 // stroke color of obstacles are darker as they go in to appear like a hole
 // snake flashes red color with a time wait before reset when hitting obstacles
+// fix overlapping bug for keys, powerups, and obstacles when next level is triggered
 
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
@@ -21,10 +22,9 @@ import Venom from './venom';
   styleUrls: ['./arcade1.component.css'],
 })
 export class Arcade1Component implements OnInit {
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
-    const obstacleColor1 = '#0010CF';
     const borderColor1 = '#aaa9ad';
     const doorTriggerColor = 'blue';
     const mainTextFillColor = '#4E0DFF';
@@ -51,7 +51,7 @@ export class Arcade1Component implements OnInit {
     let key: any;
     let keys: Array<any> = [];
     let scoreCount: number = 0;
-    let numberOfObstacles: number = 10;
+    let numberOfObstacles: number = 20;
     let sizeOfObstacles: number = 8; // NO HIGHER THAN 8!! MAYBE DO RANDOM??
     let numberOfPoints: number = 100;
     let pointSpread: number = 4; // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS
@@ -82,7 +82,7 @@ export class Arcade1Component implements OnInit {
       if (
         distx >
         (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
+        (obstacle.r + snake.body[end_of_array].r)
       ) {
         axisHit.x = distx;
       }
@@ -96,7 +96,7 @@ export class Arcade1Component implements OnInit {
       if (
         disty >
         (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
+        (obstacle.r + snake.body[end_of_array].r)
       ) {
         axisHit.y = disty;
       }
@@ -110,7 +110,7 @@ export class Arcade1Component implements OnInit {
       if (
         dist >
         (obstacle.r + snake.body[end_of_array].r) *
-          (obstacle.r + snake.body[end_of_array].r)
+        (obstacle.r + snake.body[end_of_array].r)
       ) {
         axisHit.totalDist = false;
       }
@@ -139,8 +139,8 @@ export class Arcade1Component implements OnInit {
         let y = res;
         for (let i = 0; i < obstacles.length; i++) {
           if (
-            powerUp.x == obstacles[i].x + 5 &&
-            powerUp.y == obstacles[i].y + 5
+            p5.floor(powerUp.x) == p5.floor(obstacles[i].x + 5) &&
+            p5.floor(powerUp.y) == p5.floor(obstacles[i].y + 5)  // DOES NOT WORK!!!
           ) {
             getPowerUp(powerUps, powerUps[i]);
           }
@@ -164,13 +164,13 @@ export class Arcade1Component implements OnInit {
           p5.random(3, 97),
           p5.random(3, 97),
           2
-          );
+        );
         keysToCollect -= 1;
         keys.push(key)
         for (let i = 0; i < obstacles.length; i++) {
           if (
-            key.x == obstacles[i].x + 5 &&
-            key.y == obstacles[i].y + 5
+            p5.floor(key.x) == p5.floor(obstacles[i].x + 5) &&
+            p5.floor(key.y) == p5.floor(obstacles[i].y + 5) // DOES NOT WORK!!!
           ) {
             getKey(keys, keys[i]);
           }
@@ -241,13 +241,13 @@ export class Arcade1Component implements OnInit {
 
         // //POWERUP NO OVERLAP WITH OBJECTS AND POINTS
         while (powerUps.length < numberOfPowerUps) {
-            powerUp = new PowerUp(
-              p5,
-              p5.random(3, 97),
-              p5.random(3, 97),
-              2,
-              'rgb(255, 0, 0)'
-            );
+          powerUp = new PowerUp(
+            p5,
+            p5.random(3, 97),
+            p5.random(3, 97),
+            2,
+            'rgb(255, 0, 0)'
+          );
           var overlapping = false;
           for (let j = 0; j < obstacles.length; j++) {
             var other = obstacles[j];
@@ -272,17 +272,17 @@ export class Arcade1Component implements OnInit {
 
         // //KEYS NO OVERLAP WITH OBJECTS AND POINTS
         while (keys.length < numberOfKeys) {
-            key = new Key(
-              p5,
-              p5.random(3, 97),
-              p5.random(3, 97),
-              2
-            );
+          key = new Key(
+            p5,
+            p5.random(3, 97),
+            p5.random(3, 97),
+            2
+          );
           var overlapping = false;
           for (let j = 0; j < obstacles.length; j++) {
             var other = obstacles[j];
             var d = p5.dist(key.x, key.y, other.x, other.y);
-            if (d < key.r * 4 + other.r) {
+            if (d < key.r + other.r) {
               overlapping = true;
               break;
             }
@@ -412,7 +412,7 @@ export class Arcade1Component implements OnInit {
         for (var i = 1; i < powerUps.length; i++) {
           powerUps[i].render(p5);
         }
-        
+
         for (var i = 1; i < keys.length; i++) {
           //KEYS RENDER
           if (keysToCollect >= 1) {
@@ -444,7 +444,7 @@ export class Arcade1Component implements OnInit {
 
         //SIDEBAR TEXT RENDERING
         if (livesLeft >= 0 || p5.key == 'y') {
-          
+
           // LIVES LEFT
           p5.push();
           p5.textFont(mainFont);
@@ -489,9 +489,9 @@ export class Arcade1Component implements OnInit {
           p5.push();
           p5.fill('white');
           p5.textSize(2);
-          p5.text('P', 109 -.6, 39 +.6);
+          p5.text('P', 109 - .6, 39 + .6);
           p5.pop();
-          
+
           // TEXT
           p5.push();
           p5.textFont(mainFont);
@@ -526,7 +526,7 @@ export class Arcade1Component implements OnInit {
           p5.push();
           p5.fill('black');
           p5.textSize(2);
-          p5.text('K', 109 -.6, 45 +.6);
+          p5.text('K', 109 - .6, 45 + .6);
           p5.pop();
 
           // TEXT
@@ -569,7 +569,7 @@ export class Arcade1Component implements OnInit {
           p5.strokeWeight(p5.random(0.1, 0.15));
           p5.text('GAME', 108, 45);
           p5.pop();
-          
+
           //OVER
           p5.push();
           p5.textFont(mainFont);
@@ -731,6 +731,8 @@ export class Arcade1Component implements OnInit {
           }
         }
 
+
+
         // Venom rendering
         // for (var k = 0; k < mVenom.length; k++) {
         //   mVenom[k].show(p5);
@@ -742,28 +744,30 @@ export class Arcade1Component implements OnInit {
         // }
 
         for (var i = mVenom.length - 1; i >= 0; i--) {
+          mVenom[i].update(snake)
           mVenom[i].show(p5);
-          if (snake.dir == 'RIGHT') {
-            //venom velocity +1 on x
-          } else if (snake.dir == 'LEFT') {
-            //venom velocity -1 on x
-          } else if (snake.dir == 'DOWN') {
-            //venom velocity +1 on y
-          } else if (snake.dir == 'UP') {
-            //venom velocity -1 on y
-          }
-          // mVenom[i].update();
+
+          // if (snake.dir == 'RIGHT') {
+          //   //venom velocity +1 on x
+          // } else if (snake.dir == 'LEFT') {
+          //   //venom velocity -1 on x
+          // } else if (snake.dir == 'DOWN') {
+          //   //venom velocity +1 on y
+          // } else if (snake.dir == 'UP') {
+          //   //venom velocity -1 on y
+          // }
         }
 
         for (var i = 0; i < doorTrigger.length; i++) {
+          //NEXT LEVEL TRIGGER
           if (collide(doorTrigger[i], snake).totalDist && keysToCollect <= 0) {
             obstacles.length = 0;
             points.length = 0;
-            numberOfObstacles += 5;
+            // numberOfObstacles += 5;
             p5.setup();
             levelIndicator += 1;
             for (var i = 1; i <= levelIndicator; i++) {
-              keysToCollect ++;
+              keysToCollect++;
             }
             //RESET SNAKE AND LAYOUT TO DEFAULT...
           } else if (collide(doorTrigger[i], snake).totalDist) {
@@ -783,10 +787,12 @@ export class Arcade1Component implements OnInit {
         }
       };
 
+
+
       p5.keyPressed = () => {
-        if (p5.key == ' ') {
+        if (p5.key == ' ' && move) {
           mVenom.push(
-            new Venom(p5, snake.body[0].x, snake.body[0].y, 1, snake.dir)
+            new Venom(p5, snake.body[0].x, snake.body[0].y, 1, snake)
           );
           console.log(mVenom);
           // mVenom.push(new Venom(p5, 40, 40));
