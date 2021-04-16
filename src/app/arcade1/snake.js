@@ -40,18 +40,6 @@ export default class Snake {
     head.x += this.xdir/2;
     head.y += this.ydir/2;
     this.body.push(head);
-    if (this.xdir == 1) {
-      this.dir = 'RIGHT';
-    } else if (this.xdir == -1) {
-      this.dir = 'LEFT';
-    } else if (this.ydir == 1) {
-      this.dir = 'DOWN';
-    } else if (this.ydir == -1) {
-      this.dir = 'UP';
-    } else {
-      this.dir = '';
-    }
-    // console.log(this.dir)
   }
   
   grow() {

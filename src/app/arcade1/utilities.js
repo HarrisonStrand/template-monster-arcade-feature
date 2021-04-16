@@ -87,9 +87,6 @@ export const getPowerUp = (powerUps, value) => {
   if (index > -1) {
     powerUps.splice(index, 1);
   }
-  // for (let i = 0; i < powerUps.length; i++) {
-  //   getPowerUp(powerUps, powerUps[i]);
-  // }
 }
 
 export function getKey(p5, keys, value) {
@@ -100,4 +97,19 @@ export function getKey(p5, keys, value) {
   var key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
   
   keys.push(key);
+}
+
+export function getMenuPowerUp(menuPowerUps, value) {
+  var index = menuPowerUps.indexOf(value);
+  if (index > -1) {
+    menuPowerUps.splice(index, 1);
+  }
+}
+
+//GET POINT
+export function getPoint(points, value) {
+  var index = points.indexOf(value);
+  if (index > -1) {
+    points.splice(index, 1);
+  }
 }

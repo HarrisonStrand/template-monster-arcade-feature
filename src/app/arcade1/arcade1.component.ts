@@ -5,7 +5,6 @@
 // snake flashes red color with a time wait before reset when hitting obstacles - indicating death
 // fix overlapping bug for keys, powerups, and obstacles when next level is triggered
 
-// powerups render on level 1!
 // create set new room function
 // total reset function
 
@@ -23,8 +22,8 @@ import PowerUp from './powerUp';
 import Key from './key';
 import Venom from './venom';
 import Hud from './hud'
-import { drawMenu } from "./menu"
-import { collide, getPowerUp, getKey } from "./utilities"
+import { drawMenu, MenuPowerUp } from "./menu"
+import { collide, getPowerUp, getKey, getMenuPowerUp, getPoint } from "./utilities"
 
 @Component({
   selector: 'app-arcade1',
@@ -72,7 +71,7 @@ export class Arcade1Component implements OnInit {
     let numberOfPoints: number = 100;
     let pointSpread: number = 4; // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS
     let numberOfPowerUps: number = 3;
-    let numberOfKeys: number = 2;
+    let numberOfKeys: number = 1;
     let keysToCollect: number = 1;
     let mainFont: any;
     let levelIndicator: number = 1;
@@ -80,43 +79,6 @@ export class Arcade1Component implements OnInit {
 
 
     const sketch = (p5: any) => {
-      //GET POWERUP
-      // function getPowerUp(powerUps: any, value: any) {
-      //   var index = powerUps.indexOf(value);
-      //   if (index > -1) {
-      //     powerUps.splice(index, 1);
-      //   }
-      //   let num = 9;
-      //   let limit = 96;
-      //   const random = p5.random() * limit;
-      //   const res = p5.round(random / num) * num;
-      //   let x = res;
-      //   let y = res;
-      //   for (let i = 0; i < obstacles.length; i++) {
-      //     if (
-      //       p5.floor(powerUp.x) == p5.floor(obstacles[i].x + 5) &&
-      //       p5.floor(powerUp.y) == p5.floor(obstacles[i].y + 5) // DOES NOT WORK!!!
-      //     ) {
-      //       getPowerUp(powerUps, powerUps[i]);
-      //     }
-      //   }
-      // }
-
-      function getMenuPowerUp(menuPowerUps: any, value: any) {
-        var index = menuPowerUps.indexOf(value);
-        if (index > -1) {
-          menuPowerUps.splice(index, 1);
-        }
-      }
-
-      //GET POINT
-      function getPoint(points: any, value: any) {
-        var index = points.indexOf(value);
-        if (index > -1) {
-          points.splice(index, 1);
-        }
-        scoreCount += 100;
-      }
 
       p5.preload = () => {
         mainFont = p5.loadFont('../../assets/fonts/Sabo-Filled.otf');
@@ -134,6 +96,7 @@ export class Arcade1Component implements OnInit {
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
         key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
+        powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 2);
         obstacle = new Obstacle(p5, 90, 55, 1, 4); // glass square to go through
         hud = new Hud(mainFont, mainTextFillColor)
 
@@ -173,78 +136,76 @@ export class Arcade1Component implements OnInit {
             obstacles.push(obstacle);
           }
         }
-
-        console.log(menu);
         // //POWERUP NO OVERLAP WITH OBJECTS AND POINTS
-        while (powerUps.length < numberOfPowerUps && !menu) {
+        while (powerUps.length < numberOfPowerUps) {
           powerUp = new PowerUp(
             p5,
             p5.random(3, 97),
             p5.random(3, 97),
             2,
             'rgb(255, 0, 0)'
-          );
-          var overlapping = false;
-          for (let j = 0; j < obstacles.length; j++) {
-            var other = obstacles[j];
-            var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
-            if (d < powerUp.r * 4 + other.r) {
-              overlapping = true;
-              break;
+            );
+            var overlapping = false;
+            for (let j = 0; j < obstacles.length; j++) {
+              var other = obstacles[j];
+              var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+              if (d < powerUp.r * 4 + other.r) {
+                overlapping = true;
+                break;
+              }
+            }
+            for (let j = 0; j < powerUps.length; j++) {
+              var other = powerUps[j];
+              var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+              if (d < powerUp.r + other.r) {
+                overlapping = true;
+                break;
+              }
+            }
+            for (let j = 0; j < points.length; j++) {
+              var other = points[j];
+              var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+              if (d < powerUp.r + other.r) {
+                overlapping = true;
+                break;
+              }
+            }
+            if (!overlapping) {
+              powerUps.push(powerUp);
             }
           }
-          for (let j = 0; j < powerUps.length; j++) {
-            var other = powerUps[j];
-            var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
-            if (d < powerUp.r + other.r) {
-              overlapping = true;
-              break;
-            }
-          }
-          for (let j = 0; j < points.length; j++) {
-            var other = points[j];
-            var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
-            if (d < powerUp.r + other.r) {
-              overlapping = true;
-              break;
-            }
-          }
-          if (!overlapping) {
-            powerUps.push(powerUp);
-          }
-        }
-
+          
         // //KEYS NO OVERLAP WITH OBJECTS AND POINTS
         while (keys.length < numberOfKeys) {
           key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
           var overlapping = false;
-          for (let j = 0; j < obstacles.length; j++) {
-            var other = obstacles[j];
-            var d = p5.dist(key.x, key.y, other.x, other.y);
-            if (d < key.r + other.r) {
-              overlapping = true;
-              break;
-            }
-          }
-          for (let j = 0; j < points.length; j++) {
-            var other = points[j];
-            var d = p5.dist(key.x, key.y, other.x, other.y);
-            if (d < key.r + other.r) {
-              overlapping = true;
-              break;
-            }
-          }
-          for (let j = 0; j < powerUps.length; j++) {
-            var other = powerUps[j];
-            var d = p5.dist(key.x, key.y, other.x, other.y);
-            if (d < key.r + other.r) {
-              overlapping = true;
-              break;
-            }
-          }
-          if (!overlapping) {
-            keys.push(key);
-          }
+      for (let j = 0; j < obstacles.length; j++) {
+        var other = obstacles[j];
+        var d = p5.dist(key.x, key.y, other.x, other.y);
+        if (d < key.r + other.r) {
+          overlapping = true;
+          break;
+        }
+      }
+      for (let j = 0; j < points.length; j++) {
+        var other = points[j];
+        var d = p5.dist(key.x, key.y, other.x, other.y);
+        if (d < key.r + other.r) {
+          overlapping = true;
+          break;
+        }
+      }
+      for (let j = 0; j < powerUps.length; j++) {
+        var other = powerUps[j];
+        var d = p5.dist(key.x, key.y, other.x, other.y);
+        if (d < key.r + other.r) {
+          overlapping = true;
+          break;
+        }
+      }
+      if (!overlapping) {
+        keys.push(key);
+      }
         }
 
         //GRID PACMAN POINT GENERATION
@@ -320,7 +281,7 @@ export class Arcade1Component implements OnInit {
           );
         }
 
-        menuPowerUp = new PowerUp(p5, 51, 49, 2, 'red');
+        menuPowerUp = new MenuPowerUp(p5, 51, 49, 2, 'red');
         menuPowerUps.push(menuPowerUp);
 
       }
@@ -333,6 +294,7 @@ export class Arcade1Component implements OnInit {
         p5.scale(rez);
         p5.background(0);
         if (menu) {
+          console.log(powerUps)
           drawMenu(p5, mainFont);
           snake.demo();
           snake.update();
@@ -350,6 +312,7 @@ export class Arcade1Component implements OnInit {
             }
           }
         } else {
+          console.log(powerUps)
           hud.render(p5, scoreCount, livesLeft, keysToCollect, levelIndicator)
           //OBSTACLES RENDER
           for (var i = 0; i < obstacles.length; i++) {
@@ -364,9 +327,10 @@ export class Arcade1Component implements OnInit {
           //POWERUPS RENDER
           for (var i = 0; i < powerUps.length; i++) {
             powerUps[i].render(p5);
+            console.log(powerUps)
           }
 
-          for (var i = 1; i < keys.length; i++) {
+          for (var i = 0; i < keys.length; i++) {
             //KEYS RENDER
             if (keysToCollect >= 1) {
               keys[i].render(p5);
@@ -489,6 +453,7 @@ export class Arcade1Component implements OnInit {
           for (let i = 0; i < points.length; i++) {
             if (snake.eatPoint(points[i], p5)) {
               getPoint(points, points[i]);
+              scoreCount += 100;
             }
           }
 
@@ -508,7 +473,6 @@ export class Arcade1Component implements OnInit {
             ) {
               obstacles.length = 0;
               points.length = 0;
-              // numberOfObstacles += 5;
               reset(p5);
               menu = false;
               levelIndicator += 1;
