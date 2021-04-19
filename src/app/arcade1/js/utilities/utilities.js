@@ -1,5 +1,15 @@
-import * as p5 from 'p5';
-import Key from '../entities/key';
+import Snake from "../entities/snake"
+import Obstacle from '../entities/obstacle'
+import Enemy from '../entities/enemy'
+import Point from '../entities/points'
+import PowerUp from '../entities/powerUp'
+import Border from "../entities/border"
+import { MenuPowerUp } from '../utilities/menu'
+import Key from '../entities/key'
+import Hud from '../utilities/hud'
+import { state } from '../game/state'
+import * as p5 from 'p5'
+
 
 function cross(v1, v2) {
   return v1.x * v2.y - v2.x * v1.y;
@@ -21,6 +31,7 @@ export const lineIntersect = (l1v1, l1v2, l2v1, l2v2) => {
 }
 
 export const collide = (obstacle, snake) => {
+  
     let axisHit = {
       totalDist: false,
       x: 0,
@@ -83,26 +94,26 @@ export const collide = (obstacle, snake) => {
   };
 
 export const getPowerUp = (powerUps, value) => {
-  var index = powerUps.indexOf(value);
+  var index = state.powerUps.indexOf(value);
   if (index > -1) {
-    powerUps.splice(index, 1);
+    state.powerUps.splice(index, 1);
   }
 }
 
 export function getKey(p5, keys, value) {
-  var index = keys.indexOf(value);
+  var index = state.keys.indexOf(value);
   if (index > -1) {
-    keys.splice(index, 1);
+    state.keys.splice(index, 1);
   }
   var key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
   
-  keys.push(key);
+  state.keys.push(state.key);
 }
 
 export function getMenuPowerUp(menuPowerUps, value) {
-  var index = menuPowerUps.indexOf(value);
+  var index = state.menuPowerUps.indexOf(value);
   if (index > -1) {
-    menuPowerUps.splice(index, 1);
+    state.menuPowerUps.splice(index, 1);
   }
 }
 
@@ -110,6 +121,10 @@ export function getMenuPowerUp(menuPowerUps, value) {
 export function getPoint(points, value) {
   var index = points.indexOf(value);
   if (index > -1) {
-    points.splice(index, 1);
+    state.points.splice(index, 1);
   }
 }
+
+export const snakeReset = (p5) => {
+  state.snake = new Snake(p5, state.w, state.h);
+};
