@@ -7,6 +7,7 @@ export default function Obstacle(p5, x, y, z, r) {
   this.r = r;
 
   this.render = function() {
+    
     p5.push();
     p5.noFill()
     p5.stroke('#0400ff');

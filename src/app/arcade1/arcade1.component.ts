@@ -6,24 +6,30 @@
 // fix overlapping bug for keys, powerups, and obstacles when next level is triggered
 
 // create set new room function
-// total reset function
+// total reset function in it's own file
 
-
-//lengthen snake
+//keep snake length at new level???
 //refactor?
 
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
-import Snake from './snake';
-import Obstacle from './obstacle';
-import Border from './border';
-import Point from './points';
-import PowerUp from './powerUp';
-import Key from './key';
-import Venom from './venom';
-import Hud from './hud'
-import { drawMenu, MenuPowerUp } from "./menu"
-import { collide, getPowerUp, getKey, getMenuPowerUp, getPoint } from "./utilities"
+import Snake from './js/entities/snake';
+import Obstacle from './js/entities/obstacle';
+import Border from './js/entities/border';
+import Point from './js/entities/points';
+import PowerUp from './js/entities/powerUp';
+import Key from './js/entities/key';
+import Venom from './js/entities/venom';
+import Enemy from './js/entities/enemy';
+import Hud from './js/utilities/hud';
+import { drawMenu, MenuPowerUp } from './js/utilities/menu';
+import {
+  collide,
+  getPowerUp,
+  getKey,
+  getMenuPowerUp,
+  getPoint,
+} from './js/utilities/utilities';
 
 @Component({
   selector: 'app-arcade1',
@@ -34,13 +40,14 @@ export class Arcade1Component implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-
     const borderColor1 = '#aaa9ad';
     const doorTriggerColor = 'blue';
     const mainTextFillColor = '#4E0DFF';
     let snake: any;
     let move: boolean = false;
     let mVenom: Array<any> = [];
+    let enemy: any;
+    let enemies: Array<any> = [];
     let obstacles: Array<any> = [];
     let hud: any;
     // turn into border object
@@ -73,20 +80,19 @@ export class Arcade1Component implements OnInit {
     let numberOfPowerUps: number = 3;
     let numberOfKeys: number = 1;
     let keysToCollect: number = 1;
+    let numberOfEnemies: number = 2;
     let mainFont: any;
     let levelIndicator: number = 1;
     let livesLeft: number = 3;
 
-
     const sketch = (p5: any) => {
-
       p5.preload = () => {
         mainFont = p5.loadFont('../../assets/fonts/Sabo-Filled.otf');
       };
 
       const snakeReset = (p5: any) => {
         snake = new Snake(p5, w, h);
-      }
+      };
 
       const reset = (p5: any) => {
         p5.createCanvas(1400, 1000);
@@ -96,15 +102,14 @@ export class Arcade1Component implements OnInit {
         p5.frameRate(30);
         snake = new Snake(p5, w, h);
         key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
-        powerUp = new PowerUp(p5, p5.random(3, 97), p5.random(3, 97), 2);
-        obstacle = new Obstacle(p5, 90, 55, 1, 4); // glass square to go through
-        hud = new Hud(mainFont, mainTextFillColor)
+        // obstacle = new Obstacle(p5, 90, 55, 1, 4); // glass square to go through
+        hud = new Hud(mainFont, mainTextFillColor);
 
-        obstacles = []
-        keys = []
-        powerUps = []
-        points = []
-        
+        enemies = [];
+        obstacles = [];
+        keys = [];
+        powerUps = [];
+        points = [];
 
         //RANDOM INNER OBSTACLE LAYOUT
         while (obstacles.length < numberOfObstacles) {
@@ -136,7 +141,7 @@ export class Arcade1Component implements OnInit {
             obstacles.push(obstacle);
           }
         }
-        // //POWERUP NO OVERLAP WITH OBJECTS AND POINTS
+        // //POWERUP NO OVERLAP WITH OBSTACLES AND POINTS
         while (powerUps.length < numberOfPowerUps) {
           powerUp = new PowerUp(
             p5,
@@ -144,68 +149,85 @@ export class Arcade1Component implements OnInit {
             p5.random(3, 97),
             2,
             'rgb(255, 0, 0)'
-            );
-            var overlapping = false;
-            for (let j = 0; j < obstacles.length; j++) {
-              var other = obstacles[j];
-              var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
-              if (d < powerUp.r * 4 + other.r) {
-                overlapping = true;
-                break;
-              }
-            }
-            for (let j = 0; j < powerUps.length; j++) {
-              var other = powerUps[j];
-              var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
-              if (d < powerUp.r + other.r) {
-                overlapping = true;
-                break;
-              }
-            }
-            for (let j = 0; j < points.length; j++) {
-              var other = points[j];
-              var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
-              if (d < powerUp.r + other.r) {
-                overlapping = true;
-                break;
-              }
-            }
-            if (!overlapping) {
-              powerUps.push(powerUp);
+          );
+          var overlapping = false;
+          for (let j = 0; j < obstacles.length; j++) {
+            var other = obstacles[j];
+            var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+            if (d < powerUp.r * 4 + other.r) {
+              overlapping = true;
+              break;
             }
           }
-          
-        // //KEYS NO OVERLAP WITH OBJECTS AND POINTS
+          for (let j = 0; j < powerUps.length; j++) {
+            var other = powerUps[j];
+            var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+            if (d < powerUp.r + other.r) {
+              overlapping = true;
+              break;
+            }
+          }
+          for (let j = 0; j < points.length; j++) {
+            var other = points[j];
+            var d = p5.dist(powerUp.x, powerUp.y, other.x, other.y);
+            if (d < powerUp.r + other.r) {
+              overlapping = true;
+              break;
+            }
+          }
+          if (!overlapping) {
+            powerUps.push(powerUp);
+          }
+        }
+
+        // //KEYS NO OVERLAP WITH OBSTACLES AND POINTS
         while (keys.length < numberOfKeys) {
           key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
           var overlapping = false;
-      for (let j = 0; j < obstacles.length; j++) {
-        var other = obstacles[j];
-        var d = p5.dist(key.x, key.y, other.x, other.y);
-        if (d < key.r + other.r) {
-          overlapping = true;
-          break;
+          for (let j = 0; j < obstacles.length; j++) {
+            var other = obstacles[j];
+            var d = p5.dist(key.x, key.y, other.x, other.y);
+            if (d < key.r + other.r) {
+              overlapping = true;
+              break;
+            }
+          }
+          for (let k = 0; k < points.length; k++) {
+            var other = points[k];
+            var d = p5.dist(key.x, key.y, other.x, other.y);
+            if (d < key.r + other.r) {
+              overlapping = true;
+              break;
+            }
+          }
+          for (let i = 0; i < powerUps.length; i++) {
+            var other = powerUps[i];
+            var d = p5.dist(key.x, key.y, other.x, other.y);
+            if (d < key.r + other.r) {
+              overlapping = true;
+              break;
+            }
+          }
+          if (!overlapping) {
+            keys.push(key);
+          }
         }
-      }
-      for (let j = 0; j < points.length; j++) {
-        var other = points[j];
-        var d = p5.dist(key.x, key.y, other.x, other.y);
-        if (d < key.r + other.r) {
-          overlapping = true;
-          break;
-        }
-      }
-      for (let j = 0; j < powerUps.length; j++) {
-        var other = powerUps[j];
-        var d = p5.dist(key.x, key.y, other.x, other.y);
-        if (d < key.r + other.r) {
-          overlapping = true;
-          break;
-        }
-      }
-      if (!overlapping) {
-        keys.push(key);
-      }
+
+        // ENEMIES NO OVERLAP WITH OBSTACLES
+        while (enemies.length < numberOfEnemies) {
+          enemy = new Enemy(p5, p5.random(3, 97), p5.random(3, 97), 4);
+          var overlapping = false;
+          for (let j = 0; j < obstacles.length; j++) {
+            var other = obstacles[j];
+            var d = p5.dist(enemy.x, enemy.y, other.x, other.y);
+            if (d < enemy.r + other.r) {
+              overlapping = true;
+              break;
+            }
+          }
+          if (!overlapping) {
+            enemies.push(enemy);
+          }
         }
 
         //GRID PACMAN POINT GENERATION
@@ -283,18 +305,16 @@ export class Arcade1Component implements OnInit {
 
         menuPowerUp = new MenuPowerUp(p5, 51, 49, 2, 'red');
         menuPowerUps.push(menuPowerUp);
-
-      }
+      };
 
       p5.setup = () => {
-        reset(p5)
+        reset(p5);
       };
 
       p5.draw = () => {
         p5.scale(rez);
         p5.background(0);
         if (menu) {
-          console.log(powerUps)
           drawMenu(p5, mainFont);
           snake.demo();
           snake.update();
@@ -312,8 +332,7 @@ export class Arcade1Component implements OnInit {
             }
           }
         } else {
-          console.log(powerUps)
-          hud.render(p5, scoreCount, livesLeft, keysToCollect, levelIndicator)
+          hud.render(p5, scoreCount, livesLeft, keysToCollect, levelIndicator);
           //OBSTACLES RENDER
           for (var i = 0; i < obstacles.length; i++) {
             obstacles[i].render(p5);
@@ -327,7 +346,6 @@ export class Arcade1Component implements OnInit {
           //POWERUPS RENDER
           for (var i = 0; i < powerUps.length; i++) {
             powerUps[i].render(p5);
-            console.log(powerUps)
           }
 
           for (var i = 0; i < keys.length; i++) {
@@ -335,6 +353,12 @@ export class Arcade1Component implements OnInit {
             if (keysToCollect >= 1) {
               keys[i].render(p5);
             }
+          }
+
+          for (var i = 0; i < enemies.length; i++) {
+            //ENEMIES RENDER
+            enemies[i].render(p5);
+            enemies[i].update();
           }
 
           //OBSTACLE BORDER RENDER
@@ -446,7 +470,6 @@ export class Arcade1Component implements OnInit {
             if (snake.eatKey(keys[i], p5)) {
               getKey(p5, keys, keys[i]);
               keysToCollect -= 1;
-              console.log(keys);
             }
           }
 
@@ -464,6 +487,28 @@ export class Arcade1Component implements OnInit {
               mVenom.splice(i, 1);
             }
           }
+
+          // for (let i = 0; i < enemies.length; i ++) {
+          //   for (let j = 0; j < obstacles.length; j++) {
+          //     //Right and up
+          //     if (enemies[i].xdir > 0 && enemies[i].ydir > 0 && enemies[i].hits(obstacles[j])) {
+          //       enemies[i].xdir = -.1;
+          //       enemies[i].ydir = .1;
+          //     //Left and up
+          //     } else if (enemies[i].xdir < 0 && enemies[i].ydir > 0 && enemies[i].hits(obstacles[j])) {
+          //       enemies[i].xdir = .1;
+          //       enemies[i].ydir = .1;
+          //     //Right and down
+          //     } else if (enemies[i].xdir > 0 && enemies[i].ydir < 0 && enemies[i].hits(obstacles[j])) {
+          //       enemies[i].xdir = -.1;
+          //       enemies[i].ydir = -.1;
+          //     //Left and down
+          //     } else if (enemies[i].xdir < 0 && enemies[i].ydir < 0 && enemies[i].hits(obstacles[j])) {
+          //       enemies[i].xdir = -.1;
+          //       enemies[i].ydir = .1;
+          //     }
+          //   }
+          // }
 
           for (var i = 0; i < doorTrigger.length; i++) {
             //NEXT LEVEL TRIGGER
@@ -510,7 +555,6 @@ export class Arcade1Component implements OnInit {
           mVenom.push(
             new Venom(p5, snake.body[0].x, snake.body[0].y, 1, snake)
           );
-          console.log(mVenom);
         } else if (p5.keyCode == p5.LEFT_ARROW) {
           move = true;
           snake.setDir(-1, 0);

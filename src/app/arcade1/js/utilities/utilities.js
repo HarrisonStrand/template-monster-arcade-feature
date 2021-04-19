@@ -1,5 +1,5 @@
 import * as p5 from 'p5';
-import Key from './key';
+import Key from '../entities/key';
 
 function cross(v1, v2) {
   return v1.x * v2.y - v2.x * v1.y;

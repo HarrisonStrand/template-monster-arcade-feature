@@ -26,11 +26,20 @@ export default function Venom(p5, x, y, r, snake) {
     this.y += this.ydir*2;
   };
 
+  this.hits = function(something) {
+    var d = p5.dist(this.x, this.y, something.x, something.y);
+    if (d < this.r + something.r) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   this.offscreen = function() {
-    if (this.x > 100 || this.x < 0) {
+    if (this.x > 96 || this.x < 3) {
       return true;
     }
-    if (this.y > 100 || this.y < 0) {
+    if (this.y > 96 || this.y < 3) {
       return true;
     }
     return false;
