@@ -101,13 +101,13 @@ export const getPowerUp = (powerUps, value) => {
 }
 
 export function getKey(p5, keys, value) {
-  var index = state.keys.indexOf(value);
+  var index = keys.indexOf(value);
   if (index > -1) {
     state.keys.splice(index, 1);
   }
   var key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
   
-  state.keys.push(state.key);
+  state.keys.push(key);
 }
 
 export function getMenuPowerUp(menuPowerUps, value) {

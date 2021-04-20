@@ -150,22 +150,6 @@ if (state.menu) {
 		}
 	}
 
-	const randomObject = {
-		
-	}
-
-	const randomFunction = (input) => {
-		console.log(input)
-	}
-
-
-
-
-
-
-
-
-
 	for (let i = 0; i < state.obstacles.length; i++) {
 		if (collide(state.obstacles[i], state.snake).totalDist) {
 			if (state.livesLeft >= 0) {
@@ -240,9 +224,7 @@ if (state.menu) {
 	for (var i = 0; i < state.doorTrigger.length; i++) {
 		//NEXT LEVEL TRIGGER
 		if (
-			collide(state.doorTrigger[i], state.snake).totalDist &&
-			state.keysToCollect <= 0
-		) {
+			collide(state.doorTrigger[i], state.snake).totalDist && state.keysToCollect <= 0) {
 			state.obstacles.length = 0;
 			state.points.length = 0;
 			reset(p5);
