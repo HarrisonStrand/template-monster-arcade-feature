@@ -60,7 +60,6 @@ if (state.menu) {
 	for (var i = 0; i < state.enemies.length; i++) {
 		//ENEMIES RENDER
 		state.enemies[i].render(p5);
-		state.enemies[i].update();
 	}
 
 	//OBSTACLE BORDER RENDER
@@ -190,27 +189,21 @@ if (state.menu) {
 		}
 	}
 
-	// for (let i = 0; i < enemies.length; i ++) {
-	//   for (let j = 0; j < obstacles.length; j++) {
-	//     //Right and up
-	//     if (enemies[i].xdir > 0 && enemies[i].ydir > 0 && enemies[i].hits(obstacles[j])) {
-	//       enemies[i].xdir = -.1;
-	//       enemies[i].ydir = .1;
-	//     //Left and up
-	//     } else if (enemies[i].xdir < 0 && enemies[i].ydir > 0 && enemies[i].hits(obstacles[j])) {
-	//       enemies[i].xdir = .1;
-	//       enemies[i].ydir = .1;
-	//     //Right and down
-	//     } else if (enemies[i].xdir > 0 && enemies[i].ydir < 0 && enemies[i].hits(obstacles[j])) {
-	//       enemies[i].xdir = -.1;
-	//       enemies[i].ydir = -.1;
-	//     //Left and down
-	//     } else if (enemies[i].xdir < 0 && enemies[i].ydir < 0 && enemies[i].hits(obstacles[j])) {
-	//       enemies[i].xdir = -.1;
-	//       enemies[i].ydir = .1;
-	//     }
-	//   }
-	// }
+
+	for (var i = 0; i < state.enemies.length; i++) { ////WORK ON COLLISION WITH SNAKE!!!
+		state.enemies[i].x = state.enemies[i].x + state.enemies[i].xspeed;
+		state.enemies[i].y = state.enemies[i].y + state.enemies[i].yspeed;
+		if (Math.floor(state.enemies[i].x) == 96 || Math.floor(state.enemies[i].x) == 3) {
+			state.enemies[i].xspeed = state.enemies[i].xspeed * -1;
+		}
+		if (Math.floor(state.enemies[i].y) == 96 || Math.floor(state.enemies[i].y) == 3) {
+			state.enemies[i].yspeed = state.enemies[i].yspeed * -1;
+		}
+		if (state.enemies[i].hits(state.snake)) {
+			console.log('snake hit')
+		}
+	}
+
 
 	for (var i = 0; i < state.doorTrigger.length; i++) {
 		//NEXT LEVEL TRIGGER

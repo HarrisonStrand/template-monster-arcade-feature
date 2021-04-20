@@ -5,6 +5,8 @@ export default class Snake {
 
   constructor(p5, x, y, r) {
     this.r = 2; //snake size
+    this.x = x;
+    this.y = y;
     this.body = [];
     this.body[0] = p5.createVector(1.5, 49);//snake default location
     this.xdir = 0;

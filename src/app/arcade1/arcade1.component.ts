@@ -4,7 +4,7 @@
 // SNAKE LIVES AS ARRAY OF IMAGES - IF DEATH, SPLICE ONE SNAKE OUT OF THE ARRAY
 // snake flashes red color with a time wait before reset when hitting obstacles - indicating death
 // fix overlapping bug for keys, powerups, and obstacles when next level is triggered
-
+// ENEMIES HIT SNAKE - DRAW GAME 193
 // create set new room function
 // total reset function in it's own file
 

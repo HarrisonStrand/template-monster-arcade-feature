@@ -133,4 +133,5 @@ export var state = {
   numberOfEnemies: 2,
   levelIndicator: 1,
   livesLeft: 3,
+  enemySpeed: .5
 };

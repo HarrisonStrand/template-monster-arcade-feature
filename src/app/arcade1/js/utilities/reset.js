@@ -169,10 +169,10 @@ export const reset = (p5) => {
 
   //BORDER INITIALIZE
   for (let i = 0; i < 50; i++) {
-    state.topBorder[i] = new Border(p5, i * 2 + 1, 1, 0, 2, state.borderColor1);
+    state.topBorder[i] = new Border(p5, i * 2 + 1, 1, 0, 2);
   }
   for (let i = 0; i < 23; i++) {
-    state.rightBorderTop[i] = new Border(p5, 99, i * 2 + 1, 0, 2, state.borderColor1);
+    state.rightBorderTop[i] = new Border(p5, 99, i * 2 + 1, 0, 2);
   }
   for (let i = 0; i < 3; i++) {
     state.doorTrigger[i] = new Border(
@@ -180,8 +180,7 @@ export const reset = (p5) => {
       99,
       i * 2 + 47,
       0,
-      2,
-      state.doorTriggerColor
+      2
     );
   }
   for (let i = 0; i < 23; i++) {
@@ -191,14 +190,13 @@ export const reset = (p5) => {
       i * 2 + 53,
       0,
       2,
-      state.borderColor1
     );
   }
   for (let i = 0; i < 50; i++) {
-    state.bottomBorder[i] = new Border(p5, i * 2 + 1, 99, 0, 2, state.borderColor1);
+    state.bottomBorder[i] = new Border(p5, i * 2 + 1, 99, 0, 2);
   }
   for (let i = 0; i < 23; i++) {
-    state.leftBorderTop[i] = new Border(p5, 1, i * 2 + 1, 0, 2, state.borderColor1);
+    state.leftBorderTop[i] = new Border(p5, 1, i * 2 + 1, 0, 2);
   }
   for (let i = 0; i < 23; i++) {
     state.leftBorderBottom[i] = new Border(
@@ -206,8 +204,7 @@ export const reset = (p5) => {
       1,
       i * 2 + 53,
       0,
-      2,
-      state.borderColor1
+      2
     );
   }
 
