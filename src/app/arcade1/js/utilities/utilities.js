@@ -1,12 +1,5 @@
 import Snake from "../entities/snake"
-import Obstacle from '../entities/obstacle'
-import Enemy from '../entities/enemy'
-import Point from '../entities/points'
-import PowerUp from '../entities/powerUp'
-import Border from "../entities/border"
-import { MenuPowerUp } from '../utilities/menu'
 import Key from '../entities/key'
-import Hud from '../utilities/hud'
 import { state } from '../game/state'
 import * as p5 from 'p5'
 
@@ -94,7 +87,7 @@ export const collide = (obstacle, snake) => {
   };
 
 export const getPowerUp = (powerUps, value) => {
-  var index = state.powerUps.indexOf(value);
+  var index = powerUps.indexOf(value);
   if (index > -1) {
     state.powerUps.splice(index, 1);
   }

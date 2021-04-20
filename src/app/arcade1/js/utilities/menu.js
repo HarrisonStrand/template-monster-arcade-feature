@@ -1,4 +1,6 @@
-export function MenuPowerUp(p5, x, y, r, color) {
+import { state } from '../game/state'
+
+export function MenuPowerUp(p5, x, y, r) {
 
   this.pos = p5.createVector(x, y);
   this.x = x;
@@ -7,10 +9,12 @@ export function MenuPowerUp(p5, x, y, r, color) {
 
   this.render = function() {
 
+    //POWERUP
+
     //shadow
     p5.push();
-    p5.fill('rgba(255, 0, 0, .3)');
-    p5.stroke('rgba(255, 0, 0, .3)')
+    p5.fill(state.powerUpShadowColor);
+    p5.stroke(state.powerUpShadowColor)
     p5.strokeWeight(p5.random(0, 2));
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -19,7 +23,7 @@ export function MenuPowerUp(p5, x, y, r, color) {
 
     //main
     p5.push();
-    p5.fill(color);
+    p5.fill(state.powerUpMainColor);
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
     p5.ellipse(0, 0, this.r, this.r);
@@ -27,7 +31,7 @@ export function MenuPowerUp(p5, x, y, r, color) {
 
     //P TEXT
     p5.push();
-    p5.fill('white');
+    p5.fill(state.powerUpLetterColor);
     p5.textSize(1.5);
     p5.text('P', this.pos.x -.5, this.pos.y +.5);
     p5.pop();
@@ -52,32 +56,33 @@ export const drawMenu = (p5, mainFont) => {
   p5.background(0);
   p5.pop();
 
+  //TITLE PAGE BORDER
   p5.push();
   p5.noFill();
-  p5.stroke('blue');
+  p5.stroke(state.menuBorderStroke1);
   p5.strokeWeight(p5.random(0.1, 0.3));
   p5.rect(50, 50, 99.5, 99.5);
   p5.pop();
 
   p5.push();
   p5.noFill();
-  p5.stroke('#77fc03');
+  p5.stroke(state.menuBorderStroke2);
   p5.strokeWeight(p5.random(0.1, 0.3));
   p5.rect(50, 50, 99, 99);
   p5.pop();
 
   p5.push();
   p5.noFill();
-  p5.stroke('red');
+  p5.stroke(state.menuBorderStroke3);
   p5.strokeWeight(p5.random(0.1, 0.3));
   p5.rect(50, 50, 98.5, 98.5);
   p5.pop();
 
-  //title
+  //TITLE
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke('#77fc03');
+  p5.stroke(state.menuTitleStroke1);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(10);
   p5.text('SNAKE-EATER', 8, 35);
@@ -86,25 +91,27 @@ export const drawMenu = (p5, mainFont) => {
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke('blue');
+  p5.stroke(state.menuTitleStroke2);
   p5.strokeWeight(p5.random(0, 0.15));
   p5.textSize(9.9);
   p5.text('SNAKE-EATER', 8.5, 35);
   p5.pop();
 
+  //GOAL TEXT
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke('#77fc03');
+  p5.stroke(state.menuGoalText);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(2.4);
-  p5.text('GOAL: COLLECT AS MANY FLIES AND POWERUPS AS YOU CAN!', 8, 45);
+  p5.text('GOAL: COLLECT THE KEYS AND AVOID THE HOLES!', 14, 45);
   p5.pop();
 
+  //CONTROLS
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke('#ff0000');
+  p5.stroke(state.menuControlsText1);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(2.6);
   p5.text('CONTROLS:', 43, 53);
@@ -113,16 +120,18 @@ export const drawMenu = (p5, mainFont) => {
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke('#ff0000');
+  p5.stroke(state.menuControlsText2);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(3.2);
-  p5.text('MOVE: ARROW KEYS VENOM: SPACEBAR', 15, 60);
+  p5.text('MOVE: ARROW KEYS VENOM: SPACEBAR', 13, 60);
   p5.pop();
 
+
+  //START GAME
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke('#ff03ab');
+  p5.stroke(state.menuStartGameText1);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(5.7);
   p5.text('START GAME: ENTER KEY', 8, 70);
@@ -131,7 +140,7 @@ export const drawMenu = (p5, mainFont) => {
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke('green');
+  p5.stroke(state.menuStartGameText2);
   p5.strokeWeight(p5.random(0, 0.15));
   p5.textSize(5.6);
   p5.text('START GAME: ENTER KEY', 8.75, 70);

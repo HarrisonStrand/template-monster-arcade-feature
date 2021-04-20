@@ -1,5 +1,4 @@
-import * as p5 from "p5";
-import { lineIntersect } from "./utilities";
+import { state } from '../game/state'
 
 export default function Venom(p5, x, y, r, snake) {
   this.x = x;
@@ -11,7 +10,7 @@ export default function Venom(p5, x, y, r, snake) {
   this.show = function (p5) {
     p5.push();
     p5.noStroke();
-    p5.fill("cyan");
+    p5.fill(state.venomMainColor);
     p5.ellipse(this.x, this.y, this.r, this.r);
     p5.pop();
   };

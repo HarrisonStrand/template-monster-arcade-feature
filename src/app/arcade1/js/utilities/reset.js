@@ -56,8 +56,7 @@ export const reset = (p5) => {
       p5,
       p5.random(3, 97),
       p5.random(3, 97),
-      2,
-      'rgb(255, 0, 0)'
+      2
     );
     var overlapping = false;
     for (let j = 0; j < state.obstacles.length; j++) {
@@ -143,7 +142,7 @@ export const reset = (p5) => {
   while (state.points.length < state.numberOfPoints) {
     for (var a = 4; a < state.numberOfPoints; a += state.pointSpread) {
       for (var b = 4; b < state.numberOfPoints; b += state.pointSpread) {
-        state.point = new Point(p5, a, b, 1, 'white');
+        state.point = new Point(p5, a, b, 1);
         var overlapping = false;
         for (let j = 0; j < state.obstacles.length; j++) {
           var other = state.obstacles[j];

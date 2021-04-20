@@ -1,5 +1,7 @@
+import { state } from '../game/state'
+
 //Border.js
-export default function Border(p5, x, y, z, r, color1) {
+export default function Border(p5, x, y, z, r) {
   this.pos = p5.createVector(x, y, z);
   this.x = x;
   this.y = y;
@@ -10,7 +12,7 @@ export default function Border(p5, x, y, z, r, color1) {
 		//RECTANGLE OBJECT
     p5.push();
     p5.noFill()
-    p5.stroke('#0310ea');
+    p5.stroke(state.gameBorderStroke1);
     p5.strokeWeight(p5.random(.07, .1))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
@@ -20,7 +22,7 @@ export default function Border(p5, x, y, z, r, color1) {
 		//INNER RECTANGLE
     p5.push();
     p5.noFill()
-    p5.stroke('#fb33db');
+    p5.stroke(state.gameBorderStroke2);
     p5.strokeWeight(p5.random(.1, .18))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);
@@ -30,7 +32,7 @@ export default function Border(p5, x, y, z, r, color1) {
 		//INNER RECTANGLE 2
     p5.push();
     p5.noFill()
-    p5.stroke('#7fff00');
+    p5.stroke(state.gameBorderStroke3);
     p5.strokeWeight(p5.random(.18, .3))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y, this.pos.z);

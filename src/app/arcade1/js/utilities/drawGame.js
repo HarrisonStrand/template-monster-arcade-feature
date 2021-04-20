@@ -1,14 +1,5 @@
-import Snake from "../entities/snake"
-import Obstacle from '../entities/obstacle'
-import Enemy from '../entities/enemy'
-import Point from '../entities/points'
-import PowerUp from '../entities/powerUp'
-import Border from "../entities/border"
-import { MenuPowerUp, drawMenu } from '../utilities/menu'
-import Key from '../entities/key'
-import Hud from '../utilities/hud'
+import { drawMenu } from '../utilities/menu'
 import { state } from '../game/state'
-import * as p5 from 'p5'
 import {
   collide,
   getPowerUp,

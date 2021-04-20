@@ -1,17 +1,15 @@
-import * as p5 from 'p5';
-import { lineIntersect } from './utilities'
+import { state } from '../game/state'
 
 //Snake.js
 export default class Snake {
 
-  constructor(p5, x, y, r, dir) {
+  constructor(p5, x, y, r) {
     this.r = 2; //snake size
     this.body = [];
     this.body[0] = p5.createVector(1.5, 49);//snake default location
     this.xdir = 0;
     this.ydir = 0;
     this.len = 0;
-    this.dir = '';
   }
 
   demo() {
@@ -86,7 +84,7 @@ export default class Snake {
 
   show(p5) {
     for (let i = 0; i < this.body.length; i++) {
-      p5.fill('#66ff00');
+      p5.fill(state.snakeMainColor);
       p5.noStroke();
       p5.rectMode(p5.CENTER);
       p5.rect(this.body[i].x, this.body[i].y, this.r, this.r);
