@@ -14,26 +14,16 @@
 import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import { state } from './js/game/state';
-import Snake from './js/entities/snake';
-import Obstacle from './js/entities/obstacle';
-import Border from './js/entities/border';
-import Point from './js/entities/points';
-import PowerUp from './js/entities/powerUp';
-import Key from './js/entities/key';
-import Venom from './js/entities/venom';
-import Enemy from './js/entities/enemy';
-import Hud from './js/utilities/hud';
-import { drawMenu, MenuPowerUp } from './js/utilities/menu';
 import { reset } from './js/utilities/reset';
-import { drawGame } from './js/utilities/drawGame'
-import { keyPress } from './js/utilities/keyPress'
+import { drawGame } from './js/utilities/drawGame';
+import { keyPress } from './js/utilities/keyPress';
 import {
   collide,
   getPowerUp,
   getKey,
   getMenuPowerUp,
   getPoint,
-  snakeReset
+  snakeReset,
 } from './js/utilities/utilities';
 
 @Component({
@@ -45,7 +35,6 @@ export class Arcade1Component implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-
     // callGame(p5)
 
     // let snake: any;

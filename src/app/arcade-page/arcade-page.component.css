@@ -1,0 +1,153 @@
+.arcade-page-color {
+  background-color: #000b1d;
+}
+
+#top-nav {
+position: absolute;
+width: 100%;
+height: 71px;
+left: 0px;
+top: 0px;
+background: #011C48;
+border: 1px solid #000000;
+box-sizing: border-box;
+}
+
+#arcade-page-container {
+  display: flex;
+  justify-content: center;
+  max-width: 1320px;
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  #arcade-page-container h1 {
+    font-size: 40px;
+  }
+  #arcade-page-container h4 {
+    font-size: 15px;
+  }
+}
+@media screen and (min-width: 600px) {
+  #arcade-page-container h1 {
+    font-size: 62px;
+  }
+  #arcade-page-container h4 {
+    font-size: 18px;
+  }
+}
+
+#arcade-background img {
+  width: 1687px;
+  height: 368px;
+  margin-top: 60px;
+  margin-left: 90px;
+  overflow: hidden;
+  object-fit: cover;
+  object-position: 100% 0;
+  object-position: 0 51%;
+  /* z-index: -1;
+  position: relative; */
+  background: linear-gradient(
+    180.17deg,
+    rgba(1, 19, 47, 0) 41.81%,
+    #01132f 93.47%
+  );
+}
+
+#arcade-header {
+  display: flex;
+}
+
+#arcade-title {
+  flex: 1;
+}
+
+#arcade-logo {
+  flex: 1;
+}
+
+#arcade-page-container p,
+h1,
+h4 {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  padding: 0px;
+  margin: 0px;
+}
+
+#arcade-page-container h1 {
+  position: absolute;
+  width: 613px;
+  height: 86px;
+  left: 180px;
+  top: 120px;
+  line-height: 78px;
+  font-weight: 900;
+  /* font-size: 62px; */
+}
+
+#arcade-page-container h4 {
+  position: absolute;
+  width: 542px;
+  height: 58px;
+  left: 180px;
+  top: 156px;
+  font-style: normal;
+  font-weight: 900;
+  /* font-size: 18px; */
+  line-height: 22px;
+  display: flex;
+  align-items: flex-end;
+}
+
+#arcade-page-container #arcade-subtext p {
+  position: absolute;
+  width: 166px;
+  height: 25px;
+  left: 930px;
+  top: 190px;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+#arcade-logo {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 1080px;
+  top: 160px;
+}
+
+#arcade-header {
+  display: flex;
+}
+
+#game-display-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#snake-eater-container {
+  width: 27.5%;
+  border: 1px solid blue;
+  padding: 10px;
+  box-shadow: 12px, 12px, 8px, 10px, blue;
+}
+
+
+#terra-defender-container {
+  width: 27.5%;
+  border: 1px solid red;
+  padding: 10px;
+  box-shadow: 20px, 20px, 8px, 30px, red;
+}
+
+#vektor-kommander-container {
+  width: 27.5%;
+  border: 1px solid purple;
+  padding: 10px;
+  box-shadow: 20px, 20px, 8px, 30px, purple;
+}
