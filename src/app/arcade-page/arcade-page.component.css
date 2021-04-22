@@ -2,15 +2,11 @@
   background-color: #000b1d;
 }
 
-#top-nav {
-position: absolute;
-width: 100%;
-height: 71px;
-left: 0px;
-top: 0px;
-background: #011C48;
-border: 1px solid #000000;
-box-sizing: border-box;
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: white;
+  text-align: center;
 }
 
 #arcade-page-container {
@@ -22,7 +18,8 @@ box-sizing: border-box;
 
 @media screen and (max-width: 600px) {
   #arcade-page-container h1 {
-    font-size: 40px;
+    font-size: 50px;
+    left: 50px;
   }
   #arcade-page-container h4 {
     font-size: 15px;
@@ -30,41 +27,24 @@ box-sizing: border-box;
 }
 @media screen and (min-width: 600px) {
   #arcade-page-container h1 {
-    font-size: 62px;
+    font-size: 90px;
+    left: 90px;
   }
   #arcade-page-container h4 {
-    font-size: 18px;
+    font-size: 25px;
   }
 }
 
-#arcade-background img {
-  width: 1687px;
-  height: 368px;
-  margin-top: 60px;
-  margin-left: 90px;
-  overflow: hidden;
-  object-fit: cover;
-  object-position: 100% 0;
-  object-position: 0 51%;
-  /* z-index: -1;
-  position: relative; */
-  background: linear-gradient(
-    180.17deg,
-    rgba(1, 19, 47, 0) 41.81%,
-    #01132f 93.47%
-  );
-}
-
-#arcade-header {
-  display: flex;
-}
-
-#arcade-title {
-  flex: 1;
-}
-
-#arcade-logo {
-  flex: 1;
+#arcade-background {
+  background-image: linear-gradient(
+      180.17deg,
+      rgba(1, 19, 47, 0) 21.81%,
+      #000b1d 93.47%
+    ),
+    url("../../assets/img/arcade-background.jpg");
+  width: 100vw;
+  height: 50vh;
+  background-position: 0% 52%;
 }
 
 #arcade-page-container p,
@@ -78,24 +58,22 @@ h4 {
 
 #arcade-page-container h1 {
   position: absolute;
-  width: 613px;
+  width: 1000px;
   height: 86px;
-  left: 180px;
+  /* left: 90px; */
   top: 120px;
   line-height: 78px;
   font-weight: 900;
-  /* font-size: 62px; */
 }
 
 #arcade-page-container h4 {
   position: absolute;
-  width: 542px;
+  width: 1000px;
   height: 58px;
-  left: 180px;
-  top: 156px;
+  left: 90px;
+  top: 170px;
   font-style: normal;
   font-weight: 900;
-  /* font-size: 18px; */
   line-height: 22px;
   display: flex;
   align-items: flex-end;
@@ -103,13 +81,13 @@ h4 {
 
 #arcade-page-container #arcade-subtext p {
   position: absolute;
-  width: 166px;
+  width: 300px;
   height: 25px;
-  left: 930px;
-  top: 190px;
+  left: 1100px;
+  top: 210px;
   font-style: normal;
   font-weight: 900;
-  font-size: 14px;
+  font-size: 20px;
   line-height: 17px;
 }
 
@@ -117,37 +95,145 @@ h4 {
   position: absolute;
   width: 200px;
   height: 200px;
-  left: 1080px;
-  top: 160px;
-}
-
-#arcade-header {
-  display: flex;
+  left: 1320px;
+  top: 140px;
 }
 
 #game-display-container {
+  margin: 20px auto 0 auto;
   display: flex;
-  justify-content: flex-end;
+}
+
+@media (min-width: 400px) {
+  .game-display-boxes {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 #snake-eater-container {
-  width: 27.5%;
-  border: 1px solid blue;
-  padding: 10px;
-  box-shadow: 12px, 12px, 8px, 10px, blue;
+
+position: absolute;
+width: 276px;
+height: 336px;
+left: 136px;
+top: 300px;
+
+background: #000000;
+border: 2px solid #FFFFFF;
+box-shadow: 8px 8px 20px #006DAA;
+}
+
+
+#snake-eater-button button {
+position: absolute;
+width: 227px;
+height: 45px;
+left: 160px;
+top: 660px;
+
+background: #006DAA;
+border: none;
+box-sizing: border-box;
+box-shadow: 4px 4px 20px #347CA4;
+border-radius: 100px;
+
+/* PLAY */
+
+font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 22px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FFFFFF;
 }
 
 
 #terra-defender-container {
-  width: 27.5%;
-  border: 1px solid red;
-  padding: 10px;
-  box-shadow: 20px, 20px, 8px, 30px, red;
+position:absolute;
+width: 276px;
+height: 336px;
+left: 465px;
+top: 300px;
+flex: 1;
+
+background: #000000;
+border: 2px solid #FFFFFF;
+box-shadow: 8px 8px 20px #AA0A00;
+
+}
+
+#terra-defender-button button {
+position: absolute;
+width: 227px;
+height: 45px;
+left: 489px;
+top: 660px;
+flex: 1;
+
+background: #AA0A00;
+border: none;
+box-shadow: 4px 4px 20px #C8382F;
+border-radius: 100px;
+
+/* PLAY */
+
+font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 22px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FFFFFF;
+
+
 }
 
 #vektor-kommander-container {
-  width: 27.5%;
-  border: 1px solid purple;
-  padding: 10px;
-  box-shadow: 20px, 20px, 8px, 30px, purple;
+position: absolute;
+width: 276px;
+height: 336px;
+left: 792px;
+top: 300px;
+flex: 1;
+
+background: #000000;
+border: 2px solid #FFFFFF;
+box-shadow: 8px 8px 20px #AA00A3;
+
+}
+
+#vektor-kommander-button button {
+position: absolute;
+width: 227px;
+height: 45px;
+left: 817px;
+top: 660px;
+flex: 1;
+
+background: #AA00A3;
+border: none;
+box-shadow: 4px 4px 20px #B639B1;
+border-radius: 100px;
+
+/* PLAY */
+
+font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 22px;
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FFFFFF;
+
 }
