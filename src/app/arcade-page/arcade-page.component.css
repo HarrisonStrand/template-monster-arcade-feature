@@ -3,16 +3,18 @@
 }
 
 h2 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  color: white;
+  font-size: 35px;
+  letter-spacing: 3px;
+  line-height: 50px;
+  font-style: normal;
+  align-items: center;
   text-align: center;
 }
 
 #arcade-page-container {
   display: flex;
   justify-content: center;
-  max-width: 1320px;
+  max-width: 1480px;
   width: 100%;
 }
 
@@ -25,7 +27,7 @@ h2 {
     font-size: 15px;
   }
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 900px) {
   #arcade-page-container h1 {
     font-size: 90px;
     left: 90px;
@@ -33,6 +35,9 @@ h2 {
   #arcade-page-container h4 {
     font-size: 25px;
   }
+  /* .game-display-boxes {
+    margin: -225px auto 0 auto;
+  } */
 }
 
 #arcade-background {
@@ -49,7 +54,8 @@ h2 {
 
 #arcade-page-container p,
 h1,
-h4 {
+h4,
+h2 {
   font-family: "Montserrat", sans-serif;
   color: white;
   padding: 0px;
@@ -60,7 +66,6 @@ h4 {
   position: absolute;
   width: 1000px;
   height: 86px;
-  /* left: 90px; */
   top: 120px;
   line-height: 78px;
   font-weight: 900;
@@ -77,6 +82,13 @@ h4 {
   line-height: 22px;
   display: flex;
   align-items: flex-end;
+}
+
+#snake-eater-container p,
+#terra-defender-container p,
+#vektor-kommander-container p {
+  text-align: center;
+  padding: 20px;
 }
 
 #arcade-page-container #arcade-subtext p {
@@ -99,11 +111,6 @@ h4 {
   top: 140px;
 }
 
-#game-display-container {
-  margin: 20px auto 0 auto;
-  display: flex;
-}
-
 @media (min-width: 400px) {
   .game-display-boxes {
     display: flex;
@@ -111,129 +118,155 @@ h4 {
   }
 }
 
+.game-display-boxes {
+  margin: -225px auto 0 auto;
+  margin-left: 200px;
+}
+
+.game-display-boxes img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
 #snake-eater-container {
+  width: 350px;
+  height: 450px;
+  /* left: 136px; */
 
-position: absolute;
-width: 276px;
-height: 336px;
-left: 136px;
-top: 300px;
-
-background: #000000;
-border: 2px solid #FFFFFF;
-box-shadow: 8px 8px 20px #006DAA;
+  margin-right: 50px;
+  flex: 1;
+  background: #000000;
+  border: 2px solid #ffffff;
+  box-shadow: 8px 8px 20px #006daa;
 }
-
-
-#snake-eater-button button {
-position: absolute;
-width: 227px;
-height: 45px;
-left: 160px;
-top: 660px;
-
-background: #006DAA;
-border: none;
-box-sizing: border-box;
-box-shadow: 4px 4px 20px #347CA4;
-border-radius: 100px;
-
-/* PLAY */
-
-font-family: Montserrat;
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 22px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #FFFFFF;
-}
-
 
 #terra-defender-container {
-position:absolute;
-width: 276px;
-height: 336px;
-left: 465px;
-top: 300px;
-flex: 1;
+  width: 350px;
+  height: 450px;
 
-background: #000000;
-border: 2px solid #FFFFFF;
-box-shadow: 8px 8px 20px #AA0A00;
-
-}
-
-#terra-defender-button button {
-position: absolute;
-width: 227px;
-height: 45px;
-left: 489px;
-top: 660px;
-flex: 1;
-
-background: #AA0A00;
-border: none;
-box-shadow: 4px 4px 20px #C8382F;
-border-radius: 100px;
-
-/* PLAY */
-
-font-family: Montserrat;
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 22px;
-display: flex;
-align-items: center;
-text-align: center;
-
-color: #FFFFFF;
-
-
+  margin-right: 50px;
+  flex: 1;
+  background: #000000;
+  border: 2px solid #ffffff;
+  box-shadow: 8px 8px 20px #aa0a00;
 }
 
 #vektor-kommander-container {
-position: absolute;
-width: 276px;
-height: 336px;
-left: 792px;
-top: 300px;
-flex: 1;
+  width: 350px;
+  height: 450px;
 
-background: #000000;
-border: 2px solid #FFFFFF;
-box-shadow: 8px 8px 20px #AA00A3;
+  margin-right: 50px;
+  flex: 1;
+  background: #000000;
+  border: 2px solid #ffffff;
+  box-shadow: 8px 8px 20px #aa00a3;
+}
 
+#snake-eater-button {
+  padding-top: 25px;
+  padding-left: 25px;
+}
+#terra-defender-button {
+  padding-top: 25px;
+  padding-left: 25px;
+}
+#vektor-kommander-button {
+  padding-top: 25px;
+  padding-left: 25px;
+}
+
+#terra-defender-button button {
+  width: 306px;
+  height: 55px;
+  flex: 1;
+
+  background: #aa0a00;
+  border: none;
+  box-shadow: 4px 4px 20px #c8382f;
+  border-radius: 100px;
+
+  /* PLAY */
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 22px;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+}
+
+#snake-eater-button button {
+  width: 306px;
+  height: 55px;
+  flex: 1;
+
+  background: #006daa;
+  border: none;
+  box-shadow: 4px 4px 20px #347ca4;
+  border-radius: 100px;
+
+  /* PLAY */
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 22px;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff;
 }
 
 #vektor-kommander-button button {
-position: absolute;
-width: 227px;
-height: 45px;
-left: 817px;
-top: 660px;
-flex: 1;
+  width: 306px;
+  height: 55px;
+  flex: 1;
 
-background: #AA00A3;
-border: none;
-box-shadow: 4px 4px 20px #B639B1;
-border-radius: 100px;
+  background: #aa00a3;
+  border: none;
+  box-shadow: 4px 4px 20px #b639b1;
+  border-radius: 100px;
 
-/* PLAY */
+  /* PLAY */
 
-font-family: Montserrat;
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 22px;
-display: flex;
-align-items: center;
-text-align: center;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 22px;
+  align-items: center;
+  text-align: center;
 
-color: #FFFFFF;
+  color: #ffffff;
+}
 
+.other-activities {
+  /* OTHER ACTIVITIES */
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 32px;
+  text-align: center;
+  background: linear-gradient(
+    86.74deg,
+    #6587ff 22.35%,
+    #f83eda 67.19%,
+    #ff4c25 113.51%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+button:hover {
+  background: white !important;
+  cursor: pointer;
+  border: 1px solid white !important;
+  box-shadow: 4px 4px 20px white !important;
+  color: black !important;
 }
