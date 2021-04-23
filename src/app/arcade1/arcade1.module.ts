@@ -6,7 +6,3 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class Arcade1Module {}
-
-// ng g c arcade-page
-
-// ng g m sub-folder/arcade-page --routing

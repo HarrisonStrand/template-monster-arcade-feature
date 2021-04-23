@@ -1,5 +1,3 @@
-import Snake from '../entities/snake';
-
 const arcadeColor1 = '#4E0DFF';
 const arcadeColor2 = 'red';
 const arcadeColor3 = 'rgba(255, 0, 0, .3)';

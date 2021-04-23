@@ -1,6 +1,6 @@
 import { Arcade2Component } from './arcade2.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: Arcade2Component }
@@ -10,8 +10,9 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class Arcade2RoutingModule {
+export class ArcadeRoutingModule {
   static components = [
     Arcade2Component,
   ]
 }
+
