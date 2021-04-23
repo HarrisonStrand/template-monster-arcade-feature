@@ -2,32 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import * as p5 from 'p5';
 import Ship from './js/entity/ship.js';
 import Asteroid from './js/entity/asteroid.js';
-import Enemy from './js/entity/enemy.js'
+import Enemy from './js/entity/enemy.js';
 import { input } from './js/utility/input.js';
 import Dust from './js/effects/dust.js';
 import Hud from './js/utility/hud.js';
-import Splash from './js/utility/splash.js'
+import Splash from './js/utility/splash.js';
 import Debris from './js/effects/debris.js';
 import Star from './js/effects/star.js';
 import loadStars from './js/utility/load-stars.js';
 import loadBarriers from './js/utility/load-barriers.js';
-import hyperDrive from './js/effects/hyper-drive.js'
+import hyperDrive from './js/effects/hyper-drive.js';
 import laserCollision from './js/utility/laser-collision.js';
 import randomColors from './js/utility/random-colors.js';
-import MobileButton from './js/utility/buttons.js'
+import MobileButton from './js/utility/buttons.js';
 import logo1 from './img/vektor.js';
 
 @Component({
   selector: 'app-arcade3',
   templateUrl: './arcade3.component.html',
-  styleUrls: ['./arcade3.component.css']
+  styleUrls: ['./arcade3.component.css'],
 })
 export class Arcade3Component implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-
     // let cnvs: any;
     let ctx: any;
     var windowWidth: any;
@@ -61,85 +59,136 @@ export class Arcade3Component implements OnInit {
     var laserOverHeat = false;
     let splashScreen: boolean = true;
     let beginGameSequence: number = 0;
-    let logoPath = new Path2D(logo1.path)
+    let logoPath = new Path2D(logo1.path);
 
-    // var laserSoundEffects: any = []; 
+    // var laserSoundEffects: any = [];
     // var explosionSoundEffects: any = [];
     // var rocketSoundEffects: any = [];
     // var stageSoundEffect: any;
     // var mainFont: any;
-
-    const addDust = function (pos: any, vel: any, n: any, trans: any, color: any, weight: any, g: any) {
+    const addDust = function (
+      pos: any,
+      vel: any,
+      n: any,
+      trans: any,
+      color: any,
+      weight: any,
+      g: any
+    ) {
       for (var i = 0; i < n; i++) {
-        dust.push(new Dust(pos, vel, trans, color, weight, g, rgbColor1, rgbColor2, rgbColor3));
+        dust.push(
+          new Dust(
+            pos,
+            vel,
+            trans,
+            color,
+            weight,
+            g,
+            rgbColor1,
+            rgbColor2,
+            rgbColor3
+          )
+        );
       }
-    }
+    };
 
-    const addDebris = function (pos: any, vel: any, n: any, r: any, g: any, rgbColor4: any) {
+    const addDebris = function (
+      pos: any,
+      vel: any,
+      n: any,
+      r: any,
+      g: any,
+      rgbColor4: any
+    ) {
       debris.push(new Debris(pos, vel, n, r, g, rgbColor4));
-    }
+    };
 
     const reduceLaserCharge = function () {
       if (laserCharge > 0) {
         laserCharge -= 100;
         return true;
-      }
-      else {
+      } else {
         return false;
       }
-    }
+    };
 
     const roundLoss = function (g: any) {
       let game = g;
       setTimeout(function () {
         lives--;
         if (lives >= 0) {
-          ship = new Ship(game, shieldTime, rgbColor2, rgbColor3, title, score, lasers, addDust, reduceLaserCharge, laserCharge, windowWidth);
+          ship = new Ship(
+            game,
+            shieldTime,
+            rgbColor2,
+            rgbColor3,
+            title,
+            score,
+            lasers,
+            addDust,
+            reduceLaserCharge,
+            laserCharge,
+            windowWidth
+          );
           canPlay = true;
         }
       }, 3000);
-    }
+    };
 
     const game = (g: any) => {
-
       const spawnAsteroids = function () {
         for (var i = 0; i < level + 1; i++) {
-          asteroids.push(new Asteroid(null, null, 3, g, rgbColor1, windowWidth));
+          asteroids.push(
+            new Asteroid(null, null, 3, g, rgbColor1, windowWidth)
+          );
         }
-      }
+      };
 
       const spawnBarriers = function () {
         for (let i = 0; i < level + 1; i++) {
-          const vx = -.4
-          const size = g.round(g.random(10, 50))
-          const y = g.random(0 + size * 4, g.height - size * 4)
+          const vx = -0.4;
+          const size = g.round(g.random(10, 50));
+          const y = g.random(0 + size * 4, g.height - size * 4);
           const x = g.width + size * 6;
 
-          barrierSensor.push()
-          barriers.push(loadBarriers(g, x, y, vx, size, rgbColor4, windowWidth))
+          barrierSensor.push();
+          barriers.push(
+            loadBarriers(g, x, y, vx, size, rgbColor4, windowWidth)
+          );
         }
-      }
+      };
 
       const spawnEnemy = function () {
-        var radius = g.random(20, 30)
-        enemies.push(new Enemy(radius, g, addDust, level, rgbColor5, rgbColor2, lasers, windowWidth))
-      }
+        var radius = g.random(20, 30);
+        enemies.push(
+          new Enemy(
+            radius,
+            g,
+            addDust,
+            level,
+            rgbColor5,
+            rgbColor2,
+            lasers,
+            windowWidth
+          )
+        );
+      };
 
       const addToScore = function (add: any) {
         score += add;
-      }
+      };
 
       const checkDust = function () {
         while (dust.length > 40) {
           dust.shift();
         }
-      }
+      };
 
       const checkDebris = function () {
         if (debris.length > 8) {
           debris.shift();
         }
-      }
+      };
 
       const checkLaserCharge = function () {
         if (laserCharge < 0) {
@@ -153,41 +202,58 @@ export class Arcade3Component implements OnInit {
         if (laserCharge < 1270 && !laserOverHeat) {
           laserCharge += 5;
         }
-      }
+      };
 
       g.preload = () => {
-
         let random_Colors = randomColors(g);
-        rgbColor1 = random_Colors[0]
-        rgbColor2 = random_Colors[1]
-        rgbColor3 = random_Colors[2]
-        rgbColor4 = random_Colors[3]
-        rgbColor5 = random_Colors[4]
-        console.log(rgbColor1)
-        console.log(rgbColor2)
-        console.log(rgbColor3)
-        console.log(rgbColor4)
-        console.log(rgbColor5)
-      }
+        rgbColor1 = random_Colors[0];
+        rgbColor2 = random_Colors[1];
+        rgbColor3 = random_Colors[2];
+        rgbColor4 = random_Colors[3];
+        rgbColor5 = random_Colors[4];
+        console.log(rgbColor1);
+        console.log(rgbColor2);
+        console.log(rgbColor3);
+        console.log(rgbColor4);
+        console.log(rgbColor5);
+      };
 
       g.setup = () => {
-
         windowWidth = g.windowWidth;
         // console.log(g.windowHeight)
-        g.frameRate(60)
-        canvas = g.createCanvas(windowWidth * .98, windowWidth / 2);
-        ctx = g.canvas.getContext("2d");
+        g.frameRate(60);
+        canvas = g.createCanvas(windowWidth * 0.98, windowWidth / 2);
+        ctx = g.canvas.getContext('2d');
 
-        console.log("w:" + g.width + " h:" + g.height)
-        
-        buttons[0] = new MobileButton(g,'⇧',g.UP_ARROW,38,200,150)
-        buttons[1] = new MobileButton(g,'⇩',g.DOWN_ARROW,40,200,50)
-        buttons[2] = new MobileButton(g,'⇦',g.LEFT_ARROW,37,300,50)
-        buttons[3] = new MobileButton(g,'⇨',g.RIGHT_ARROW,39,100,50)
-        buttons[4] = new MobileButton(g,'O'," ".charCodeAt(0),32,g.width-100,50)
+        console.log('w:' + g.width + ' h:' + g.height);
 
+        buttons[0] = new MobileButton(g, '⇧', g.UP_ARROW, 38, 200, 150);
+        buttons[1] = new MobileButton(g, '⇩', g.DOWN_ARROW, 40, 200, 50);
+        buttons[2] = new MobileButton(g, '⇦', g.LEFT_ARROW, 37, 300, 50);
+        buttons[3] = new MobileButton(g, '⇨', g.RIGHT_ARROW, 39, 100, 50);
+        buttons[4] = new MobileButton(
+          g,
+          'O',
+          ' '.charCodeAt(0),
+          32,
+          g.width - 100,
+          50
+        );
 
-        ship = new Ship(g, shieldTime, rgbColor2, rgbColor3, title, score, lasers, addDust, reduceLaserCharge, laserCharge, windowWidth, buttons);
+        ship = new Ship(
+          g,
+          shieldTime,
+          rgbColor2,
+          rgbColor3,
+          title,
+          score,
+          lasers,
+          addDust,
+          reduceLaserCharge,
+          laserCharge,
+          windowWidth,
+          buttons
+        );
         hud = new Hud(g, rgbColor1, rgbColor3, pts, windowWidth);
         stars = loadStars(g);
         splash = new Splash();
@@ -201,8 +267,7 @@ export class Arcade3Component implements OnInit {
         // var button = g.createButton('⇧');
         // button.position(g.width-50, g.height-50);
         // button.mousePressed(console.log("BUTTON"));
-
-      }
+      };
 
       // g.mousePressed = () => {
       //   // console.log("mouse click!");
@@ -211,27 +276,27 @@ export class Arcade3Component implements OnInit {
       //   }
       // }
 
-      let easeInStars = 1.25
+      let easeInStars = 1.25;
 
       g.draw = () => {
-
         if (splashScreen) {
           g.keyReleased = () => {
             input.handleEvent(g.key, g.keyCode, false);
-          }
+          };
 
           g.keyPressed = () => {
             input.handleEvent(g.key, g.keyCode, true);
-          }
-          input.registerAsListener(g.ENTER, function (char: any, code: any, press: any) {
-            splashScreen = false;
-            beginGameSequence = g.frameCount;
-          });
+          };
+          input.registerAsListener(
+            g.ENTER,
+            function (char: any, code: any, press: any) {
+              splashScreen = false;
+              beginGameSequence = g.frameCount;
+            }
+          );
           g.background(0);
           splash.render(g, stars, windowWidth, ctx, logoPath, logo1);
-
         } else {
-
           // CHECK FOR FX CREATING LAAAAG
           checkDust();
           checkDebris();
@@ -242,11 +307,11 @@ export class Arcade3Component implements OnInit {
 
           // STARS
           if (g.frameCount - beginGameSequence < 175) {
-            hyperDrive(g, stars, easeInStars, beginGameSequence)
+            hyperDrive(g, stars, easeInStars, beginGameSequence);
             // for (let i = 0; i < stars.length; i++) {
             //   if (g.frameCount-beginGameSequence < 100) {
             //   easeInStars = easeInStars/Math.pow(1.000008, g.frameCount-beginGameSequence)
-            //   } 
+            //   }
             //   else {
             //   easeInStars += (g.frameCount-beginGameSequence)/1000000
             //     if (easeInStars >= 1.25) {
@@ -263,23 +328,27 @@ export class Arcade3Component implements OnInit {
             //     stars.splice(i, 1)
             //   }
             // }
-
           } else {
             for (let i = 0; i < stars.length; i++) {
-              stars[i].move(1.25)
+              stars[i].move(1.25);
               if (stars[i].x <= 0) {
-                let windowX = g.width
-                let randomY = g.random(0, g.height)
-                let randomSize = g.random(0.1, 7)
+                let windowX = g.width;
+                let randomY = g.random(0, g.height);
+                let randomSize = g.random(0.1, 7);
                 const newStar = new Star(windowX, randomY, randomSize, g);
-                stars.push(newStar)
-                stars.splice(i, 1)
+                stars.push(newStar);
+                stars.splice(i, 1);
               }
             }
           }
 
           // RANDOM ENEMY SPAWN
-          if (!title && !stageClear && possibleEnemies > 0 && enemies.length < 1) {
+          if (
+            !title &&
+            !stageClear &&
+            possibleEnemies > 0 &&
+            enemies.length < 1
+          ) {
             let ranNum = g.random(1000);
             if (ranNum <= 1) {
               spawnEnemy();
@@ -287,7 +356,12 @@ export class Arcade3Component implements OnInit {
           }
 
           // RANDOM ASTEROID SPAWN
-          if (!title && !stageClear && possibleEnemies > 0 && enemies.length < 1) {
+          if (
+            !title &&
+            !stageClear &&
+            possibleEnemies > 0 &&
+            enemies.length < 1
+          ) {
             let ranNum = g.random(750);
             if (ranNum <= 1) {
               spawnAsteroids();
@@ -295,14 +369,19 @@ export class Arcade3Component implements OnInit {
           }
 
           // RANDOM BARRIER SPAWN
-          if (!title && !stageClear && possibleEnemies > 0 && enemies.length < 1) {
+          if (
+            !title &&
+            !stageClear &&
+            possibleEnemies > 0 &&
+            enemies.length < 1
+          ) {
             let ranNum = g.random(300);
             if (ranNum <= 1 && barriers.length < 8) {
               spawnBarriers();
             }
           }
 
-          // UPDATE ASTEROIDS AND CHECK FOR COLLISIONS 
+          // UPDATE ASTEROIDS AND CHECK FOR COLLISIONS
           for (var i = 0; i < asteroids.length; i++) {
             if (asteroids[i].offscreen()) {
               asteroids.splice(i, 1);
@@ -311,13 +390,13 @@ export class Arcade3Component implements OnInit {
             if (ship.hits(asteroids[i]) && canPlay) {
               canPlay = false;
               var dustVel = p5.Vector.add(ship.vel.mult(0.2), asteroids[i].vel);
-              addDust(ship.pos, dustVel, 15, .005, rgbColor3, 3, g);
+              addDust(ship.pos, dustVel, 15, 0.005, rgbColor3, 3, g);
               ship.destroy();
               input.reset();
               // sounds - need to stop rocket sounds here
               // ship.playSoundEffect(explosionSoundEffects);
               // rocketSoundEffects[0].stop();
-              // rocketSoundEffects[1].stop();            
+              // rocketSoundEffects[1].stop();
               roundLoss(g);
             }
             asteroids[i].update();
@@ -331,21 +410,41 @@ export class Arcade3Component implements OnInit {
               lasers.splice(i, 1);
               continue;
             }
-            laserCollision(g, lasers, i, asteroids, addDust, rgbColor1, rgbColor2, rgbColor3, rgbColor4, rgbColor5, enemies, addDebris, barriers, ship, roundLoss, canPlay, input, addToScore, windowWidth)
+            laserCollision(
+              g,
+              lasers,
+              i,
+              asteroids,
+              addDust,
+              rgbColor1,
+              rgbColor2,
+              rgbColor3,
+              rgbColor4,
+              rgbColor5,
+              enemies,
+              addDebris,
+              barriers,
+              ship,
+              roundLoss,
+              canPlay,
+              input,
+              addToScore,
+              windowWidth
+            );
           }
 
-          // CHECK FOR COLLISION BEWTWEEN SHIP + ENEMY 
+          // CHECK FOR COLLISION BEWTWEEN SHIP + ENEMY
           for (var i = enemies.length - 1; i >= 0; i--) {
             if (ship.hits(enemies[i]) && canPlay) {
               canPlay = false;
               var dustVel = p5.Vector.add(ship.vel.mult(0.2), enemies[i].vel);
-              addDust(ship.pos, dustVel, 15, .005, rgbColor3, 2.5, g);
+              addDust(ship.pos, dustVel, 15, 0.005, rgbColor3, 2.5, g);
               ship.destroy();
               input.reset();
               // ship.playSoundEffect(explosionSoundEffects);
               // rocketSoundEffects[0].stop();
               // rocketSoundEffects[1].stop();
-              roundLoss(g)
+              roundLoss(g);
             }
             enemies[i].update();
           }
@@ -353,24 +452,27 @@ export class Arcade3Component implements OnInit {
           // UPDATE AND DESTROY BARRIERS
           for (let i = 0; i < barriers.length; i++) {
             for (let j = 0; j < barriers[i].length; j++) {
-              barriers[i][j].update()
+              barriers[i][j].update();
               if (ship.hits(barriers[i][j]) && canPlay) {
                 canPlay = false;
-                var dustVel = p5.Vector.add(ship.vel.mult(0.2), barriers[i][j].vel);
-                addDust(ship.pos, dustVel, 15, .005, rgbColor3, 2.5, g);
+                var dustVel = p5.Vector.add(
+                  ship.vel.mult(0.2),
+                  barriers[i][j].vel
+                );
+                addDust(ship.pos, dustVel, 15, 0.005, rgbColor3, 2.5, g);
                 ship.destroy();
                 input.reset();
                 // ship.playSoundEffect(explosionSoundEffects);
                 // rocketSoundEffects[0].stop();
                 // rocketSoundEffects[1].stop();
-                roundLoss(g)
+                roundLoss(g);
               }
               if (barriers[i][j].offscreen()) {
                 barriers[i].splice(j, 1);
               }
             }
             if (barriers[i].length === 0) {
-              barriers.splice(i, 1)
+              barriers.splice(i, 1);
             }
           }
 
@@ -397,11 +499,11 @@ export class Arcade3Component implements OnInit {
 
           for (let i = 0; i < barriers.length; i++) {
             for (let j = 0; j < barriers[i].length; j++) {
-              barriers[i][j].render()
+              barriers[i][j].render();
             }
           }
           for (let i = 0; i < stars.length; i++) {
-            stars[i].show()
+            stars[i].show();
           }
           for (var i = 0; i < asteroids.length; i++) {
             asteroids[i].render();
@@ -422,12 +524,18 @@ export class Arcade3Component implements OnInit {
             buttons[i].render();
           }
 
-
           ship.render();
-          hud.render(stageClear, level, lives, score, laserCharge, laserOverHeat);
+          hud.render(
+            stageClear,
+            level,
+            lives,
+            score,
+            laserCharge,
+            laserOverHeat
+          );
         }
-      }
+      };
     };
     let canvas = new p5(game);
-  };
-};
+  }
+}
