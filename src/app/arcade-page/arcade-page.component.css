@@ -11,35 +11,6 @@ h2 {
   text-align: center;
 }
 
-#arcade-page-container {
-  display: flex;
-  justify-content: center;
-  max-width: 1480px;
-  width: 100%;
-}
-
-@media screen and (max-width: 600px) {
-  #arcade-page-container h1 {
-    font-size: 50px;
-    left: 50px;
-  }
-  #arcade-page-container h4 {
-    font-size: 15px;
-  }
-}
-@media screen and (min-width: 900px) {
-  #arcade-page-container h1 {
-    font-size: 90px;
-    left: 90px;
-  }
-  #arcade-page-container h4 {
-    font-size: 25px;
-  }
-  /* .game-display-boxes {
-    margin: -225px auto 0 auto;
-  } */
-}
-
 #arcade-background {
   background-image: linear-gradient(
       180.17deg,
@@ -52,7 +23,7 @@ h2 {
   background-position: 0% 52%;
 }
 
-#arcade-page-container p,
+p,
 h1,
 h4,
 h2 {
@@ -62,8 +33,11 @@ h2 {
   margin: 0px;
 }
 
-#arcade-page-container h1 {
+/* Arcade Games */
+.arcade-header-container h1 {
   position: absolute;
+  font-size: 90px;
+  left: 90px;
   width: 1000px;
   height: 86px;
   top: 120px;
@@ -71,12 +45,14 @@ h2 {
   font-weight: 900;
 }
 
-#arcade-page-container h4 {
+/* Beat your friends */
+.arcade-header-container h4 {
   position: absolute;
   width: 1000px;
   height: 58px;
   left: 90px;
   top: 170px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 900;
   line-height: 22px;
@@ -84,14 +60,8 @@ h2 {
   align-items: flex-end;
 }
 
-#snake-eater-container p,
-#terra-defender-container p,
-#vektor-kommander-container p {
-  text-align: center;
-  padding: 20px;
-}
-
-#arcade-page-container #arcade-subtext p {
+/* Brought to you by */
+.arcade-header-container p {
   position: absolute;
   width: 300px;
   height: 25px;
@@ -111,72 +81,172 @@ h2 {
   top: 140px;
 }
 
-@media (min-width: 400px) {
-  .game-display-boxes {
-    display: flex;
-    justify-content: flex-end;
+/*SMALL SCREENVIEWS*/
+@media (max-width:1100px) {
+  .game-display-boxes-container {
+    margin: -225px auto 0 auto;
+    width: 350px;
+    margin-left: 90px;
+  }
+  .snake-eater, .terra-defender, .vektor-kommander {
+    margin-bottom: 130px;
   }
 }
 
-.game-display-boxes {
-  margin: -225px auto 0 auto;
-  margin-left: 200px;
+/* LARGE SCREENVIEWS */
+@media (min-width: 1100px) {
+  .game-display-boxes-container {
+    display: flex;
+    justify-content: space-between;
+    margin: -225px auto 0 auto;
+    width: 70vw;
+    margin-left: 90px;
+  }
 }
 
-.game-display-boxes img {
+.game-display-boxes-container img {
   width: 100%;
   height: 240px;
   object-fit: cover;
 }
 
-#snake-eater-container {
-  width: 350px;
+/* GAME DESCRIPTION */
+.snake-eater p,
+.terra-defender p,
+.vektor-kommander p {
+  text-align: center;
+  padding: 20px;
+}
+
+.snake-eater {
+  /* width: 350px; */
+  flex-basis: 27%;
   height: 450px;
   /* left: 136px; */
 
-  margin-right: 50px;
-  flex: 1;
+  /* margin-right: 50px; */
+  /* flex: 1; */
+  box-sizing: border-box;
   background: #000000;
   border: 2px solid #ffffff;
   box-shadow: 8px 8px 20px #006daa;
 }
 
-#terra-defender-container {
-  width: 350px;
+.terra-defender {
+  /* width: 350px; */
+  flex-basis: 27%;
   height: 450px;
 
-  margin-right: 50px;
-  flex: 1;
+  /* margin-right: 50px; */
+  /* flex: 1; */
+  box-sizing: border-box;
   background: #000000;
   border: 2px solid #ffffff;
   box-shadow: 8px 8px 20px #aa0a00;
 }
 
-#vektor-kommander-container {
-  width: 350px;
+.vektor-kommander {
+  /* width: 350px; */
+  flex-basis: 27%;
   height: 450px;
 
-  margin-right: 50px;
-  flex: 1;
+  /* margin-right: 50px; */
+  /* flex: 1; */
+  box-sizing: border-box;
   background: #000000;
   border: 2px solid #ffffff;
   box-shadow: 8px 8px 20px #aa00a3;
 }
 
-#snake-eater-button {
-  padding-top: 25px;
-  padding-left: 25px;
-}
-#terra-defender-button {
-  padding-top: 25px;
-  padding-left: 25px;
-}
-#vektor-kommander-button {
-  padding-top: 25px;
-  padding-left: 25px;
+.play-buttons-container {
+  margin: 20px auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+  /* justify-content: flex-end; */
+  /* justify-content: flex-end; */
+  width: 1300px;
+  margin-left: 100px;
 }
 
-#terra-defender-button button {
+#button1 {
+  margin-top: 90px;
+  margin-left: 20px;
+  flex-basis: 30%;
+  width: 306px;
+  height: 55px;
+  /* margin-right: 110px; */
+  /* flex: 1; */
+
+  background: #006daa;
+  border: none;
+  box-shadow: 4px 4px 20px #347ca4;
+  border-radius: 100px;
+
+  /* PLAY */
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 22px;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff;
+}
+#button2 {
+  margin-top: 90px;
+  margin-left: 20px;
+  flex-basis: 30%;
+  width: 306px;
+  height: 55px;
+  /* margin-right: 110px; */
+  /* flex: 1; */
+
+  background: #aa0a00;
+  border: none;
+  box-shadow: 4px 4px 20px #c8382f;
+  border-radius: 100px;
+
+  /* PLAY */
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 22px;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+}
+#button3 {
+  margin-top: 90px;
+  margin-left: 20px;
+  flex-basis: 30%;
+  width: 306px;
+  height: 55px;
+  /* margin-right: 110px; */
+  /* flex: 1; */
+
+  background: #aa00a3;
+  border: none;
+  box-shadow: 4px 4px 20px #b639b1;
+  border-radius: 100px;
+
+  /* PLAY */
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 22px;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff;
+}
+
+/* #terra-defender-button button {
   width: 306px;
   height: 55px;
   flex: 1;
@@ -185,8 +255,6 @@ h2 {
   border: none;
   box-shadow: 4px 4px 20px #c8382f;
   border-radius: 100px;
-
-  /* PLAY */
 
   font-family: Montserrat;
   font-style: normal;
@@ -207,8 +275,6 @@ h2 {
   border: none;
   box-shadow: 4px 4px 20px #347ca4;
   border-radius: 100px;
-
-  /* PLAY */
 
   font-family: Montserrat;
   font-style: normal;
@@ -231,8 +297,6 @@ h2 {
   box-shadow: 4px 4px 20px #b639b1;
   border-radius: 100px;
 
-  /* PLAY */
-
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
@@ -242,7 +306,7 @@ h2 {
   text-align: center;
 
   color: #ffffff;
-}
+} */
 
 .other-activities {
   /* OTHER ACTIVITIES */
