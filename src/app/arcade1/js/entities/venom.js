@@ -27,7 +27,7 @@ export default function Venom(p5, x, y, r, snake) {
 
   this.hits = function(something) {
     var d = p5.dist(this.x, this.y, something.x, something.y);
-    if (d < this.r + something.r) {
+    if (d < something.r * 2) {
       return true;
     } else {
       return false;

@@ -9,6 +9,7 @@ import {
   snakeReset
 } from './utilities';
 import { reset } from "./reset"
+import Enemy from '../entities/enemy';
 
 
 export const drawGame = (p5) => {
@@ -187,6 +188,14 @@ if (state.menu) {
 				snakeReset(p5);
 				state.menu = false;
 				state.livesLeft -= 1;
+			}
+		}
+	}
+
+	for(let i = 0; i < state.mVenom.length; i++) {
+		for(let j = 0; j < state.enemies.length; j++) {
+			if (state.mVenom[i].hits(state.enemies[j])) {
+				state.enemies.splice(j, 1);
 			}
 		}
 	}
