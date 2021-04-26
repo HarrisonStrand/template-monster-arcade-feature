@@ -1,5 +1,6 @@
 import { state } from '../game/state'
 import { reset } from './reset';
+import Venom from '../entities/venom'
 import {
   collide,
   getPowerUp,
@@ -15,7 +16,7 @@ export const keyPress = (p5) => {
 		reset(p5);
 		state.menu = false;
 	} else if (p5.key == ' ' && state.move) {
-		mVenom.push(
+		state.mVenom.push(
 			new Venom(
 				p5,
 				state.snake.body[0].x,

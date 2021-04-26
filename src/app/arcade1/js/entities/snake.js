@@ -84,6 +84,18 @@ export default class Snake {
     return false;
   }
 
+  hitEnemy(enemy, p5) {
+    const end_of_array = this.body.length -1
+    let dist = (this.body[end_of_array].x - enemy.x) * (this.body[end_of_array].x - enemy.x) + (this.body[end_of_array].y - enemy.y) * (this.body[end_of_array].y - enemy.y);
+    if (dist > (enemy.r + this.body[end_of_array].r) * (enemy.r + this.body[end_of_array].r)) {
+      return false;
+    }
+    if (dist <= enemy.r * 2) { // radius size for snake
+      return true
+    }
+    return false;
+  }
+
   show(p5) {
     for (let i = 0; i < this.body.length; i++) {
       p5.fill(state.snakeMainColor);

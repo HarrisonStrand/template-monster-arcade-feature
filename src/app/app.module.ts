@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Arcade1Component } from './arcade1/arcade1.component';
 import { Arcade2Component } from './arcade2/arcade2.component';
-import { Arcade3Component } from './arcade3/arcade3.component';
+// import { Arcade3Component } from './arcade3/arcade3.component';
 import { ArcadePageComponent } from './arcade-page/arcade-page.component';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { ArcadePageComponent } from './arcade-page/arcade-page.component';
     AppComponent,
     Arcade1Component,
     Arcade2Component,
-    Arcade3Component,
+    // Arcade3Component,
     ArcadePageComponent,
   ],
   imports: [

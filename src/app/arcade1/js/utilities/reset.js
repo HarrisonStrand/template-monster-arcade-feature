@@ -122,21 +122,10 @@ export const reset = (p5, canvas) => {
     }
   }
 
-  // ENEMIES NO OVERLAP WITH OBSTACLES
+  // ENEMIES INSTANTIATION
   while (state.enemies.length < state.numberOfEnemies) {
     state.enemy = new Enemy(p5, p5.random(3, 97), p5.random(3, 97), 4);
-    var overlapping = false;
-    for (let j = 0; j < state.obstacles.length; j++) {
-      var other = state.obstacles[j];
-      var d = p5.dist(state.enemy.x, state.enemy.y, other.x, other.y);
-      if (d < state.enemy.r + other.r) {
-        overlapping = true;
-        break;
-      }
-    }
-    if (!overlapping) {
-      state.enemies.push(state.enemy);
-    }
+    state.enemies.push(state.enemy);
   }
 
   //GRID PACMAN POINT GENERATION

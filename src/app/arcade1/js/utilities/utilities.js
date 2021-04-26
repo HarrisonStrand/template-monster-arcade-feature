@@ -86,6 +86,7 @@ export const collide = (obstacle, snake) => {
     return axisHit;
   };
 
+
 export const getPowerUp = (powerUps, value) => {
   var index = powerUps.indexOf(value);
   if (index > -1) {

@@ -181,6 +181,16 @@ if (state.menu) {
 		}
 	}
 
+	for (let i = 0; i < state.enemies.length; i++) {
+		if (state.snake.hitEnemy(state.enemies[i], p5)) {
+			if (state.livesLeft >= 0) {
+				snakeReset(p5);
+				state.menu = false;
+				state.livesLeft -= 1;
+			}
+		}
+	}
+
 	for (var i = state.mVenom.length - 1; i >= 0; i--) {
 		state.mVenom[i].update(state.snake);
 		state.mVenom[i].show(p5);
@@ -198,9 +208,6 @@ if (state.menu) {
 		}
 		if (Math.floor(state.enemies[i].y) == 96 || Math.floor(state.enemies[i].y) == 3) {
 			state.enemies[i].yspeed = state.enemies[i].yspeed * -1;
-		}
-		if (state.enemies[i].hits(state.snake)) {
-			console.log('snake hit')
 		}
 	}
 
