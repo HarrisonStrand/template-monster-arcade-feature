@@ -8,9 +8,8 @@ describe('Arcade3Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Arcade3Component ]
-    })
-    .compileComponents();
+      declarations: [Arcade3Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {

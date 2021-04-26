@@ -4,7 +4,7 @@ function cross(v1, v2) {
   return v1.x * v2.y - v2.x * v1.y;
 }
 
-export function lineIntersect(l1v1, l1v2, l2v1, l2v2) {
+export const lineIntersect = (l1v1, l1v2, l2v1, l2v2, g) => {
   var base = p5.Vector.sub(l1v1, l2v1);
   var l1_vector = p5.Vector.sub(l1v2, l1v1);
   var l2_vector = p5.Vector.sub(l2v2, l2v1);

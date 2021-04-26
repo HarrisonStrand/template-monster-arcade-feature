@@ -9,8 +9,9 @@ import Key from '../entities/key'
 import Hud from '../utilities/hud'
 import { state } from '../game/state'
 
-export const reset = (p5) => {
-  p5.createCanvas(1400, 1000);
+export const reset = (p5, canvas) => {
+  canvas = p5.createCanvas(1400, 1000);
+  canvas.parent('arcade1-container');
   p5.pixelDensity(1);
   state.w = p5.floor(p5.width / state.rez);
   state.h = p5.floor(p5.height / state.rez);

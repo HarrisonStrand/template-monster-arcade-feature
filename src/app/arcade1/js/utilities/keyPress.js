@@ -42,5 +42,7 @@ export const keyPress = (p5) => {
 		state.obstacles.length = 0;
 		state.points.length = 0;
 		reset(p5);
+	} else if (p5.keyCode == p5.ESCAPE) {
+
 	}
 }
