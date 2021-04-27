@@ -177,8 +177,10 @@ if (state.menu) {
 
 	for (let i = 0; i < state.points.length; i++) {
 		if (state.snake.eatPoint(state.points[i], p5)) {
+			console.log(state.pointsEaten);
 			getPoint(state.points, state.points[i]);
 			state.scoreCount += 100;
+			state.pointsEaten ++;
 		}
 	}
 
@@ -207,7 +209,6 @@ if (state.menu) {
 			state.mVenom.splice(i, 1);
 		}
 	}
-
 
 	for (var i = 0; i < state.enemies.length; i++) { ////WORK ON COLLISION WITH SNAKE!!!
 		state.enemies[i].x = state.enemies[i].x + state.enemies[i].xspeed;

@@ -111,11 +111,18 @@ export function getMenuPowerUp(menuPowerUps, value) {
   }
 }
 
-//GET POINT
+//GET POINT AND GROW
 export function getPoint(points, value) {
   var index = points.indexOf(value);
   if (index > -1) {
     state.points.splice(index, 1);
+  }
+  for (let i = 1; i < state.pointsEaten; i ++) {
+    if (i && (i % 5 === 0)) {
+      console.log('yup')
+      state.snake.grow();
+      state.pointsEaten = [];
+    }
   }
 }
 

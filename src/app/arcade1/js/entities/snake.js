@@ -47,6 +47,7 @@ export default class Snake {
       this.len++;
       this.body.push(head);
   }
+
   
   eatPowerUp(powerUp, p5) {
     const end_of_array = this.body.length -1

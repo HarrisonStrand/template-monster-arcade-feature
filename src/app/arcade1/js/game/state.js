@@ -109,6 +109,7 @@ export var state = {
   mainFont: null,
   move: false,
   menu: true,
+  pointsEaten: 0,
   mVenom: [],
   enemies: [],
   obstacles: [],
