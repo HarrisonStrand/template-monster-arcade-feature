@@ -37,13 +37,13 @@ export const keyPress = (p5) => {
 	} else if (p5.keyCode === p5.UP_ARROW) {
 		state.move = true;
 		state.snake.setDir(0, -1);
-	} else if (p5.key == 'y' && state.livesLeft < 0) {
+	} else if (p5.keyCode == p5.ENTER && state.livesLeft < 0 && state.menu == false) {
 		state.numberOfKeys = 2;
 		state.livesLeft = 3;
 		state.obstacles.length = 0;
 		state.points.length = 0;
 		reset(p5);
 	} else if (p5.keyCode == p5.ESCAPE) {
-
+		state.menu = true;
 	}
 }

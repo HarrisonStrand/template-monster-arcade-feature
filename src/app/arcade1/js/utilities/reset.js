@@ -10,16 +10,22 @@ import Hud from '../utilities/hud'
 import { state } from '../game/state'
 
 export const reset = (p5, canvas) => {
+  console.log("RESET")
   canvas = p5.createCanvas(1400, 1000);
   canvas.parent('arcade1-container');
   p5.pixelDensity(1);
   state.w = p5.floor(p5.width / state.rez);
   state.h = p5.floor(p5.height / state.rez);
   p5.frameRate(30);
+  state.hud = new Hud(state.mainFont, state.mainTextFillColor);
   state.snake = new Snake(p5, state.w, state.h);
   state.key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
   // obstacle = new Obstacle(p5, 90, 55, 1, 4); // glass square to go through
-  state.hud = new Hud(state.mainFont, state.mainTextFillColor);
+  state.obstacles = [];
+  state.points = [];
+  state.keys = [];
+  state.powerUps = [];
+
 
   //RANDOM INNER OBSTACLE LAYOUT
   while (state.obstacles.length < state.numberOfObstacles) {
@@ -96,7 +102,7 @@ export const reset = (p5, canvas) => {
     for (let j = 0; j < state.obstacles.length; j++) {
       var other = state.obstacles[j];
       var d = p5.dist(state.key.x, state.key.y, other.x, other.y);
-      if (d < state.key.r + other.r) {
+      if (d <= state.key.r * 2 + other.r) {
         overlapping = true;
         break;
       }
@@ -104,7 +110,7 @@ export const reset = (p5, canvas) => {
     for (let k = 0; k < state.points.length; k++) {
       var other = state.points[k];
       var d = p5.dist(key.x, key.y, other.x, other.y);
-      if (d < key.r + other.r) {
+      if (d < key.r * 2 + other.r) {
         overlapping = true;
         break;
       }
@@ -112,7 +118,7 @@ export const reset = (p5, canvas) => {
     for (let i = 0; i < state.powerUps.length; i++) {
       var other = state.powerUps[i];
       var d = p5.dist(state.key.x, state.key.y, other.x, other.y);
-      if (d < state.key.r + other.r) {
+      if (d < state.key.r * 2 + other.r) {
         overlapping = true;
         break;
       }

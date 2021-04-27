@@ -43,6 +43,8 @@ const arcadeColor42 = '#4E0DFF';
 const arcadeColor43 = 'white';
 const arcadeColor44 = '#4E0DFF';
 const arcadeColor45 = 'white';
+const arcadeColor46 = '200';
+const arcadeColor47 = 'white';
 
 export var state = {
   mainTextFillColor: arcadeColor1, //purpleish
@@ -90,6 +92,10 @@ export var state = {
   keysRemainingTextStroke: arcadeColor43,
   levelIndicatorTextFill: arcadeColor44,
   levelIndicatorTextStroke: arcadeColor45,
+  presentedByTextFill: arcadeColor46,
+  presentedByTextStroke: arcadeColor47,
+  clientNameText: 'Hubb',
+  clientLogo: null,
   snake: null,
   enemy: null,
   hud: null,

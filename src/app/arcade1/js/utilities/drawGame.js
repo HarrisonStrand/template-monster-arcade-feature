@@ -9,7 +9,6 @@ import {
   snakeReset
 } from './utilities';
 import { reset } from "./reset"
-import Enemy from '../entities/enemy';
 
 
 export const drawGame = (p5) => {
@@ -35,7 +34,6 @@ if (state.menu) {
 		}
 	}
 } else {
-	state.hud.render(p5, state.scoreCount, state.livesLeft, state.keysToCollect, state.levelIndicator);
 	//OBSTACLES RENDER
 	for (var i = 0; i < state.obstacles.length; i++) {
 		state.obstacles[i].render(p5);
@@ -115,6 +113,8 @@ if (state.menu) {
 		state.leftBorderBottom[i].render(p5);
 		p5.pop();
 	}
+
+	state.hud.render(p5, state.scoreCount, state.livesLeft, state.keysToCollect, state.levelIndicator);
 
 	const borderObstacles = state.topBorder.concat(
 		state.rightBorderTop,

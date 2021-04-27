@@ -136,39 +136,8 @@ export default function Hud(mainFont) {
     p5.strokeWeight(p5.random(0.1, 0.15));
     p5.text(' - +100 Points', 111, 51);
     p5.pop();
-  } else {
-    //GAME
-    p5.push();
-    p5.textFont(mainFont);
-    p5.textSize(8);
-    p5.fill(state.gameOverTextFill);
-    p5.stroke(state.gameOverTextStroke);
-    p5.strokeWeight(p5.random(0.1, 0.15));
-    p5.text('GAME', 108, 45);
-    p5.pop();
 
-    //OVER
-    p5.push();
-    p5.textFont(mainFont);
-    p5.textSize(8);
-    p5.fill(state.gameOverTextFill);
-    p5.stroke(state.gameOverTextStroke);
-    p5.strokeWeight(p5.random(0.1, 0.15));
-    p5.text('OVER', 108, 55);
-    p5.pop();
-
-    //PRESS Y TO CONTINUE
-    p5.push();
-    p5.textFont(mainFont);
-    p5.textSize(2);
-    p5.fill(state.gameOverTextFill);
-    p5.stroke(state.gameOverTextStroke);
-    p5.strokeWeight(p5.random(0.1, 0.15));
-    p5.text('press y to continue', 107, 60);
-    p5.pop();
-  }
-
-//KEYS REMAINING RENDERING
+    //KEYS REMAINING RENDERING
     p5.push();
     p5.textFont(mainFont);
     p5.textSize(3);
@@ -187,5 +156,66 @@ export default function Hud(mainFont) {
     p5.strokeWeight(p5.random(0.1, 0.15));
     p5.text('Level:' + levelIndicator, 103, 90);
     p5.pop();
+
+  } else {
+
+    //SEE THROUGH BACKGROUND
+    p5.push();
+    p5.background('rgba(0,0,0,.6)');
+    p5.pop();
+
+    //GAME
+    p5.push();
+    p5.textFont(mainFont);
+    p5.textSize(15);
+    p5.fill(state.gameOverTextFill);
+    p5.stroke(state.gameOverTextStroke);
+    p5.strokeWeight(p5.random(0.1, 0.15));
+    p5.text('GAME OVER', 20, 45);
+    p5.pop();
+
+    // //OVER
+    // p5.push();
+    // p5.textFont(mainFont);
+    // p5.textSize(15);
+    // p5.fill(state.gameOverTextFill);
+    // p5.stroke(state.gameOverTextStroke);
+    // p5.strokeWeight(p5.random(0.1, 0.15));
+    // p5.text('OVER', 45, 60);
+    // p5.pop();
+
+    //PRESS ENTER TO CONTINUE
+    p5.push();
+    p5.textFont(mainFont);
+    p5.textSize(8);
+    p5.fill(state.gameOverTextFill);
+    p5.stroke(state.gameOverTextStroke);
+    p5.strokeWeight(p5.random(0.1, 0.15));
+    p5.text('press enter to continue', 6, 60);
+    p5.pop();
+
+    //ESC TO MAIN MENU
+    p5.push();
+    p5.textFont(mainFont);
+    p5.textSize(4);
+    p5.fill(state.gameOverTextFill);
+    p5.stroke(state.gameOverTextStroke);
+    p5.strokeWeight(p5.random(0.1, 0.15));
+    p5.text('esc - Main Menu', 47, 70);
+    p5.pop();
+    
+    //PRESENTED TO YOU BY:
+    p5.push();
+    p5.textFont(mainFont);
+    p5.textSize(4);
+    p5.fill(state.presentedByTextFill);
+    p5.stroke(state.presentedByTextStroke);
+    p5.strokeWeight(p5.random(0.1, 0.15));
+    p5.image(state.clientLogo, 90, 85, 14, 10);
+    p5.text('presented to you by ', 33, 95);
+    p5.pop();
+    }
+
+
   }
 }

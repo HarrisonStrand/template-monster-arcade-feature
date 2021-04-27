@@ -81,6 +81,7 @@ export class Arcade1Component implements OnInit {
 
     const sketch = (p5: any) => {
       p5.preload = () => {
+        state.clientLogo = p5.loadImage('../../assets/img/HubbText.png');
         state.mainFont = p5.loadFont('../../assets/fonts/Sabo-Filled.otf');
       };
 
