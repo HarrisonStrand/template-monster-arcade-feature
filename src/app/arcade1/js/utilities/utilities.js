@@ -94,6 +94,13 @@ export const getPowerUp = (powerUps, value) => {
   }
 }
 
+export const getPowerUp2 = (powerUps2, value) => {
+  var index = powerUps2.indexOf(value);
+  if (index > -1) {
+    state.powerUps2.splice(index, 1);
+  }
+}
+
 export function getKey(p5, keys, value) {
   var index = keys.indexOf(value);
   if (index > -1) {
@@ -119,7 +126,6 @@ export function getPoint(points, value) {
   }
   for (let i = 1; i < state.pointsEaten; i ++) {
     if (i && (i % 5 === 0)) {
-      console.log('yup')
       state.snake.grow();
       state.pointsEaten = [];
     }

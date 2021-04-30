@@ -61,6 +61,18 @@ export default class Snake {
     return false;
   }
   
+  eatPowerUp2(powerUp2, p5) {
+    const end_of_array = this.body.length -1
+    let dist = (this.body[end_of_array].x - powerUp2.pos.x) * (this.body[end_of_array].x - powerUp2.pos.x) + (this.body[end_of_array].y - powerUp2.pos.y) * (this.body[end_of_array].y - powerUp2.pos.y);
+    if (dist > (powerUp2.r + this.body[end_of_array].r) * (powerUp2.r + this.body[end_of_array].r)) {
+      return false;
+    }
+    if (dist <= powerUp2.r * 1.75) { // radius size for snake
+      return true
+    }
+    return false;
+  }
+  
   eatKey(key, p5) {
     const end_of_array = this.body.length -1
     let dist = (this.body[end_of_array].x - key.pos.x) * (this.body[end_of_array].x - key.pos.x) + (this.body[end_of_array].y - key.pos.y) * (this.body[end_of_array].y - key.pos.y);
@@ -93,6 +105,18 @@ export default class Snake {
     }
     if (dist <= enemy.r * 2) { // radius size for snake
       return true
+    }
+    return false;
+  }
+
+  pointMagnet(point, p5) {
+    const end_of_array = this.body.length -1;
+    let dist = (this.body[end_of_array].x - point.x) * (this.body[end_of_array].x - point.x) + (this.body[end_of_array].y - point.y) * (this.body[end_of_array].y - point.y);
+    if (dist > (point.r + this.body[end_of_array].r) * (point.r + this.body[end_of_array].r)) {
+      return false;
+    }
+    if (dist <= point.r * 10) { // radius size for snake
+      return true;
     }
     return false;
   }

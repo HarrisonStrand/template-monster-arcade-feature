@@ -1,18 +1,19 @@
-import Snake from "../entities/snake"
-import Obstacle from '../entities/obstacle'
-import Enemy from '../entities/enemy'
-import Point from '../entities/points'
-import PowerUp from '../entities/powerUp'
-import Border from "../entities/border"
-import { MenuPowerUp } from '../utilities/menu'
-import Key from '../entities/key'
-import Hud from '../utilities/hud'
-import { state } from '../game/state'
+import Snake from "../entities/snake";
+import Obstacle from "../entities/obstacle";
+import Enemy from "../entities/enemy";
+import Point from "../entities/points";
+import PowerUp from "../entities/powerUp";
+import PowerUp2 from "../entities/powerUp2";
+import Border from "../entities/border";
+import { MenuPowerUp } from "../utilities/menu";
+import Key from "../entities/key";
+import Hud from "../utilities/hud";
+import { state } from "../game/state";
 
 export const reset = (p5, canvas) => {
-  console.log("RESET")
+  console.log("RESET");
   canvas = p5.createCanvas(1400, 1000);
-  canvas.parent('arcade1-container');
+  canvas.parent("arcade1-container");
   p5.pixelDensity(1);
   state.w = p5.floor(p5.width / state.rez);
   state.h = p5.floor(p5.height / state.rez);
@@ -20,11 +21,18 @@ export const reset = (p5, canvas) => {
   state.hud = new Hud(state.mainFont, state.mainTextFillColor);
   state.snake = new Snake(p5, state.w, state.h);
   state.key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
-  // obstacle = new Obstacle(p5, 90, 55, 1, 4); // glass square to go through
   state.obstacles = [];
   state.points = [];
   state.keys = [];
   state.powerUps = [];
+  state.powerUps2 = [];
+  state.powerUpsEaten = 0;
+
+  const pointDisplay =
+    (state.levelIndicator + state.numberOfPoints) *
+    (state.levelIndicator + state.numberOfPoints);
+
+  state.numberOfObstacles += state.levelIndicator;
 
 
   //RANDOM INNER OBSTACLE LAYOUT
@@ -94,6 +102,43 @@ export const reset = (p5, canvas) => {
       state.powerUps.push(state.powerUp);
     }
   }
+  // //POWERUP2 NO OVERLAP WITH OBSTACLES AND POINTS
+  while (state.powerUps2.length < state.numberOfPowerUps) {
+    state.powerUp2 = new PowerUp2(
+      p5,
+      p5.random(3, 97),
+      p5.random(3, 97),
+      2
+    );
+    var overlapping = false;
+    for (let j = 0; j < state.obstacles.length; j++) {
+      var other = state.obstacles[j];
+      var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
+      if (d < state.powerUp2.r * 4 + other.r) {
+        overlapping = true;
+        break;
+      }
+    }
+    for (let j = 0; j < state.powerUps2.length; j++) {
+      var other = state.powerUps2[j];
+      var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
+      if (d < state.powerUp2.r + other.r) {
+        overlapping = true;
+        break;
+      }
+    }
+    for (let j = 0; j < state.points.length; j++) {
+      var other = state.points[j];
+      var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
+      if (d < state.powerUp2.r + other.r) {
+        overlapping = true;
+        break;
+      }
+    }
+    if (!overlapping) {
+      state.powerUps2.push(state.powerUp2);
+    }
+  }
 
   // //KEYS NO OVERLAP WITH OBSTACLES AND POINTS
   while (state.keys.length < state.numberOfKeys) {
@@ -135,33 +180,58 @@ export const reset = (p5, canvas) => {
   }
 
   //GRID PACMAN POINT GENERATION
-  while (state.points.length < state.numberOfPoints) {
-    for (var a = 4; a < state.numberOfPoints; a += state.pointSpread) {
-      for (var b = 4; b < state.numberOfPoints; b += state.pointSpread) {
-        state.point = new Point(p5, a, b, 1);
-        var overlapping = false;
-        for (let j = 0; j < state.obstacles.length; j++) {
-          var other = state.obstacles[j];
-          var d = p5.dist(state.point.x, state.point.y, other.x, other.y);
-          if (d < state.point.r + other.r) {
-            overlapping = true;
-            break;
-          }
+  // while (state.points.length < state.numberOfPoints) {
+  //   for (var a = 4; a < state.numberOfPoints; a += state.pointSpread) {
+  //     for (var b = 4; b < state.numberOfPoints; b += state.pointSpread) {
+  //       state.point = new Point(p5, a, b, 1);
+  //       var overlapping = false;
+  //       for (let j = 0; j < state.obstacles.length; j++) {
+  //         var other = state.obstacles[j];
+  //         var d = p5.dist(state.point.x, state.point.y, other.x, other.y);
+  //         if (d < state.point.r + other.r) {
+  //           overlapping = true;
+  //           break;
+  //         }
+  //       }
+  //       for (let j = 0; j < state.points.length; j++) {
+  //         var other = state.points[j];
+  //         var d = p5.dist(state.point.x, state.point.y, other.x, other.y);
+  //         if (d < state.point.r + other.r) {
+  //           overlapping = true;
+  //           break;
+  //         }
+  //       }
+  //       if (!overlapping) {
+  //         state.points.push(state.point);
+  //       }
+  //     }
+  //   }
+  // }
+
+  for (let x = 0; x < Math.sqrt(pointDisplay); x++) {
+    for (let y = 0; y < Math.sqrt(pointDisplay); y++) {
+      let overlapping = false;
+      const spread = state.h / Math.sqrt(pointDisplay);
+      const point1 = new Point(
+        p5,
+        spread * x + spread / 2,
+        spread * y + spread / 2,
+        1
+      );
+      for (let i = 0; i < state.obstacles.length; i++) {
+        let other = state.obstacles[i];
+        let d = p5.dist(point1.x, point1.y, other.x, other.y);
+        if (d < point1.r + other.r) {
+          overlapping = true;
         }
-        for (let j = 0; j < state.points.length; j++) {
-          var other = state.points[j];
-          var d = p5.dist(state.point.x, state.point.y, other.x, other.y);
-          if (d < state.point.r + other.r) {
-            overlapping = true;
-            break;
-          }
-        }
-        if (!overlapping) {
-          state.points.push(state.point);
-        }
+      }
+      if (!overlapping) {
+        state.points.push(point1);
       }
     }
   }
+
+  console.log(state.points.length);
 
   //BORDER INITIALIZE
   for (let i = 0; i < 50; i++) {

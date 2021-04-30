@@ -3,6 +3,7 @@ import { state } from '../game/state'
 import {
   collide,
   getPowerUp,
+  getPowerUp2,
   getKey,
   getMenuPowerUp,
   getPoint,
@@ -47,6 +48,9 @@ if (state.menu) {
 	//POWERUPS RENDER
 	for (var i = 0; i < state.powerUps.length; i++) {
 		state.powerUps[i].render(p5);
+	}
+	for (var i = 0; i < state.powerUps2.length; i++) {
+		state.powerUps2[i].render(p5);
 	}
 
 	for (var i = 0; i < state.keys.length; i++) {
@@ -160,13 +164,28 @@ if (state.menu) {
 			state.snake.update();
 		}
 	}
-
+	
 	for (let i = 0; i < state.powerUps.length; i++) {
 		if (state.snake.eatPowerUp(state.powerUps[i], p5)) {
-			state.snake.grow();
+			state.powerUpsEaten += 1;
+			console.log(state.powerUpsEaten)
 			getPowerUp(state.powerUps, state.powerUps[i]);
 		}
 	}
+	
+	for (let i = 0; i < state.powerUps2.length; i++) {
+		if (state.snake.eatPowerUp2(state.powerUps2[i], p5)) {
+			state.powerUps2Eaten += 1;
+			console.log(state.powerUps2Eaten)
+			getPowerUp2(state.powerUps2, state.powerUps2[i]);
+		}
+	}
+	
+		for (let i = 0; i < state.points.length; i++) {
+			if (state.snake.pointMagnet(state.points[i], p5) && state.powerUpsEaten > 0) {
+				console.log('magnetized');
+			}
+		}
 
 	for (let i = 0; i < state.keys.length; i++) {
 		if (state.snake.eatKey(state.keys[i], p5)) {
@@ -210,7 +229,7 @@ if (state.menu) {
 		}
 	}
 
-	for (var i = 0; i < state.enemies.length; i++) { ////WORK ON COLLISION WITH SNAKE!!!
+	for (var i = 0; i < state.enemies.length; i++) {
 		state.enemies[i].x = state.enemies[i].x + state.enemies[i].xspeed;
 		state.enemies[i].y = state.enemies[i].y + state.enemies[i].yspeed;
 		if (Math.floor(state.enemies[i].x) == 96 || Math.floor(state.enemies[i].x) == 3) {

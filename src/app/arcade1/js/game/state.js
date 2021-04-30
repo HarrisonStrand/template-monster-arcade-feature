@@ -45,6 +45,9 @@ const arcadeColor44 = '#4E0DFF';
 const arcadeColor45 = 'white';
 const arcadeColor46 = '200';
 const arcadeColor47 = 'white';
+const arcadeColor48 = 'rgb(91,131,145)';
+const arcadeColor49 = 'rgba(91,131,145,.3)';
+const arcadeColor50 = 'white';
 
 export var state = {
   mainTextFillColor: arcadeColor1, //purpleish
@@ -94,6 +97,9 @@ export var state = {
   levelIndicatorTextStroke: arcadeColor45,
   presentedByTextFill: arcadeColor46,
   presentedByTextStroke: arcadeColor47,
+  powerUp2MainColor: arcadeColor48,
+  powerUp2ShadowColor: arcadeColor49,
+  powerUp2LetterColor: arcadeColor50,
   clientNameText: 'Hubb',
   clientLogo: null,
   snake: null,
@@ -102,6 +108,7 @@ export var state = {
   obstacle: null,
   point: null,
   powerUp: null,
+  powerUp2: null,
   menuPowerUp: null,
   key: null,
   w: null,
@@ -109,12 +116,12 @@ export var state = {
   mainFont: null,
   move: false,
   menu: true,
-  pointsEaten: 0,
   mVenom: [],
   enemies: [],
   obstacles: [],
   points: [],
   powerUps: [],
+  powerUps2: [],
   menuPowerUps: [],
   keys: [],
   // turn into border object
@@ -128,15 +135,19 @@ export var state = {
   doorTrigger: [],
   rez: 10,
   scoreCount: 0,
-  numberOfObstacles: 20,
+  numberOfObstacles: 5,
   sizeOfObstacles: 8, // NO HIGHER THAN 8!! MAYBE DO RANDOM??
-  numberOfPoints: 100,
-  pointSpread: 4, // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS
-  numberOfPowerUps: 3,
+  numberOfPoints: 2,
+  pointSpread: 2, // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS
+  numberOfPowerUps: 1,
   numberOfKeys: 1,
   keysToCollect: 1,
-  numberOfEnemies: 2,
+  numberOfEnemies: 0,
   levelIndicator: 1,
   livesLeft: 3,
-  enemySpeed: .5
+  enemySpeed: .5,
+  pointSpeed: .5,
+  pointsEaten: 0,
+  powerUpsEaten: 0,
+  powerUps2Eaten: 0,
 };

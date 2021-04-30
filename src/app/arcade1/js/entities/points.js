@@ -6,6 +6,9 @@ export default function Point(p5, x, y, r) {
   this.x = x;
   this.y = y;
   this.r = r;
+  this.xspeed = state.pointSpeed;
+  this.yspeed = state.pointSpeed;
+
 
   this.render = function() {
     p5.push();
@@ -17,14 +20,12 @@ export default function Point(p5, x, y, r) {
   }
 
   this.verticies = function() {
-    var obstacleVerticies = [
+    var pointVerticies = [
       this.pos.add(p5.createVector(-this.r / 2, this.r /2), this.pos),
       this.pos.add(p5.createVector(this.r / 2, this.r /2), this.pos),
       this.pos.add(p5.createVector(-this.r / 2, -this.r /2), this.pos),
       this.pos.add(p5.createVector(this.r / 2, -this.r /2), this.pos),
     ]
-    return obstacleVerticies;
+    return pointVerticies;
   }
-
-  
 }
