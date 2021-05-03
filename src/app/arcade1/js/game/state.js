@@ -114,6 +114,7 @@ export var state = {
   w: null,
   h: null,
   mainFont: null,
+  hittingTail: false,
   move: false,
   menu: true,
   mVenom: [],

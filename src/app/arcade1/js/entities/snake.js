@@ -118,7 +118,8 @@ export default class Snake {
     for (let i = 0; i < this.body.length - 1; i++) {
       let part = this.body[i];
       if (part.x == x && part.y == y) {
-        return true
+        state.hittingTail = true;
+        return true;
       }
       
       // let dist = p5.dist(x, y, part.x, part.y)
@@ -128,7 +129,8 @@ export default class Snake {
       //   return true
       // }
     }
-    return false
+    state.hittingTail = false;
+    return false;
   }
 
   eatPoint(point, p5) {

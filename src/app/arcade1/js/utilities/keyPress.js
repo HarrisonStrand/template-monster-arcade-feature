@@ -15,6 +15,7 @@ export const keyPress = (p5) => {
     getMenuPowerUp(state.menuPowerUps, state.menuPowerUps[0]);
     reset(p5);
     state.menu = false;
+    state.livesLeft = 3;
   } else if (p5.key == " " && state.move) {
     state.mVenom.push(
       new Venom(

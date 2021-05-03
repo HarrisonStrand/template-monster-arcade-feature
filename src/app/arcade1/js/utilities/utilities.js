@@ -124,14 +124,8 @@ export function getPoint(points, value) {
   if (index > -1) {
     state.points.splice(index, 1);
   }
-  for (let i = 1; i < state.pointsEaten; i ++) { //POSSIBLE FIX
-    if (i && (i % 5 === 0)) {
-      state.snake.grow();
-      state.pointsEaten = [];
-    }
-  }
 }
 
 export const snakeReset = (p5) => {
-  state.snake = new Snake(p5, state.windowWidth * 0.1, state.windowHeight / 2);
+  state.snake = new Snake(p5, 4, state.windowHeight / 2);
 };

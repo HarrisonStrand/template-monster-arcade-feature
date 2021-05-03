@@ -66,8 +66,14 @@ if (state.menu) {
 	}
 
 	if (state.snake.hitTail(p5)) {
-		console.log("HIT TAIL")
+		state.hittingTail = true;
+		console.log(state.hittingTail)
 	}
+
+	// if (state.hittingTail) {
+	// 	// reset(p5);
+	// 	console.log("HIT TAIL")
+	// }
 
 	//OBSTACLE BORDER RENDER
 	// for (var i = 0; i < state.topBorder.length; i++) {
@@ -122,21 +128,23 @@ if (state.menu) {
 	// 	p5.pop();
 	// }
 
-	state.hud.render(p5, state.scoreCount, state.livesLeft, state.keysToCollect, state.levelIndicator);
-
+	
 	const borderObstacles = state.topBorder.concat(
 		state.rightBorderTop,
 		state.rightBorderBottom,
 		state.bottomBorder,
 		state.leftBorderBottom,
-		state.leftBorderTop
-	);
+		state.leftBorderTop,
+		state.doorTrigger
+		);
+		
+		const randomWeight = p5.random(.2, .25);
+		
+		for (var i = 0; i < borderObstacles.length; i++) {
+			borderObstacles[i].render(p5, randomWeight);
+		}
 
-	const randomWeight = p5.random(.2, .25);
-
-	for (var i = 0; i < borderObstacles.length; i++) {
-		borderObstacles[i].render(p5, randomWeight);
-	}
+	state.hud.render(p5, state.scoreCount, state.livesLeft, state.keysToCollect, state.levelIndicator, state.windowWidth, state.windowHeight);
 
 	//OLD BORDER COLLISION
 	// for (let i = 0; i < borderObstacles.length; i++) {
@@ -212,25 +220,18 @@ if (state.menu) {
 		}
 	}
 
-	// for (let i = 0; i < state.points.length; i++) {
-	// 	if (state.snake.eatPoint(state.points[i], p5)) {
-	// 		console.log(state.pointsEaten);
-	// 		getPoint(state.points, state.points[i]);
-	// 		state.scoreCount += 100;
-	// 		state.pointsEaten ++;
-	// 	}
-	// }
-
 
 	for (let i = 0; i < state.points.length; i++) {
-		if (state.snake.eatPoint(state.points[i], p5)) {
-			getPoint(state.points, state.points[i]);
-			for (let i = 0; i < 10; i++) {
-				state.snake.grow();
+			if (state.snake.eatPoint(state.points[i], p5)) {
+				state.pointsEaten += 1;
+				getPoint(state.points, state.points[i]);
+				for (let i = 0; i < 10; i++) {
+					state.snake.grow()
+					console.log(state.hittingTail)
+				}
+				state.playerSpeed += 0.1;
+				state.scoreCount += 100;
 			}
-			state.playerSpeed += 0.1;
-			state.scoreCount += 100;
-		}
 	}
 
 	for (let i = 0; i < state.enemies.length; i++) {
