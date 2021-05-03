@@ -51,7 +51,7 @@ export function MenuPowerUp(p5, x, y, r) {
   
 }
 
-export const drawMenu = (p5, mainFont) => {
+export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.background(0);
   p5.pop();
@@ -59,23 +59,26 @@ export const drawMenu = (p5, mainFont) => {
   //TITLE PAGE BORDER
   p5.push();
   p5.noFill();
+  p5.rectMode(p5.CORNER)
   p5.stroke(state.menuBorderStroke1);
   p5.strokeWeight(p5.random(0.1, 0.3));
-  p5.rect(50, 50, 99.5, 99.5);
+  p5.rect(1, 1, totalWidth - 2, totalHeight - 2);
   p5.pop();
 
   p5.push();
   p5.noFill();
   p5.stroke(state.menuBorderStroke2);
+  p5.rectMode(p5.CORNER)
   p5.strokeWeight(p5.random(0.1, 0.3));
-  p5.rect(50, 50, 99, 99);
+  p5.rect(.5, .5, totalWidth - 1, totalHeight - 1);
   p5.pop();
 
   p5.push();
   p5.noFill();
   p5.stroke(state.menuBorderStroke3);
+  p5.rectMode(p5.CORNER)
   p5.strokeWeight(p5.random(0.1, 0.3));
-  p5.rect(50, 50, 98.5, 98.5);
+  p5.rect(2, 2, totalWidth - 4, totalHeight - 4);
   p5.pop();
 
   //TITLE
@@ -84,17 +87,19 @@ export const drawMenu = (p5, mainFont) => {
   p5.noFill();
   p5.stroke(state.menuTitleStroke1);
   p5.strokeWeight(p5.random(0.1, 0.2));
-  p5.textSize(10);
-  p5.text('SNAKE-EATER', 8, 35);
+  p5.textSize(totalWidth * .1);
+  p5.textAlign(p5.CENTER)
+  p5.text('SNAKE-EATER', totalWidth / 2, 35);
   p5.pop();
 
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
   p5.stroke(state.menuTitleStroke2);
-  p5.strokeWeight(p5.random(0, 0.15));
-  p5.textSize(9.9);
-  p5.text('SNAKE-EATER', 8.5, 35);
+  p5.strokeWeight(p5.random(0.1, 0.2));
+  p5.textSize(totalWidth * .099);
+  p5.textAlign(p5.CENTER)
+  p5.text('SNAKE-EATER', totalWidth / 2, 35);
   p5.pop();
 
   //GOAL TEXT
@@ -146,3 +151,99 @@ export const drawMenu = (p5, mainFont) => {
   p5.text('START GAME: ENTER KEY', 8.75, 70);
   p5.pop();
 };
+
+// export const drawMenu = (p5, mainFont) => {
+//   p5.push();
+//   p5.background(0);
+//   p5.pop();
+
+//   //TITLE PAGE BORDER
+//   p5.push();
+//   p5.noFill();
+//   p5.stroke(state.menuBorderStroke1);
+//   p5.strokeWeight(p5.random(0.1, 0.3));
+//   p5.rect(50, 50, 99.5, 99.5);
+//   p5.pop();
+
+//   p5.push();
+//   p5.noFill();
+//   p5.stroke(state.menuBorderStroke2);
+//   p5.strokeWeight(p5.random(0.1, 0.3));
+//   p5.rect(50, 50, 99, 99);
+//   p5.pop();
+
+//   p5.push();
+//   p5.noFill();
+//   p5.stroke(state.menuBorderStroke3);
+//   p5.strokeWeight(p5.random(0.1, 0.3));
+//   p5.rect(50, 50, 98.5, 98.5);
+//   p5.pop();
+
+//   //TITLE
+//   p5.push();
+//   p5.textFont(mainFont);
+//   p5.noFill();
+//   p5.stroke(state.menuTitleStroke1);
+//   p5.strokeWeight(p5.random(0.1, 0.2));
+//   p5.textSize(10);
+//   p5.text('SNAKE-EATER', 8, 35);
+//   p5.pop();
+
+//   p5.push();
+//   p5.textFont(mainFont);
+//   p5.noFill();
+//   p5.stroke(state.menuTitleStroke2);
+//   p5.strokeWeight(p5.random(0, 0.15));
+//   p5.textSize(9.9);
+//   p5.text('SNAKE-EATER', 8.5, 35);
+//   p5.pop();
+
+//   //GOAL TEXT
+//   p5.push();
+//   p5.textFont(mainFont);
+//   p5.noFill();
+//   p5.stroke(state.menuGoalText);
+//   p5.strokeWeight(p5.random(0.1, 0.2));
+//   p5.textSize(2.4);
+//   p5.text('GOAL: COLLECT THE KEYS AND AVOID THE HOLES!', 14, 45);
+//   p5.pop();
+
+//   //CONTROLS
+//   p5.push();
+//   p5.textFont(mainFont);
+//   p5.noFill();
+//   p5.stroke(state.menuControlsText1);
+//   p5.strokeWeight(p5.random(0.1, 0.2));
+//   p5.textSize(2.6);
+//   p5.text('CONTROLS:', 43, 53);
+//   p5.pop();
+
+//   p5.push();
+//   p5.textFont(mainFont);
+//   p5.noFill();
+//   p5.stroke(state.menuControlsText2);
+//   p5.strokeWeight(p5.random(0.1, 0.2));
+//   p5.textSize(3.2);
+//   p5.text('MOVE: ARROW KEYS VENOM: SPACEBAR', 13, 60);
+//   p5.pop();
+
+
+//   //START GAME
+//   p5.push();
+//   p5.textFont(mainFont);
+//   p5.noFill();
+//   p5.stroke(state.menuStartGameText1);
+//   p5.strokeWeight(p5.random(0.1, 0.2));
+//   p5.textSize(5.7);
+//   p5.text('START GAME: ENTER KEY', 8, 70);
+//   p5.pop();
+
+//   p5.push();
+//   p5.textFont(mainFont);
+//   p5.noFill();
+//   p5.stroke(state.menuStartGameText2);
+//   p5.strokeWeight(p5.random(0, 0.15));
+//   p5.textSize(5.6);
+//   p5.text('START GAME: ENTER KEY', 8.75, 70);
+//   p5.pop();
+// };

@@ -36,13 +36,13 @@ export default function Key(p5, x, y, r) {
   }
 
   this.verticies = function() {
-    var powerUpVerticies = [
+    var keyVerticies = [
       this.pos.add(p5.createVector(-this.r / 2, this.r /2), this.pos),
       this.pos.add(p5.createVector(this.r / 2, this.r /2), this.pos),
       this.pos.add(p5.createVector(-this.r / 2, -this.r /2), this.pos),
       this.pos.add(p5.createVector(this.r / 2, -this.r /2), this.pos),
     ]
-    return powerUpVerticies;
+    return keyVerticies;
   }
 
   

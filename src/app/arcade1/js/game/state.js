@@ -146,6 +146,8 @@ export var state = {
   levelIndicator: 1,
   livesLeft: 3,
   enemySpeed: .5,
+  playerSpeed: 1,
+  frameRate: 30,
   pointSpeed: .5,
   pointsEaten: 0,
   powerUpsEaten: 0,

@@ -16,7 +16,7 @@ export const drawGame = (p5) => {
 p5.scale(state.rez);
 p5.background(0);
 if (state.menu) {
-	drawMenu(p5, state.mainFont);
+	drawMenu(p5, state.mainFont, state.windowWidth, state.windowHeight);
 
 	state.snake.demo();
 	state.snake.update();
@@ -65,58 +65,62 @@ if (state.menu) {
 		state.enemies[i].render(p5);
 	}
 
+	if (state.snake.hitTail(p5)) {
+		console.log("HIT TAIL")
+	}
+
 	//OBSTACLE BORDER RENDER
-	for (var i = 0; i < state.topBorder.length; i++) {
-		p5.push();
-		p5.strokeWeight(0.2);
-		p5.stroke(0);
-		state.topBorder[i].render(p5);
-		p5.pop();
-	}
-	for (var i = 0; i < state.rightBorderTop.length; i++) {
-		p5.push();
-		p5.strokeWeight(0.2);
-		p5.stroke(0);
-		state.rightBorderTop[i].render(p5);
-		p5.pop();
-	}
-	for (var i = 0; i < state.doorTrigger.length; i++) {
-		if (state.keysToCollect > 0) {
-			p5.push();
-			p5.strokeWeight(0.2);
-			p5.stroke(0);
-			state.doorTrigger[i].render(p5);
-			p5.pop();
-		}
-	}
-	for (var i = 0; i < state.rightBorderBottom.length; i++) {
-		p5.push();
-		p5.strokeWeight(0.2);
-		p5.stroke(0);
-		state.rightBorderBottom[i].render(p5);
-		p5.pop();
-	}
-	for (var i = 0; i < state.bottomBorder.length; i++) {
-		p5.push();
-		p5.strokeWeight(0.2);
-		p5.stroke(0);
-		state.bottomBorder[i].render(p5);
-		p5.pop();
-	}
-	for (var i = 0; i < state.leftBorderTop.length; i++) {
-		p5.push();
-		p5.strokeWeight(0.2);
-		p5.stroke(0);
-		state.leftBorderTop[i].render(p5);
-		p5.pop();
-	}
-	for (var i = 0; i < state.leftBorderBottom.length; i++) {
-		p5.push();
-		p5.strokeWeight(0.2);
-		p5.stroke(0);
-		state.leftBorderBottom[i].render(p5);
-		p5.pop();
-	}
+	// for (var i = 0; i < state.topBorder.length; i++) {
+	// 	p5.push();
+	// 	p5.strokeWeight(0.2);
+	// 	p5.stroke(0);
+	// 	state.topBorder[i].render(p5);
+	// 	p5.pop();
+	// }
+	// for (var i = 0; i < state.rightBorderTop.length; i++) {
+	// 	p5.push();
+	// 	p5.strokeWeight(0.2);
+	// 	p5.stroke(0);
+	// 	state.rightBorderTop[i].render(p5);
+	// 	p5.pop();
+	// }
+	// for (var i = 0; i < state.doorTrigger.length; i++) {
+	// 	if (state.keysToCollect > 0) {
+	// 		p5.push();
+	// 		p5.strokeWeight(0.2);
+	// 		p5.stroke(0);
+	// 		state.doorTrigger[i].render(p5);
+	// 		p5.pop();
+	// 	}
+	// }
+	// for (var i = 0; i < state.rightBorderBottom.length; i++) {
+	// 	p5.push();
+	// 	p5.strokeWeight(0.2);
+	// 	p5.stroke(0);
+	// 	state.rightBorderBottom[i].render(p5);
+	// 	p5.pop();
+	// }
+	// for (var i = 0; i < state.bottomBorder.length; i++) {
+	// 	p5.push();
+	// 	p5.strokeWeight(0.2);
+	// 	p5.stroke(0);
+	// 	state.bottomBorder[i].render(p5);
+	// 	p5.pop();
+	// }
+	// for (var i = 0; i < state.leftBorderTop.length; i++) {
+	// 	p5.push();
+	// 	p5.strokeWeight(0.2);
+	// 	p5.stroke(0);
+	// 	state.leftBorderTop[i].render(p5);
+	// 	p5.pop();
+	// }
+	// for (var i = 0; i < state.leftBorderBottom.length; i++) {
+	// 	p5.push();
+	// 	p5.strokeWeight(0.2);
+	// 	p5.stroke(0);
+	// 	state.leftBorderBottom[i].render(p5);
+	// 	p5.pop();
+	// }
 
 	state.hud.render(p5, state.scoreCount, state.livesLeft, state.keysToCollect, state.levelIndicator);
 
@@ -128,20 +132,34 @@ if (state.menu) {
 		state.leftBorderTop
 	);
 
+	const randomWeight = p5.random(.2, .25);
+
+	for (var i = 0; i < borderObstacles.length; i++) {
+		borderObstacles[i].render(p5, randomWeight);
+	}
+
+	//OLD BORDER COLLISION
+	// for (let i = 0; i < borderObstacles.length; i++) {
+	// 	if (collide(borderObstacles[i], state.snake).totalDist) {
+	// 		while (collide(borderObstacles[i], state.snake).totalDist) {
+	// 			if (state.snake.xdir > 0) {
+	// 				state.snake.body[state.snake.body.length - 1].x -= 0.2;
+	// 			} else if (state.snake.xdir < 0) {
+	// 				state.snake.body[state.snake.body.length - 1].x += 0.2;
+	// 			} else if (state.snake.ydir > 0) {
+	// 				state.snake.body[state.snake.body.length - 1].y -= 0.2;
+	// 			} else if (state.snake.ydir < 0) {
+	// 				state.snake.body[state.snake.body.length - 1].y += 0.2;
+	// 			}
+	// 			state.move = false;
+	// 		}
+	// 	}
+	// }
+
 	for (let i = 0; i < borderObstacles.length; i++) {
 		if (collide(borderObstacles[i], state.snake).totalDist) {
-			while (collide(borderObstacles[i], state.snake).totalDist) {
-				if (state.snake.xdir > 0) {
-					state.snake.body[state.snake.body.length - 1].x -= 0.2;
-				} else if (state.snake.xdir < 0) {
-					state.snake.body[state.snake.body.length - 1].x += 0.2;
-				} else if (state.snake.ydir > 0) {
-					state.snake.body[state.snake.body.length - 1].y -= 0.2;
-				} else if (state.snake.ydir < 0) {
-					state.snake.body[state.snake.body.length - 1].y += 0.2;
-				}
-				state.move = false;
-			}
+			snakeReset(p5);
+			state.livesLeft -= 1;
 		}
 	}
 
@@ -194,12 +212,24 @@ if (state.menu) {
 		}
 	}
 
+	// for (let i = 0; i < state.points.length; i++) {
+	// 	if (state.snake.eatPoint(state.points[i], p5)) {
+	// 		console.log(state.pointsEaten);
+	// 		getPoint(state.points, state.points[i]);
+	// 		state.scoreCount += 100;
+	// 		state.pointsEaten ++;
+	// 	}
+	// }
+
+
 	for (let i = 0; i < state.points.length; i++) {
 		if (state.snake.eatPoint(state.points[i], p5)) {
-			console.log(state.pointsEaten);
 			getPoint(state.points, state.points[i]);
+			for (let i = 0; i < 10; i++) {
+				state.snake.grow();
+			}
+			state.playerSpeed += 0.1;
 			state.scoreCount += 100;
-			state.pointsEaten ++;
 		}
 	}
 
