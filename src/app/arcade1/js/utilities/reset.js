@@ -41,8 +41,8 @@ export const reset = (p5, canvas) => {
   // while (state.obstacles.length < state.numberOfObstacles) {
   //   state.obstacle = new Obstacle(
   //     p5,
-  //     p5.random(3, 96),
-  //     p5.random(3, 96),
+  //     p5.random(4, state.windowWidth - 6),
+  //     p5.random(4, 90),
   //     0,
   //     state.sizeOfObstacles
   //   );
@@ -67,80 +67,80 @@ export const reset = (p5, canvas) => {
   //     state.obstacles.push(state.obstacle);
   //   }
   // }
-  // // //POWERUP NO OVERLAP WITH OBSTACLES AND POINTS
-  // while (state.powerUps.length < state.numberOfPowerUps) {
-  //   state.powerUp = new PowerUp(
-  //     p5,
-  //     p5.random(3, 97),
-  //     p5.random(3, 97),
-  //     2
-  //   );
-  //   var overlapping = false;
-  //   for (let j = 0; j < state.obstacles.length; j++) {
-  //     var other = state.obstacles[j];
-  //     var d = p5.dist(state.powerUp.x, state.powerUp.y, other.x, other.y);
-  //     if (d < state.powerUp.r * 4 + other.r) {
-  //       overlapping = true;
-  //       break;
-  //     }
-  //   }
-  //   for (let j = 0; j < state.powerUps.length; j++) {
-  //     var other = state.powerUps[j];
-  //     var d = p5.dist(state.powerUp.x, state.powerUp.y, other.x, other.y);
-  //     if (d < state.powerUp.r + other.r) {
-  //       overlapping = true;
-  //       break;
-  //     }
-  //   }
-  //   for (let j = 0; j < state.points.length; j++) {
-  //     var other = state.points[j];
-  //     var d = p5.dist(state.powerUp.x, state.powerUp.y, other.x, other.y);
-  //     if (d < state.powerUp.r + other.r) {
-  //       overlapping = true;
-  //       break;
-  //     }
-  //   }
-  //   if (!overlapping) {
-  //     state.powerUps.push(state.powerUp);
-  //   }
-  // }
-  // // //POWERUP2 NO OVERLAP WITH OBSTACLES AND POINTS
-  // while (state.powerUps2.length < state.numberOfPowerUps) {
-  //   state.powerUp2 = new PowerUp2(
-  //     p5,
-  //     p5.random(3, 97),
-  //     p5.random(3, 97),
-  //     2
-  //   );
-  //   var overlapping = false;
-  //   for (let j = 0; j < state.obstacles.length; j++) {
-  //     var other = state.obstacles[j];
-  //     var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
-  //     if (d < state.powerUp2.r * 4 + other.r) {
-  //       overlapping = true;
-  //       break;
-  //     }
-  //   }
-  //   for (let j = 0; j < state.powerUps2.length; j++) {
-  //     var other = state.powerUps2[j];
-  //     var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
-  //     if (d < state.powerUp2.r + other.r) {
-  //       overlapping = true;
-  //       break;
-  //     }
-  //   }
-  //   for (let j = 0; j < state.points.length; j++) {
-  //     var other = state.points[j];
-  //     var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
-  //     if (d < state.powerUp2.r + other.r) {
-  //       overlapping = true;
-  //       break;
-  //     }
-  //   }
-  //   if (!overlapping) {
-  //     state.powerUps2.push(state.powerUp2);
-  //   }
-  // }
+  // //POWERUP NO OVERLAP WITH OBSTACLES AND POINTS
+  while (state.powerUps.length < state.numberOfPowerUps) {
+    state.powerUp = new PowerUp(
+      p5,
+      p5.random(3, 97),
+      p5.random(3, 97),
+      2
+    );
+    var overlapping = false;
+    for (let j = 0; j < state.obstacles.length; j++) {
+      var other = state.obstacles[j];
+      var d = p5.dist(state.powerUp.x, state.powerUp.y, other.x, other.y);
+      if (d < state.powerUp.r * 4 + other.r) {
+        overlapping = true;
+        break;
+      }
+    }
+    for (let j = 0; j < state.powerUps.length; j++) {
+      var other = state.powerUps[j];
+      var d = p5.dist(state.powerUp.x, state.powerUp.y, other.x, other.y);
+      if (d < state.powerUp.r + other.r) {
+        overlapping = true;
+        break;
+      }
+    }
+    for (let j = 0; j < state.points.length; j++) {
+      var other = state.points[j];
+      var d = p5.dist(state.powerUp.x, state.powerUp.y, other.x, other.y);
+      if (d < state.powerUp.r + other.r) {
+        overlapping = true;
+        break;
+      }
+    }
+    if (!overlapping) {
+      state.powerUps.push(state.powerUp);
+    }
+  }
+  // //POWERUP2 NO OVERLAP WITH OBSTACLES AND POINTS
+  while (state.powerUps2.length < state.numberOfPowerUps) {
+    state.powerUp2 = new PowerUp2(
+      p5,
+      p5.random(3, 97),
+      p5.random(3, 97),
+      2
+    );
+    var overlapping = false;
+    for (let j = 0; j < state.obstacles.length; j++) {
+      var other = state.obstacles[j];
+      var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
+      if (d < state.powerUp2.r * 4 + other.r) {
+        overlapping = true;
+        break;
+      }
+    }
+    for (let j = 0; j < state.powerUps2.length; j++) {
+      var other = state.powerUps2[j];
+      var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
+      if (d < state.powerUp2.r + other.r) {
+        overlapping = true;
+        break;
+      }
+    }
+    // for (let j = 0; j < state.points.length; j++) {
+    //   var other = state.points[j];
+    //   var d = p5.dist(state.powerUp2.x, state.powerUp2.y, other.x, other.y);
+    //   if (d < state.powerUp2.r + other.r) {
+    //     overlapping = true;
+    //     break;
+    //   }
+    // }
+    if (!overlapping) {
+      state.powerUps2.push(state.powerUp2);
+    }
+  }
 
   // // //KEYS NO OVERLAP WITH OBSTACLES AND POINTS
   // while (state.keys.length < state.numberOfKeys) {
@@ -330,6 +330,6 @@ export const reset = (p5, canvas) => {
       );
     }
 
-  state.menuPowerUp = new MenuPowerUp(p5, 51, 49, 3);
+  state.menuPowerUp = new MenuPowerUp(p5, state.windowWidth / 2, state.windowHeight /2 + 4, 2);
   state.menuPowerUps.push(state.menuPowerUp);
 };

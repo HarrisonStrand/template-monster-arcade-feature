@@ -22,6 +22,7 @@ export default function PowerUp2(p5, x, y, r) {
     //main
     p5.push();
     p5.fill(state.powerUp2MainColor);
+    p5.noStroke();
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
     p5.ellipse(0, 0, this.r, this.r);

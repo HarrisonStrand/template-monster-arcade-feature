@@ -1,5 +1,6 @@
 import { drawMenu } from '../utilities/menu'
 import { state } from '../game/state'
+import Snake from '../entities/snake'
 import {
   collide,
   getPowerUp,
@@ -13,14 +14,15 @@ import { reset } from "./reset"
 
 
 export const drawGame = (p5) => {
-p5.scale(state.rez);
-p5.background(0);
-if (state.menu) {
-	drawMenu(p5, state.mainFont, state.windowWidth, state.windowHeight);
-
-	state.snake.demo();
-	state.snake.update();
-	state.snake.show(p5);
+	p5.scale(state.rez);
+	p5.background(0);
+	if (state.menu) {
+		drawMenu(p5, state.mainFont, state.windowWidth, state.windowHeight);
+		state.snake = new Snake(p5, 4, state.windowHeight / 2 + 4);
+		//BUG GETTING THE SNAKE TO MOVE DURING MENU
+		state.snake.show(p5);
+		state.snake.demo();
+		state.snake.update();
 
 	for (let i = 0; i < state.menuPowerUps.length; i++) {
 		state.menuPowerUps[i].render(p5);
@@ -35,6 +37,7 @@ if (state.menu) {
 		}
 	}
 } else {
+
 	//OBSTACLES RENDER
 	for (var i = 0; i < state.obstacles.length; i++) {
 		state.obstacles[i].render(p5);
