@@ -135,13 +135,18 @@ if (state.menu) {
 		state.bottomBorder,
 		state.leftBorderBottom,
 		state.leftBorderTop,
-		state.doorTrigger
 		);
 		
 		const randomWeight = p5.random(.2, .25);
 		
 		for (var i = 0; i < borderObstacles.length; i++) {
 			borderObstacles[i].render(p5, randomWeight);
+		}
+
+		if (state.points <= 0) {
+			for (var i = 0; i < state.doorTrigger.length; i ++) {
+				state.doorTrigger[i].render(p5, randomWeight);
+			}
 		}
 
 	state.hud.render(p5, state.scoreCount, state.livesLeft, state.keysToCollect, state.levelIndicator, state.windowWidth, state.windowHeight);
