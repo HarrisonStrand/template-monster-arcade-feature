@@ -14,6 +14,9 @@ import { reset } from "./reset"
 
 
 export const drawGame = (p5) => {
+
+	let pointGet = false;
+
 	p5.scale(state.rez);
 	p5.background(0);
 	if (state.menu) {
@@ -68,67 +71,11 @@ export const drawGame = (p5) => {
 		state.enemies[i].render(p5);
 	}
 
-	if (state.snake.hitTail(p5)) {
-		state.hittingTail = true;
-		console.log(state.hittingTail)
-	}
+	
 
 	// if (state.hittingTail) {
 	// 	// reset(p5);
 	// 	console.log("HIT TAIL")
-	// }
-
-	//OBSTACLE BORDER RENDER
-	// for (var i = 0; i < state.topBorder.length; i++) {
-	// 	p5.push();
-	// 	p5.strokeWeight(0.2);
-	// 	p5.stroke(0);
-	// 	state.topBorder[i].render(p5);
-	// 	p5.pop();
-	// }
-	// for (var i = 0; i < state.rightBorderTop.length; i++) {
-	// 	p5.push();
-	// 	p5.strokeWeight(0.2);
-	// 	p5.stroke(0);
-	// 	state.rightBorderTop[i].render(p5);
-	// 	p5.pop();
-	// }
-	// for (var i = 0; i < state.doorTrigger.length; i++) {
-	// 	if (state.keysToCollect > 0) {
-	// 		p5.push();
-	// 		p5.strokeWeight(0.2);
-	// 		p5.stroke(0);
-	// 		state.doorTrigger[i].render(p5);
-	// 		p5.pop();
-	// 	}
-	// }
-	// for (var i = 0; i < state.rightBorderBottom.length; i++) {
-	// 	p5.push();
-	// 	p5.strokeWeight(0.2);
-	// 	p5.stroke(0);
-	// 	state.rightBorderBottom[i].render(p5);
-	// 	p5.pop();
-	// }
-	// for (var i = 0; i < state.bottomBorder.length; i++) {
-	// 	p5.push();
-	// 	p5.strokeWeight(0.2);
-	// 	p5.stroke(0);
-	// 	state.bottomBorder[i].render(p5);
-	// 	p5.pop();
-	// }
-	// for (var i = 0; i < state.leftBorderTop.length; i++) {
-	// 	p5.push();
-	// 	p5.strokeWeight(0.2);
-	// 	p5.stroke(0);
-	// 	state.leftBorderTop[i].render(p5);
-	// 	p5.pop();
-	// }
-	// for (var i = 0; i < state.leftBorderBottom.length; i++) {
-	// 	p5.push();
-	// 	p5.strokeWeight(0.2);
-	// 	p5.stroke(0);
-	// 	state.leftBorderBottom[i].render(p5);
-	// 	p5.pop();
 	// }
 
 	
@@ -153,24 +100,6 @@ export const drawGame = (p5) => {
 		}
 
 	state.hud.render(p5, state.scoreCount, state.livesLeft, state.keysToCollect, state.levelIndicator, state.windowWidth, state.windowHeight);
-
-	//OLD BORDER COLLISION
-	// for (let i = 0; i < borderObstacles.length; i++) {
-	// 	if (collide(borderObstacles[i], state.snake).totalDist) {
-	// 		while (collide(borderObstacles[i], state.snake).totalDist) {
-	// 			if (state.snake.xdir > 0) {
-	// 				state.snake.body[state.snake.body.length - 1].x -= 0.2;
-	// 			} else if (state.snake.xdir < 0) {
-	// 				state.snake.body[state.snake.body.length - 1].x += 0.2;
-	// 			} else if (state.snake.ydir > 0) {
-	// 				state.snake.body[state.snake.body.length - 1].y -= 0.2;
-	// 			} else if (state.snake.ydir < 0) {
-	// 				state.snake.body[state.snake.body.length - 1].y += 0.2;
-	// 			}
-	// 			state.move = false;
-	// 		}
-	// 	}
-	// }
 
 	for (let i = 0; i < borderObstacles.length; i++) {
 		if (collide(borderObstacles[i], state.snake).totalDist) {
@@ -231,15 +160,23 @@ export const drawGame = (p5) => {
 
 	for (let i = 0; i < state.points.length; i++) {
 			if (state.snake.eatPoint(state.points[i], p5)) {
-				state.pointsEaten += 1;
 				getPoint(state.points, state.points[i]);
 				for (let i = 0; i < 10; i++) {
 					state.snake.grow()
-					console.log(state.hittingTail)
 				}
-				state.playerSpeed += 0.1;
+				pointGet = true
+				if (state.playerSpeed <= 3) {
+					state.playerSpeed += 0.1;
+
+				}
 				state.scoreCount += 100;
 			}
+	}
+
+	if (state.snake.hitTail(p5) && !pointGet) {
+		// state.hittingTail = true;
+		snakeReset(p5)
+		state.livesLeft -= 1;
 	}
 
 	for (let i = 0; i < state.enemies.length; i++) {
@@ -271,24 +208,25 @@ export const drawGame = (p5) => {
 	for (var i = 0; i < state.enemies.length; i++) {
 		state.enemies[i].x = state.enemies[i].x + state.enemies[i].xspeed;
 		state.enemies[i].y = state.enemies[i].y + state.enemies[i].yspeed;
-		if (Math.floor(state.enemies[i].x) == 96 || Math.floor(state.enemies[i].x) == 3) {
+		if (Math.floor(state.enemies[i].x) == 96 || Math.floor(state.enemies[i].x) == 6) {
 			state.enemies[i].xspeed = state.enemies[i].xspeed * -1;
 		}
-		if (Math.floor(state.enemies[i].y) == 96 || Math.floor(state.enemies[i].y) == 3) {
+		if (Math.floor(state.enemies[i].y) == 96 || Math.floor(state.enemies[i].y) == 6) {
 			state.enemies[i].yspeed = state.enemies[i].yspeed * -1;
 		}
 	}
 
-
 	for (var i = 0; i < state.doorTrigger.length; i++) {
 		//NEXT LEVEL TRIGGER
 		if (
-			collide(state.doorTrigger[i], state.snake).totalDist && state.keysToCollect <= 0) {
+			// collide(state.doorTrigger[i], state.snake).totalDist && state.keysToCollect <= 0) {
+			collide(state.doorTrigger[i], state.snake).totalDist) {
 			state.obstacles.length = 0;
 			state.points.length = 0;
 			reset(p5);
 			state.menu = false;
 			state.levelIndicator += 1;
+			// state.numberOfPoints += 1;
 			for (var i = 1; i <= state.levelIndicator; i++) {
 				state.keysToCollect++;
 				if (state.levelIndicator > 3) {

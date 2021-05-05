@@ -1,7 +1,14 @@
+const arcadeColorOne = 'red'
+const arcadeColorTwo = '#4E0DFF'
+const arcadeColorThree = '#0400ff'
+
 const arcadeColor1 = '#4E0DFF';
+
+//POWERUP
 const arcadeColor2 = 'red';
 const arcadeColor3 = 'rgba(255, 0, 0, .3)';
 const arcadeColor4 = 'white';
+
 const arcadeColor5 = '#66ff00';
 const arcadeColor6 = 'cyan';
 const arcadeColor7 = '#0400ff';
@@ -11,13 +18,12 @@ const arcadeColor10 = '#02006D';
 const arcadeColor11 = '#020061';
 const arcadeColor12 = '#030159';
 const arcadeColor13 = '#010054';
+
+//KEY
 const arcadeColor14 = 'rgb(218,165,32)';
 const arcadeColor15 = 'rgba(218,165,32, .3)';
 const arcadeColor16 = 'black';
 const arcadeColor17 = 'black';
-const arcadeColor18 = '#0310ea';
-const arcadeColor19 = '#fb33db';
-const arcadeColor20 = '#7fff00';
 const arcadeColor21 = 'white';
 const arcadeColor22 = 'blue';
 const arcadeColor23 = '#77fc03';
@@ -29,16 +35,6 @@ const arcadeColor28 = '#ff0000';
 const arcadeColor29 = '#ff0000';
 const arcadeColor30 = '#ff03ab';
 const arcadeColor31 = 'green';
-const arcadeColor32 = '#4E0DFF';
-const arcadeColor33 = 'white';
-const arcadeColor34 = '#4E0DFF';
-const arcadeColor35 = 'white';
-const arcadeColor36 = '#4E0DFF';
-const arcadeColor37 = 'white';
-const arcadeColor38 = '200';
-const arcadeColor39 = 'white';
-const arcadeColor40 = 'red';
-const arcadeColor41 = 'white';
 const arcadeColor42 = '#4E0DFF';
 const arcadeColor43 = 'white';
 const arcadeColor44 = '#4E0DFF';
@@ -51,12 +47,12 @@ const arcadeColor50 = 'white';
 
 export var state = {
   mainTextFillColor: arcadeColor1, //purpleish
-  powerUpMainColor: arcadeColor2,
+  powerUpMainColor: arcadeColorOne,
   powerUpShadowColor: arcadeColor3,
   powerUpLetterColor: arcadeColor4,
   snakeMainColor: arcadeColor5,
   venomMainColor: arcadeColor6,
-  obstaclesStroke1: arcadeColor7,
+  obstaclesStroke1: arcadeColorThree,
   obstaclesStroke2: arcadeColor8,
   obstaclesStroke3: arcadeColor9,
   obstaclesStroke4: arcadeColor10,
@@ -67,10 +63,9 @@ export var state = {
   keyShadowColor: arcadeColor15,
   keyLetterColor: arcadeColor16,
   enemyMainColor: arcadeColor17,
-  gameBorderStroke1: arcadeColor18,
-  gameBorderStroke2: arcadeColor19,
-  gameBorderStroke3: arcadeColor20,
   gridPointsColor: arcadeColor21,
+
+  //MENU
   menuBorderStroke1: arcadeColor22,
   menuBorderStroke2: arcadeColor23,
   menuBorderStroke3: arcadeColor24,
@@ -81,16 +76,10 @@ export var state = {
   menuControlsText2: arcadeColor29,
   menuStartGameText1: arcadeColor30,
   menuStartGameText2: arcadeColor31,
-  scoreTextFill: arcadeColor32,
-  scoreTextStroke: arcadeColor33,
-  scoreNumberFill: arcadeColor34,
-  scoreNumberStroke: arcadeColor35,
-  livesLeftTextFill: arcadeColor36,
-  livesLeftTextStroke: arcadeColor37,
-  legendTextFill: arcadeColor38,
-  legendTextStroke: arcadeColor39,
-  gameOverTextFill: arcadeColor40,
-  gameOverTextStroke: arcadeColor41,
+  scoreTextStroke: arcadeColorTwo,
+  scoreNumberStroke: arcadeColorTwo,
+  livesLeftTextStroke: arcadeColorTwo,
+  gameOverTextStroke: arcadeColorOne,
   keysRemainingTextFill: arcadeColor42,
   keysRemainingTextStroke: arcadeColor43,
   levelIndicatorTextFill: arcadeColor44,
@@ -117,6 +106,7 @@ export var state = {
   hittingTail: false,
   move: false,
   menu: true,
+  gameOver: false,
   mVenom: [],
   enemies: [],
   obstacles: [],

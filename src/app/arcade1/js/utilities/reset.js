@@ -8,7 +8,7 @@ import Border from "../entities/border";
 import { MenuPowerUp } from "../utilities/menu";
 import Key from "../entities/key";
 import Hud from "../utilities/hud";
-import { state } from "../game/state";
+import { state } from "../game/state"; 
 
 export const reset = (p5, canvas) => {
   console.log("RESET");
@@ -29,6 +29,13 @@ export const reset = (p5, canvas) => {
   state.powerUpsEaten = 0;
   state.windowWidth = (p5.windowWidth * 0.95) / state.rez;
   state.windowHeight = (p5.windowHeight * 0.95) / state.rez;
+  state.playerSpeed = 1;
+
+  if (state.gameOver) {
+    state.numberOfObstacles = 5;
+    state.levelIndicator = 1;
+    state.gameOver = false;
+  }
 
   const pointDisplay =
     (state.levelIndicator + state.numberOfPoints) *
@@ -37,36 +44,37 @@ export const reset = (p5, canvas) => {
   state.numberOfObstacles += state.levelIndicator;
 
 
-  // //RANDOM INNER OBSTACLE LAYOUT
-  // while (state.obstacles.length < state.numberOfObstacles) {
-  //   state.obstacle = new Obstacle(
-  //     p5,
-  //     p5.random(4, state.windowWidth - 6),
-  //     p5.random(4, 90),
-  //     0,
-  //     state.sizeOfObstacles
-  //   );
-  //   var overlapping = false;
-  //   var blocking = false;
-  //   for (let j = 0; j < state.obstacles.length; j++) {
-  //     var other = state.obstacles[j];
-  //     var d = p5.dist(state.obstacle.x, state.obstacle.y, other.x, other.y);
-  //     if (d < state.obstacle.r + other.r) {
-  //       overlapping = true;
-  //       break;
-  //     }
-  //     if (
-  //       (state.obstacle.x < 10 || state.obstacle.x > 90) &&
-  //       state.obstacle.y > 30 &&
-  //       state.obstacle.y < 70
-  //     ) {
-  //       blocking = true;
-  //     }
-  //   }
-  //   if (!overlapping && !blocking) {
-  //     state.obstacles.push(state.obstacle);
-  //   }
-  // }
+  //RANDOM INNER OBSTACLE LAYOUT
+  while (state.obstacles.length < state.numberOfObstacles) {
+    state.obstacle = new Obstacle(
+      p5,
+      p5.random(4, state.windowWidth - 6),
+      p5.random(4, 90),
+      0,
+      state.sizeOfObstacles
+    );
+    var overlapping = false;
+    var blocking = false;
+    for (let j = 0; j < state.obstacles.length; j++) {
+      var other = state.obstacles[j];
+      var d = p5.dist(state.obstacle.x, state.obstacle.y, other.x, other.y);
+      if (d < state.obstacle.r + other.r) {
+        overlapping = true;
+        break;
+      }
+      if (
+        (state.obstacle.x < 10 || state.obstacle.x > 90) &&
+        state.obstacle.y > 30 &&
+        state.obstacle.y < 70
+      ) {
+        blocking = true;
+      }
+    }
+    if (!overlapping && !blocking) {
+      state.obstacles.push(state.obstacle);
+    }
+  }
+  
   // //POWERUP NO OVERLAP WITH OBSTACLES AND POINTS
   while (state.powerUps.length < state.numberOfPowerUps) {
     state.powerUp = new PowerUp(
@@ -181,34 +189,7 @@ export const reset = (p5, canvas) => {
     state.enemies.push(state.enemy);
   }
 
-  //GRID PACMAN POINT GENERATION
-  // while (state.points.length < state.numberOfPoints) {
-  //   for (var a = 4; a < state.numberOfPoints; a += state.pointSpread) {
-  //     for (var b = 4; b < state.numberOfPoints; b += state.pointSpread) {
-  //       state.point = new Point(p5, a, b, 1);
-  //       var overlapping = false;
-  //       for (let j = 0; j < state.obstacles.length; j++) {
-  //         var other = state.obstacles[j];
-  //         var d = p5.dist(state.point.x, state.point.y, other.x, other.y);
-  //         if (d < state.point.r + other.r) {
-  //           overlapping = true;
-  //           break;
-  //         }
-  //       }
-  //       for (let j = 0; j < state.points.length; j++) {
-  //         var other = state.points[j];
-  //         var d = p5.dist(state.point.x, state.point.y, other.x, other.y);
-  //         if (d < state.point.r + other.r) {
-  //           overlapping = true;
-  //           break;
-  //         }
-  //       }
-  //       if (!overlapping) {
-  //         state.points.push(state.point);
-  //       }
-  //     }
-  //   }
-  // }
+  //POINT CREATION
 
   for (let x = 0; x < Math.sqrt(pointDisplay); x++) {
     for (let y = 0; y < Math.sqrt(pointDisplay); y++) {
@@ -233,49 +214,6 @@ export const reset = (p5, canvas) => {
       }
     }
   }
-
-  console.log(state.points.length);
-
-  // //BORDER INITIALIZE
-  // for (let i = 0; i < 50; i++) {
-  //   state.topBorder[i] = new Border(p5, i * 2 + 1, 1, 0, 2);
-  // }
-  // for (let i = 0; i < 23; i++) {
-  //   state.rightBorderTop[i] = new Border(p5, 99, i * 2 + 1, 0, 2);
-  // }
-  // for (let i = 0; i < 3; i++) {
-  //   state.doorTrigger[i] = new Border(
-  //     p5,
-  //     99,
-  //     i * 2 + 47,
-  //     0,
-  //     2
-  //   );
-  // }
-  // for (let i = 0; i < 23; i++) {
-  //   state.rightBorderBottom[i] = new Border(
-  //     p5,
-  //     99,
-  //     i * 2 + 53,
-  //     0,
-  //     2,
-  //   );
-  // }
-  // for (let i = 0; i < 50; i++) {
-  //   state.bottomBorder[i] = new Border(p5, i * 2 + 1, 99, 0, 2);
-  // }
-  // for (let i = 0; i < 23; i++) {
-  //   state.leftBorderTop[i] = new Border(p5, 1, i * 2 + 1, 0, 2);
-  // }
-  // for (let i = 0; i < 23; i++) {
-  //   state.leftBorderBottom[i] = new Border(
-  //     p5,
-  //     1,
-  //     i * 2 + 53,
-  //     0,
-  //     2
-  //   );
-  // }
 
     //BORDER INITIALIZE
     for (let i = 0; i < state.windowWidth / 2 - 2; i++) {
