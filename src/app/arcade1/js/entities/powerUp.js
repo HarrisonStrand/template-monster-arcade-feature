@@ -11,8 +11,8 @@ export default function PowerUp(p5, x, y, r) {
 
     //shadow
     p5.push();
-    p5.fill(state.powerUpShadowColor);
-    p5.stroke(state.powerUpShadowColor)
+    p5.fill(state.arcadeColor5);
+    p5.stroke(state.arcadeColor5)
     p5.strokeWeight(p5.random(0, 2));
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -21,7 +21,7 @@ export default function PowerUp(p5, x, y, r) {
 
     //main
     p5.push();
-    p5.fill(state.powerUpMainColor);
+    p5.fill(state.arcadeColor1);
     p5.noStroke();
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -30,7 +30,7 @@ export default function PowerUp(p5, x, y, r) {
 
     //P TEXT
     p5.push();
-    p5.fill(state.powerUpLetterColor);
+    p5.fill(state.arcadeColor2);
     p5.textSize(1.5);
     p5.text('P', this.pos.x -.5, this.pos.y +.5);
     p5.pop();

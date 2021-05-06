@@ -181,11 +181,9 @@ export default class Snake {
 
   show(p5) {
     for (let i = 0; i < this.body.length; i++) {
-      // p5.fill("#99C200");
       p5.push();
-      // p5.fill("#C9FF00");
       p5.noFill();
-      p5.stroke("#C9FF00");
+      p5.stroke(state.arcadeColor4);
       p5.strokeWeight(p5.random(0.05, 0.1));
       p5.rectMode(p5.CENTER);
 
@@ -193,9 +191,9 @@ export default class Snake {
       p5.pop();
 
       p5.push();
-      p5.fill("#C9FF00");
+      p5.fill(state.arcadeColor4);
 
-      p5.stroke("#C9FF00");
+      p5.stroke(state.arcadeColor4);
       p5.strokeWeight(p5.random(0.05, 0.3));
       p5.rectMode(p5.CENTER);
 

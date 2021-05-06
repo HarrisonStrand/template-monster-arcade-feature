@@ -1,94 +1,28 @@
-const arcadeColorOne = 'red'
-const arcadeColorTwo = '#4E0DFF'
-const arcadeColorThree = '#0400ff'
+//MAIN COLORS
+const arcadeColorOne = 'red' //red
+const arcadeColorTwo = 'white' //white
+const arcadeColorThree = '#0400ff' //blue
+const arcadeColorFour = "#C9FF00" //snake green
+const arcadeColorFive = 'rgba(255, 0, 0, .3)'; //red shadow
+const arcadeColorSix = 'rgb(218,165,32)'; //gold
+const arcadeColorSeven = 'rgba(218,165,32, .3)'; //gold shadow
+const arcadeColorEight = 'black'//black
+const arcadeColorNine = 'rgb(91,131,145)';//cyan
+const arcadeColorTen = 'rgba(91,131,145,.3)';//cyan shadow
 
-const arcadeColor1 = '#4E0DFF';
+  
+  export var state = {
+  arcadeColor1: arcadeColorOne,
+  arcadeColor2: arcadeColorTwo,
+  arcadeColor3: arcadeColorThree,
+  arcadeColor4: arcadeColorFour,
+  arcadeColor5: arcadeColorFive,
+  arcadeColor6: arcadeColorSix,
+  arcadeColor7: arcadeColorSeven,
+  arcadeColor8: arcadeColorEight,
+  arcadeColor9: arcadeColorNine,
+  arcadeColor10: arcadeColorTen,
 
-//POWERUP
-const arcadeColor2 = 'red';
-const arcadeColor3 = 'rgba(255, 0, 0, .3)';
-const arcadeColor4 = 'white';
-
-const arcadeColor5 = '#66ff00';
-const arcadeColor6 = 'cyan';
-const arcadeColor7 = '#0400ff';
-const arcadeColor8 = '#0300BB';
-const arcadeColor9 = '#030088';
-const arcadeColor10 = '#02006D';
-const arcadeColor11 = '#020061';
-const arcadeColor12 = '#030159';
-const arcadeColor13 = '#010054';
-
-//KEY
-const arcadeColor14 = 'rgb(218,165,32)';
-const arcadeColor15 = 'rgba(218,165,32, .3)';
-const arcadeColor16 = 'black';
-const arcadeColor17 = 'black';
-const arcadeColor21 = 'white';
-const arcadeColor22 = 'blue';
-const arcadeColor23 = '#77fc03';
-const arcadeColor24 = 'red';
-const arcadeColor25 = '#77fc03';
-const arcadeColor26 = 'blue';
-const arcadeColor27 = '#77fc03';
-const arcadeColor28 = '#ff0000';
-const arcadeColor29 = '#ff0000';
-const arcadeColor30 = '#ff03ab';
-const arcadeColor31 = 'green';
-const arcadeColor42 = '#4E0DFF';
-const arcadeColor43 = 'white';
-const arcadeColor44 = '#4E0DFF';
-const arcadeColor45 = 'white';
-const arcadeColor46 = '200';
-const arcadeColor47 = 'white';
-const arcadeColor48 = 'rgb(91,131,145)';
-const arcadeColor49 = 'rgba(91,131,145,.3)';
-const arcadeColor50 = 'white';
-
-export var state = {
-  mainTextFillColor: arcadeColor1, //purpleish
-  powerUpMainColor: arcadeColorOne,
-  powerUpShadowColor: arcadeColor3,
-  powerUpLetterColor: arcadeColor4,
-  snakeMainColor: arcadeColor5,
-  venomMainColor: arcadeColor6,
-  obstaclesStroke1: arcadeColorThree,
-  obstaclesStroke2: arcadeColor8,
-  obstaclesStroke3: arcadeColor9,
-  obstaclesStroke4: arcadeColor10,
-  obstaclesStroke5: arcadeColor11,
-  obstaclesStroke6: arcadeColor12,
-  obstaclesStroke7: arcadeColor13,
-  keyMainColor: arcadeColor14,
-  keyShadowColor: arcadeColor15,
-  keyLetterColor: arcadeColor16,
-  enemyMainColor: arcadeColor17,
-  gridPointsColor: arcadeColor21,
-
-  //MENU
-  menuBorderStroke1: arcadeColor22,
-  menuBorderStroke2: arcadeColor23,
-  menuBorderStroke3: arcadeColor24,
-  menuTitleStroke1: arcadeColor25,
-  menuTitleStroke2: arcadeColor26,
-  menuGoalText: arcadeColor27,
-  menuControlsText1: arcadeColor28,
-  menuControlsText2: arcadeColor29,
-  menuStartGameText1: arcadeColor30,
-  menuStartGameText2: arcadeColor31,
-  scoreTextStroke: arcadeColorTwo,
-  scoreNumberStroke: arcadeColorTwo,
-  livesLeftTextStroke: arcadeColorTwo,
-  gameOverTextStroke: arcadeColorOne,
-  keysRemainingTextFill: arcadeColor42,
-  keysRemainingTextStroke: arcadeColor43,
-  levelIndicatorTextFill: arcadeColor44,
-  levelIndicatorTextStroke: arcadeColor45,
-  presentedByTextFill: arcadeColor46,
-  presentedByTextStroke: arcadeColor47,
-  powerUp2MainColor: arcadeColor48,
-  powerUp2ShadowColor: arcadeColor49,
-  powerUp2LetterColor: arcadeColor50,
   clientNameText: 'Hubb',
   clientLogo: null,
   snake: null,

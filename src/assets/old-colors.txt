@@ -1,0 +1,45 @@
+// const oldColors = 0;
+
+// if (oldColors = 0) {
+
+//   //POWERUP
+//   const arcadeColor2 = 'red';
+//   const arcadeColor3 = 'rgba(255, 0, 0, .3)';
+//   const arcadeColor4 = 'white';
+  
+//   //SNAKE
+//   const arcadeColor5 = '#66ff00';
+//   const arcadeColor6 = 'cyan';
+  
+//   //OBSTACLE HOLES
+//   const arcadeColor8 = '#0300BB';
+//   const arcadeColor9 = '#030088';
+//   const arcadeColor10 = '#02006D';
+//   const arcadeColor11 = '#020061';
+//   const arcadeColor12 = '#030159';
+//   const arcadeColor13 = '#010054';
+  
+//   //KEY
+//   const arcadeColor14 = 'rgb(218,165,32)';
+//   const arcadeColor15 = 'rgba(218,165,32, .3)';
+//   const arcadeColor16 = 'black';
+//   const arcadeColor17 = 'black';
+//   const arcadeColor21 = 'white';
+  
+//   //MENU TEXT
+//   const arcadeColor22 = 'blue';
+//   const arcadeColor23 = '#77fc03';
+//   const arcadeColor24 = 'red';
+//   const arcadeColor25 = '#77fc03';
+//   const arcadeColor26 = 'blue';
+//   const arcadeColor27 = '#77fc03';
+//   const arcadeColor28 = '#ff0000';
+//   const arcadeColor29 = '#ff0000';
+//   const arcadeColor30 = '#ff03ab';
+//   const arcadeColor31 = 'green';
+  
+//   //POWERUP 2
+//   const arcadeColor48 = 'rgb(91,131,145)';
+//   const arcadeColor49 = 'rgba(91,131,145,.3)';
+//   const arcadeColor50 = 'white';
+// }

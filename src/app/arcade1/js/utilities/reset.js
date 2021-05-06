@@ -18,7 +18,7 @@ export const reset = (p5, canvas) => {
   state.w = p5.windowWidth / state.rez;
   state.h = (p5.windowWidth * 0.714) / state.rez;
   p5.frameRate(state.frameRate);
-  state.hud = new Hud(state.mainFont, state.mainTextFillColor);
+  state.hud = new Hud(state.mainFont, state.arcadecolor2);
   state.snake = new Snake(p5, 4, state.windowHeight / 2);
   state.key = new Key(p5, p5.random(3, 97), p5.random(3, 97), 2);
   state.obstacles = [];
@@ -217,7 +217,7 @@ export const reset = (p5, canvas) => {
 
     //BORDER INITIALIZE
     for (let i = 0; i < state.windowWidth / 2 - 2; i++) {
-      state.topBorder[i] = new Border(p5, i * 2 + 1, 4, 1, 2, 0, 'white');
+      state.topBorder[i] = new Border(p5, i * 2 + 1, 4, 1, 2, 0, state.arcadeColor2);
     }
     for (let i = 0; i < state.windowHeight / 2 - 4; i++) {
       state.rightBorderTop[i] = new Border(
@@ -227,7 +227,7 @@ export const reset = (p5, canvas) => {
         1,
         0,
         2,
-        'white'
+        state.arcadeColor2
       );
     }
     // for (let i = 0; i < state.rightBorderTop.length; i++) {
@@ -250,11 +250,11 @@ export const reset = (p5, canvas) => {
         1,
         2,
         0,
-        'white'
+        state.arcadeColor2
       );
     }
     for (let i = 0; i < state.windowHeight / 2 - 4; i++) {
-      state.leftBorderTop[i] = new Border(p5, 1, i * 2 + 4, 1, 0, 2, 'white');
+      state.leftBorderTop[i] = new Border(p5, 1, i * 2 + 4, 1, 0, 2, state.arcadeColor2);
     }
     for (let i = 0; i < state.windowHeight / 18; i++) {
       state.doorTrigger[i] = new Border(
@@ -264,7 +264,7 @@ export const reset = (p5, canvas) => {
         1,
         0,
         2,
-        'black'
+        state.arcadeColor8
       );
     }
 

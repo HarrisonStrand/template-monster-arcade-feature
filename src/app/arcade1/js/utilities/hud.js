@@ -17,8 +17,8 @@ export default function Hud(mainFont) {
     p5.textFont(mainFont);
     p5.textSize(3);
     p5.noFill()
-    p5.stroke("white")
-    p5.strokeWeight(p5.random(0.15, 0.2))
+    p5.stroke(state.arcadeColor2)
+    p5.strokeWeight(p5.random(0.1, 0.15))
     p5.text(scoreCount, 1, 3)
     p5.pop()
 
@@ -27,7 +27,7 @@ export default function Hud(mainFont) {
     p5.textFont(mainFont);
     p5.textSize(3);
     p5.noFill();
-    p5.stroke("white");
+    p5.stroke(state.arcadeColor2);
     p5.strokeWeight(p5.random(0.1, 0.15));
     p5.text('Lives:', windowWidth * .78 , 3);
     p5.pop();
@@ -35,7 +35,7 @@ export default function Hud(mainFont) {
     for (let i = 0; i < livesLeft; i++) {
       p5.push();
       p5.noStroke()
-      p5.fill("#C9FF00");
+      p5.fill(state.arcadeColor4);
       p5.rectMode(p5.CENTER);
       p5.rect(windowWidth*(.95 - (i * .03)), 2, 2, 2);
       p5.pop();
@@ -59,7 +59,8 @@ export default function Hud(mainFont) {
     p5.push();
     p5.textFont(mainFont);
     p5.textSize(3);
-    p5.stroke(state.levelIndicatorTextStroke);
+    p5.noFill();
+    p5.stroke(state.arcadeColor2);
     p5.strokeWeight(p5.random(0.1, 0.15));
     p5.textAlign(p5.CENTER);
     p5.text('Level:' + levelIndicator, state.windowWidth/2, 3);
@@ -77,7 +78,8 @@ export default function Hud(mainFont) {
       p5.push();
       p5.textFont(mainFont);
       p5.textSize(state.windowWidth * .12);
-      p5.stroke(state.gameOverTextStroke);
+      p5.noFill();
+      p5.stroke(state.arcadeColor1);
       p5.strokeWeight(p5.random(0.2, 0.3));
       p5.textAlign(p5.CENTER);
       p5.text('GAME OVER', state.windowWidth /2, state.windowHeight /3);
@@ -87,7 +89,8 @@ export default function Hud(mainFont) {
       p5.push();
       p5.textFont(mainFont);
       p5.textSize(state.windowWidth * .05);
-      p5.stroke(state.gameOverTextStroke);
+      p5.noFill();
+      p5.stroke(state.arcadeColor1);
       p5.strokeWeight(p5.random(0.2, 0.3));
       p5.textAlign(p5.CENTER);
       p5.text('press enter to continue', state.windowWidth /2, state.windowHeight /2);
@@ -97,7 +100,8 @@ export default function Hud(mainFont) {
       p5.push();
       p5.textFont(mainFont);
       p5.textSize(state.windowWidth * .03);
-      p5.stroke(state.gameOverTextStroke);
+      p5.noFill();
+      p5.stroke(state.arcadeColor1);
       p5.strokeWeight(p5.random(0.2, 0.3));
       p5.textAlign(p5.CENTER);
       p5.text('esc - Main Menu', state.windowWidth / 2, state.windowHeight/1.5);
@@ -108,8 +112,9 @@ export default function Hud(mainFont) {
       p5.textFont(mainFont);
       p5.textSize(state.windowWidth * .02);
       p5.textAlign(p5.CENTER);
-      p5.stroke(state.presentedByTextStroke);
-      p5.strokeWeight(p5.random(0.2, 0.3));
+      p5.noFill();
+      p5.stroke(state.arcadeColor2);
+      p5.strokeWeight(p5.random(.15, .2));
       p5.image(state.clientLogo, state.windowWidth /1.65, state.windowHeight /1.3, state.windowWidth /15 + 4, state.windowHeight/15);
       p5.text('presented to you by ', state.windowWidth / 2.6, state.windowHeight/1.2);
       p5.pop();

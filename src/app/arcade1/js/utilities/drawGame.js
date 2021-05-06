@@ -16,7 +16,7 @@ import { reset } from "./reset"
 export const drawGame = (p5) => {
 
 	let pointGet = false;
-
+	
 	p5.scale(state.rez);
 	p5.background(0);
 	if (state.menu) {

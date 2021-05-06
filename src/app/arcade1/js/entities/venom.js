@@ -10,7 +10,7 @@ export default function Venom(p5, x, y, r, snake) {
   this.show = function (p5) {
     p5.push();
     p5.noStroke();
-    p5.fill(state.venomMainColor);
+    p5.fill(state.arcadeColor9);
     p5.ellipse(this.x, this.y, this.r, this.r);
     p5.pop();
   };

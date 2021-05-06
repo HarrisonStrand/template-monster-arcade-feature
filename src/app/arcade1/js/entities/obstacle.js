@@ -12,7 +12,7 @@ export default function Obstacle(p5, x, y, z, r) {
     
     p5.push();
     p5.noFill()
-    p5.stroke(state.obstaclesStroke1);
+    p5.stroke(state.arcadeColor3);
     p5.strokeWeight(p5.random(.5, .7))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -21,7 +21,7 @@ export default function Obstacle(p5, x, y, z, r) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(state.obstaclesStroke2);
+    p5.stroke(state.arcadeColor3);
     p5.strokeWeight(p5.random(.4, .5))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -30,7 +30,7 @@ export default function Obstacle(p5, x, y, z, r) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(state.obstaclesStroke3);
+    p5.stroke(state.arcadeColor3);
     p5.strokeWeight(p5.random(.3, .4))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -39,7 +39,7 @@ export default function Obstacle(p5, x, y, z, r) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(state.obstaclesStroke4);
+    p5.stroke(state.arcadeColor3);
     p5.strokeWeight(p5.random(.2, .3))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -48,7 +48,7 @@ export default function Obstacle(p5, x, y, z, r) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(state.obstaclesStroke5);
+    p5.stroke(state.arcadeColor3);
     p5.strokeWeight(p5.random(.1, .2))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -57,7 +57,7 @@ export default function Obstacle(p5, x, y, z, r) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(state.obstaclesStroke6);
+    p5.stroke(state.arcadeColor3);
     p5.strokeWeight(p5.random(.05, .1))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -66,7 +66,7 @@ export default function Obstacle(p5, x, y, z, r) {
 
     p5.push();
     p5.noFill()
-    p5.stroke(state.obstaclesStroke7);
+    p5.stroke(state.arcadeColor3);
     p5.strokeWeight(p5.random(.05, .1))
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);

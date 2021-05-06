@@ -11,8 +11,8 @@ export default function Key(p5, x, y, r) {
 
     //shadow
     p5.push();
-    p5.fill(state.keyShadowColor);
-    p5.stroke(state.keyShadowColor)
+    p5.fill(state.arcadeColor7);
+    p5.stroke(state.arcadeColor7)
     p5.strokeWeight(p5.random(0, 2));
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
@@ -21,7 +21,7 @@ export default function Key(p5, x, y, r) {
 
     //main
     p5.push();
-    p5.fill(state.keyMainColor);
+    p5.fill(state.arcadeColor6);
     p5.rectMode(p5.CENTER);
     p5.translate(this.pos.x, this.pos.y);
     p5.ellipse(0, 0, this.r, this.r);
@@ -29,7 +29,7 @@ export default function Key(p5, x, y, r) {
 
 		//K TEXT
 		p5.push();
-		p5.fill(state.keyLetterColor);
+		p5.fill(state.arcadeColor8);
 		p5.textSize(1.5);
 		p5.text('K', this.pos.x -.5, this.pos.y +.5);
 		p5.pop();
