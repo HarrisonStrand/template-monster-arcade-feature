@@ -42,9 +42,11 @@ export const drawGame = (p5) => {
 } else {
 
 	//OBSTACLES RENDER
-	for (var i = 0; i < state.obstacles.length; i++) {
-		state.obstacles[i].render(p5);
-	}
+	// if (state.levelIndicator > 1) {
+		for (var i = 0; i < state.obstacles.length; i++) {
+			state.obstacles[i].render(p5);
+		}
+	// }
 
 	//POINTS RENDER
 	for (var i = 0; i < state.points.length; i++) {
@@ -69,14 +71,6 @@ export const drawGame = (p5) => {
 	for (var i = 0; i < state.enemies.length; i++) {
 		//ENEMIES RENDER
 		state.enemies[i].render(p5);
-	}
-
-	for (let i = 0; i < state.grid.length; i++) {
-		p5.push()
-		p5.stroke("red")
-		p5.strokeWeight(1)
-		p5.point(state.grid[i].x, state.grid[i].y)
-		p5.pop()
 	}
 
 	
@@ -223,37 +217,23 @@ export const drawGame = (p5) => {
 		}
 	}
 
+
+	console.log(state.points)
 	for (var i = 0; i < state.doorTrigger.length; i++) {
 		//NEXT LEVEL TRIGGER
-		if (
-			// collide(state.doorTrigger[i], state.snake).totalDist && state.keysToCollect <= 0) {
-			collide(state.doorTrigger[i], state.snake).totalDist) {
-			state.obstacles.length = 0;
-			state.points.length = 0;
+		if (collide(state.doorTrigger[i], state.snake).totalDist && state.points.length === 0) {
+			state.levelIndicator += 1;
 			reset(p5);
 			state.menu = false;
-			state.levelIndicator += 1;
+			console.log(state.levelIndicator)
+			console.log(state.obstacles)
 			for (var i = 1; i <= state.levelIndicator; i++) {
 				state.keysToCollect++;
 				if (state.levelIndicator > 3) {
 					state.keysToCollect = 3;
 				}
 			}
-			//RESET SNAKE AND LAYOUT TO DEFAULT...
-		} else if (collide(state.doorTrigger[i], state.snake).totalDist) {
-			while (collide(state.doorTrigger[i], state.snake).totalDist) {
-				if (state.snake.xdir > 0) {
-					state.snake.body[state.snake.body.length - 1].x -= 0.2;
-				} else if (state.snake.xdir < 0) {
-					state.snake.body[state.snake.body.length - 1].x += 0.2;
-				} else if (state.snake.ydir > 0) {
-					state.snake.body[state.snake.body.length - 1].y -= 0.2;
-				} else if (state.snake.ydir < 0) {
-					state.snake.body[state.snake.body.length - 1].y += 0.2;
-				}
-				state.move = false;
-			}
-		}
+		} 
 	}
 }
 }

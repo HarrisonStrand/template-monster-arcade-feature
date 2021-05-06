@@ -34,7 +34,7 @@ export const reset = (p5, canvas) => {
   
 
   if (state.gameOver) {
-    state.numberOfObstacles = 5;
+    state.numberOfObstacles = 0;
     state.levelIndicator = 1;
     state.gameOver = false;
   }
@@ -42,12 +42,13 @@ export const reset = (p5, canvas) => {
   const pointDisplay =
     (state.levelIndicator + state.numberOfPoints) *
     (state.levelIndicator + state.numberOfPoints);
-
-  const obstacleDisplay =
+    
+    
+    const obstacleDisplay =
     (state.levelIndicator + state.numberOfObstacles) *
     (state.levelIndicator + state.numberOfObstacles);
-
-  state.numberOfObstacles += state.levelIndicator;
+    
+    state.numberOfObstacles += state.levelIndicator * .5;
 
 
   //RANDOM INNER OBSTACLE LAYOUT
@@ -236,6 +237,8 @@ export const reset = (p5, canvas) => {
     }
   }
 
+
+  //GRID AND OBSTACLE DISPLAY
   for (let i = 0; i < state.grid.length; i++) {
     console.log(state.grid[i].x, state.grid[i].y)
   }
@@ -247,10 +250,14 @@ export const reset = (p5, canvas) => {
       state.grid[Math.floor(p5.random(9))].x,
       state.grid[Math.floor(p5.random(9))].y,
       0,
+      10,
+      10,
       10
-    )
-
-    state.obstacles.push(newObstacle)
+      )
+      
+      if (state.levelIndicator > 1) {
+        state.obstacles.push(newObstacle)
+    }
   }
 
   //POINT CREATION
@@ -278,12 +285,6 @@ export const reset = (p5, canvas) => {
       }
     }
   } 
-
-  
-
-  //
-
-
 
     //BORDER INITIALIZE
     for (let i = 0; i < state.windowWidth / 2 - 2; i++) {

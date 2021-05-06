@@ -1,7 +1,7 @@
 //MAIN COLORS
-const arcadeColorOne = 'red' //red
-const arcadeColorTwo = 'white' //white
-const arcadeColorThree = '#0400ff' //blue
+const arcadeColorOne = 'red' //DEFAULT red
+const arcadeColorTwo = '#C9FF00' //DEFAULT: snake green 
+const arcadeColorThree = '#0400ff' //DEFAULT blue
 const arcadeColorFour = "#C9FF00" //snake green
 const arcadeColorFive = 'rgba(255, 0, 0, .3)'; //red shadow
 const arcadeColorSix = 'rgb(218,165,32)'; //gold
@@ -9,8 +9,6 @@ const arcadeColorSeven = 'rgba(218,165,32, .3)'; //gold shadow
 const arcadeColorEight = 'black'//black
 const arcadeColorNine = 'rgb(91,131,145)';//cyan
 const arcadeColorTen = 'rgba(91,131,145,.3)';//cyan shadow
-
-//I'm a little confused here... So if we had Green, Red and Blue as our 
   
   export var state = {
   arcadeColor1: arcadeColorOne,
