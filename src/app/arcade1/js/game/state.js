@@ -10,6 +10,7 @@ const arcadeColorEight = 'black'//black
 const arcadeColorNine = 'rgb(91,131,145)';//cyan
 const arcadeColorTen = 'rgba(91,131,145,.3)';//cyan shadow
 
+//I'm a little confused here... So if we had Green, Red and Blue as our 
   
   export var state = {
   arcadeColor1: arcadeColorOne,
@@ -58,9 +59,10 @@ const arcadeColorTen = 'rgba(91,131,145,.3)';//cyan shadow
   leftBorderBottom: [],
   //
   doorTrigger: [],
+  grid: [],
   rez: 10,
   scoreCount: 0,
-  numberOfObstacles: 5,
+  numberOfObstacles: 0,
   sizeOfObstacles: 8, // NO HIGHER THAN 8!! MAYBE DO RANDOM??
   numberOfPoints: 2,
   pointSpread: 2, // EVEN NUMBERS ONLY! HIGHER IS MORE SPREAD AND LESS POINTS

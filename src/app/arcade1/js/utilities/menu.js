@@ -57,7 +57,7 @@ export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.noFill();
   p5.rectMode(p5.CORNER);
-  p5.stroke(state.arcadeColor1);
+  p5.stroke(state.arcadeColor3);
   p5.strokeWeight(p5.random(0.2, 0.6));
   p5.rect(0.5, 0.5, totalWidth - 1, totalHeight - 1);
   p5.pop();
@@ -65,7 +65,7 @@ export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.noFill();
   p5.rectMode(p5.CORNER);
-  p5.stroke(state.arcadeColor3);
+  p5.stroke(state.arcadeColor4);
   p5.strokeWeight(p5.random(0.2, 0.6));
   p5.rect(1, 1, totalWidth - 2, totalHeight - 2);
   p5.pop();
@@ -73,7 +73,7 @@ export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.noFill();
   p5.rectMode(p5.CORNER);
-  p5.stroke(state.arcadeColor4);
+  p5.stroke(state.arcadeColor1);
   p5.strokeWeight(p5.random(0.2, 0.6));
   p5.rect(1.5, 1.5, totalWidth - 3, totalHeight - 3);
   p5.pop();
@@ -82,7 +82,7 @@ export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke(state.arcadeColor3);
+  p5.stroke(state.arcadeColor4);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(totalWidth * 0.1);
   p5.textAlign(p5.CENTER);
@@ -92,7 +92,7 @@ export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke(state.arcadeColor4);
+  p5.stroke(state.arcadeColor3);
   p5.strokeWeight(p5.random(0.04, 0.2));
   p5.textSize(totalWidth * 0.099);
   p5.textAlign(p5.CENTER);
@@ -103,7 +103,7 @@ export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke(state.arcadeColor2);
+  p5.stroke(state.arcadeColor4);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(totalWidth * 0.025);
   p5.textAlign(p5.CENTER);
@@ -118,7 +118,7 @@ export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke(state.arcadeColor2);
+  p5.stroke(state.arcadeColor1);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(totalWidth * 0.028);
   p5.textAlign(p5.CENTER);
@@ -128,7 +128,7 @@ export const drawMenu = (p5, mainFont, totalWidth, totalHeight) => {
   p5.push();
   p5.textFont(mainFont);
   p5.noFill();
-  p5.stroke(state.arcadeColor2);
+  p5.stroke(state.arcadeColor1);
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(totalWidth * 0.027);
   p5.textAlign(p5.CENTER);

@@ -71,6 +71,14 @@ export const drawGame = (p5) => {
 		state.enemies[i].render(p5);
 	}
 
+	for (let i = 0; i < state.grid.length; i++) {
+		p5.push()
+		p5.stroke("red")
+		p5.strokeWeight(1)
+		p5.point(state.grid[i].x, state.grid[i].y)
+		p5.pop()
+	}
+
 	
 
 	// if (state.hittingTail) {
@@ -174,7 +182,6 @@ export const drawGame = (p5) => {
 	}
 
 	if (state.snake.hitTail(p5) && !pointGet) {
-		// state.hittingTail = true;
 		snakeReset(p5)
 		state.livesLeft -= 1;
 	}
@@ -226,7 +233,6 @@ export const drawGame = (p5) => {
 			reset(p5);
 			state.menu = false;
 			state.levelIndicator += 1;
-			// state.numberOfPoints += 1;
 			for (var i = 1; i <= state.levelIndicator; i++) {
 				state.keysToCollect++;
 				if (state.levelIndicator > 3) {
