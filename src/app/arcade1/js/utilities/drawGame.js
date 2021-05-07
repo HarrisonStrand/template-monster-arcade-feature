@@ -216,8 +216,7 @@ export const drawGame = (p5) => {
 		}
 	}
 
-	console.log(state.totalObstacles)
-
+	
 	for (var i = 0; i < state.doorTrigger.length; i++) {
 		//NEXT LEVEL TRIGGER
 		if (collide(state.doorTrigger[i], state.snake).totalDist && state.points.length === 0) {

@@ -182,38 +182,20 @@ export const reset = (p5, canvas) => {
 
 
   //OBSTACLE DISPLAY
-  // for (let i = 0; i < state.grid.length; i++) {
-  //   console.log(state.grid[i].x, state.grid[i].y)
-  // }
-
-  // for (let i = 2; i < state.levelIndicator; i + 2) {
-    //   console.log(state.levelIndicator);
-    //   state.totalObstacles += 2;
-    //   console.log(state.totalObstacles);
-    // }
-
-  // for (let i = 2; i <= state.levelIndicator; i ++) {
-  //   if (state.levelIndicator % 2 === 0) {
-  //     state.totalObstacles += 2;
-  //   }
-  //   console.log(state.totalObstacles)
-    for (let x = 0; x < state.totalObstacles; x++) {
-      let overLapping = false
-      const newObstacle = new Obstacle(
-        p5, 
-        state.grid[Math.floor(p5.random(9))].x,
-        state.grid[Math.floor(p5.random(9))].y,
-        0,
-        10,
-        10,
-        10
-        )
-        
-        if (state.levelIndicator > 1) {
-          state.obstacles.push(newObstacle)
-      }
-    }
-  // }
+  for (let x = 0; x < state.totalObstacles; x++) {
+    const random = Math.floor(p5.random(state.grid.length - 1))
+    const newObstacle = new Obstacle(
+      p5, 
+      state.grid[random].x,
+      state.grid[random].y,
+      0,
+      10,
+      10,
+      10
+      )
+      state.grid.splice(random, 1)
+      state.obstacles.push(newObstacle)
+  }
 
   //POINT CREATION
 
