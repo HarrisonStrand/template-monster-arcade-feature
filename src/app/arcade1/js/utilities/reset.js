@@ -44,70 +44,11 @@ export const reset = (p5, canvas) => {
     (state.levelIndicator + state.numberOfPoints);
     
     
-    const obstacleDisplay =
-    (state.levelIndicator + state.numberOfObstacles) *
-    (state.levelIndicator + state.numberOfObstacles);
+    const obstacleDisplay = state.totalObstacles;
+    // const obstacleDisplay =
+    // (state.levelIndicator + state.numberOfObstacles) *
+    // (state.levelIndicator + state.numberOfObstacles);
     
-    state.numberOfObstacles += state.levelIndicator * .5;
-
-
-  //RANDOM INNER OBSTACLE LAYOUT
-  // while (state.obstacles.length < state.numberOfObstacles) {
-  //   state.obstacle = new Obstacle(
-  //     p5,
-  //     p5.random(4, state.windowWidth - 6),
-  //     p5.random(4, 90),
-  //     0,
-  //     state.sizeOfObstacles
-  //   );
-  //   var overlapping = false;
-  //   var blocking = false;
-  //   for (let j = 0; j < state.obstacles.length; j++) {
-  //     var other = state.obstacles[j];
-  //     var d = p5.dist(state.obstacle.x, state.obstacle.y, other.x, other.y);
-  //     if (d < state.obstacle.r + other.r) {
-  //       overlapping = true;
-  //       break;
-  //     }
-  //     if (
-  //       (state.obstacle.x < 10 || state.obstacle.x > 90) &&
-  //       state.obstacle.y > 30 &&
-  //       state.obstacle.y < 70
-  //     ) {
-  //       blocking = true;
-  //     }
-  //   }
-  //   if (!overlapping && !blocking) {
-  //     state.obstacles.push(state.obstacle);
-  //   }
-  // }
-
-
-  // OBSTACLE GRID DISPLAY
-  // for (let x = 0; x < Math.sqrt(obstacleDisplay); x++) {
-  //   for (let y = 0; y < Math.sqrt(obstacleDisplay); y++) {
-  //     let overlapping = false;
-  //     const spready = state.windowHeight / Math.sqrt(obstacleDisplay);
-  //     const spreadx = state.windowWidth / Math.sqrt(obstacleDisplay);
-  //     const newObstacle = new Obstacle(
-  //       p5,
-  //       spreadx * x + spreadx / 2.5,
-  //       spready * y + spready / 2.5,
-  //       0,
-  //       p5.random(3, 12)
-  //     );
-  //     for (let i = 0; i < state.points.length; i++) {
-  //       let other = state.points[i];
-  //       let d = p5.dist(newObstacle.x, newObstacle.y, other.x, other.y);
-  //       if (d < newObstacle.r + other.r) {
-  //         overlapping = true;
-  //       }
-  //     }
-  //     if (!overlapping) {
-  //       state.obstacles.push(newObstacle);
-  //     }
-  //   }
-  // }
 
 
   
@@ -225,6 +166,8 @@ export const reset = (p5, canvas) => {
     state.enemies.push(state.enemy);
   }
 
+
+  //GRID DISPLAY
   for (let i = 0; i < 4; i++) {
     for (let k = 0; k < 4; k++) { 
       const spreadx = state.windowWidth / 4
@@ -238,27 +181,39 @@ export const reset = (p5, canvas) => {
   }
 
 
-  //GRID AND OBSTACLE DISPLAY
-  for (let i = 0; i < state.grid.length; i++) {
-    console.log(state.grid[i].x, state.grid[i].y)
-  }
+  //OBSTACLE DISPLAY
+  // for (let i = 0; i < state.grid.length; i++) {
+  //   console.log(state.grid[i].x, state.grid[i].y)
+  // }
 
-  for (let x = 0; x < obstacleDisplay; x++) {
-    let overLapping = false
-    const newObstacle = new Obstacle(
-      p5, 
-      state.grid[Math.floor(p5.random(9))].x,
-      state.grid[Math.floor(p5.random(9))].y,
-      0,
-      10,
-      10,
-      10
-      )
-      
-      if (state.levelIndicator > 1) {
-        state.obstacles.push(newObstacle)
+  // for (let i = 2; i < state.levelIndicator; i + 2) {
+    //   console.log(state.levelIndicator);
+    //   state.totalObstacles += 2;
+    //   console.log(state.totalObstacles);
+    // }
+
+  // for (let i = 2; i <= state.levelIndicator; i ++) {
+  //   if (state.levelIndicator % 2 === 0) {
+  //     state.totalObstacles += 2;
+  //   }
+  //   console.log(state.totalObstacles)
+    for (let x = 0; x < state.totalObstacles; x++) {
+      let overLapping = false
+      const newObstacle = new Obstacle(
+        p5, 
+        state.grid[Math.floor(p5.random(9))].x,
+        state.grid[Math.floor(p5.random(9))].y,
+        0,
+        10,
+        10,
+        10
+        )
+        
+        if (state.levelIndicator > 1) {
+          state.obstacles.push(newObstacle)
+      }
     }
-  }
+  // }
 
   //POINT CREATION
 

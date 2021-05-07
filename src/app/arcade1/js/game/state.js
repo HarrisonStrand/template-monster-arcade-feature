@@ -58,6 +58,7 @@ const arcadeColorTen = 'rgba(91,131,145,.3)';//cyan shadow
   //
   doorTrigger: [],
   grid: [],
+  totalObstacles: 0,
   rez: 10,
   scoreCount: 0,
   numberOfObstacles: 0,

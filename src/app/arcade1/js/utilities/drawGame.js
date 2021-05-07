@@ -53,20 +53,20 @@ export const drawGame = (p5) => {
 		state.points[i].render(p5);
 	}
 
-	//POWERUPS RENDER
-	for (var i = 0; i < state.powerUps.length; i++) {
-		state.powerUps[i].render(p5);
-	}
-	for (var i = 0; i < state.powerUps2.length; i++) {
-		state.powerUps2[i].render(p5);
-	}
+	// //POWERUPS RENDER
+	// for (var i = 0; i < state.powerUps.length; i++) {
+	// 	state.powerUps[i].render(p5);
+	// }
+	// for (var i = 0; i < state.powerUps2.length; i++) {
+	// 	state.powerUps2[i].render(p5);
+	// }
 
-	for (var i = 0; i < state.keys.length; i++) {
-		//KEYS RENDER
-		if (state.keysToCollect >= 1) {
-			state.keys[i].render(p5);
-		}
-	}
+	// for (var i = 0; i < state.keys.length; i++) {
+	// 	//KEYS RENDER
+	// 	if (state.keysToCollect >= 1) {
+	// 		state.keys[i].render(p5);
+	// 	}
+	// }
 
 	for (var i = 0; i < state.enemies.length; i++) {
 		//ENEMIES RENDER
@@ -141,7 +141,6 @@ export const drawGame = (p5) => {
 	for (let i = 0; i < state.powerUps2.length; i++) {
 		if (state.snake.eatPowerUp2(state.powerUps2[i], p5)) {
 			state.powerUps2Eaten += 1;
-			console.log(state.powerUps2Eaten)
 			getPowerUp2(state.powerUps2, state.powerUps2[i]);
 		}
 	}
@@ -217,16 +216,18 @@ export const drawGame = (p5) => {
 		}
 	}
 
+	console.log(state.totalObstacles)
 
-	console.log(state.points)
 	for (var i = 0; i < state.doorTrigger.length; i++) {
 		//NEXT LEVEL TRIGGER
 		if (collide(state.doorTrigger[i], state.snake).totalDist && state.points.length === 0) {
 			state.levelIndicator += 1;
+			console.log(state.totalObstacles)
+			if (state.levelIndicator % 2 === 0) {
+				state.totalObstacles += 2;
+			}
 			reset(p5);
 			state.menu = false;
-			console.log(state.levelIndicator)
-			console.log(state.obstacles)
 			for (var i = 1; i <= state.levelIndicator; i++) {
 				state.keysToCollect++;
 				if (state.levelIndicator > 3) {
