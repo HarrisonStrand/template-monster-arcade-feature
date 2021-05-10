@@ -1,0 +1,24 @@
+import { state } from "../game/state";
+import { collide } from "../utilities/utilities";
+
+//Platform.js
+export default function Platform(p5, x, y) {
+		this.w = 6;
+		this.h = 1;
+    this.pos = p5.createVector(x, y);
+    this.vel = p5.createVector(0, 0);
+    this.acc = p5.createVector(0, 0);
+    this.xdir = 0;
+    this.ydir = 0;
+
+  this.render = function(p5) {
+    p5.push();
+    p5.noFill();
+    p5.stroke('white');
+    p5.strokeWeight(p5.random(0.5, 0.7));
+    p5.rectMode(p5.CENTER);
+
+    p5.rect(this.pos.x, this.pos.y, this.w, this.h);
+    p5.pop();
+  }
+}
