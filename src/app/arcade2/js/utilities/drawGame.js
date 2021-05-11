@@ -4,8 +4,9 @@ import { state } from '../game/state'
 export const drawGame = (p5) => {
 	p5.scale(state.rez);
 	p5.background(0);
-	// console.log(Math.floor(state.player.pos.y), Math.ceil(state.platform.pos.y))
-	state.player.onPlatform(p5, state.platform);
+	state.player.onStartingPlatform();
+	state.player.onPlatform();
+
 
 	var gravity = p5.createVector(0, 0.1);
 	state.player.applyForce(gravity);
@@ -14,6 +15,9 @@ export const drawGame = (p5) => {
 	state.player.render(p5);
 	state.enemy.update();
 	state.enemy.render(p5);
-	state.platform.render(p5);
-	
+	state.startingPlatform.render(p5);
+
+	for (let i = 0; i < state.platforms.length; i ++) {
+		state.platforms[i].render(p5);
+	}
 }

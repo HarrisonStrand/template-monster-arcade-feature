@@ -20,5 +20,12 @@ export default function Platform(p5, x, y) {
 
     p5.rect(this.pos.x, this.pos.y, this.w, this.h);
     p5.pop();
+
+    p5.push()
+    p5.textSize(2)
+    p5.fill('white')
+    p5.text(`x:${Math.round(this.pos.x)}, y: ${Math.round(this.pos.y)}`, this.pos.x + 1,this.pos.y + 1)
+    p5.pop()
+
   }
 }

@@ -12,7 +12,51 @@ export const reset = (p5, canvas) => {
 	state.windowWidth = (p5.windowWidth * 0.95) / state.rez;
   state.windowHeight = (p5.windowHeight * 0.95) / state.rez;
   p5.frameRate(state.frameRate);
-	state.player = new Player(p5, 4, state.windowHeight -20);
-	state.platform = new Platform(p5, 4, state.windowHeight -10);
+	state.player = new Player(p5, 4, state.windowHeight -25);
+	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10); //starting platform
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
+
+
+	for (let i = 0; i < state.numberOfPlatforms; i ++) {
+    state.platform = new Platform(
+      p5,
+      p5.random(3, 97),
+      p5.random(3, 97),
+    );
+    var overlapping = false;
+    // for (let j = 0; j < state.platforms.length; j++) {
+    //   var other = state.platforms[j];
+    //   var d = p5.dist(state.platform.x, state.platform.y, other.x, other.y);
+    //   if (d < state.platform.y + 4 + other.y) {
+    //     overlapping = true;
+    //     break;
+    //   }
+    // }
+    if (!overlapping) {
+      state.platforms.push(state.platform);
+    }
+
+	// while (state.platforms.length < state.numberOfPlatforms) {
+  //   state.platform = new Platform(
+  //     p5,
+  //     p5.random(3, 97),
+  //     p5.random(3, 97),
+  //   );
+  //   var overlapping = false;
+  //   // for (let j = 0; j < state.platforms.length; j++) {
+  //   //   var other = state.platforms[j];
+  //   //   var d = p5.dist(state.platform.x, state.platform.y, other.x, other.y);
+  //   //   if (d < state.platform.y + 4 + other.y) {
+  //   //     overlapping = true;
+  //   //     break;
+  //   //   }
+  //   // }
+  //   if (!overlapping) {
+  //     state.platforms.push(state.platform);
+  //   }
+  }
+
+
+
+
 }
