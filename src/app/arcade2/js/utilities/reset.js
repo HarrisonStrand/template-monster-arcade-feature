@@ -14,48 +14,52 @@ export const reset = (p5, canvas) => {
   p5.frameRate(state.frameRate);
 	state.player = new Player(p5, 4, state.windowHeight -25);
 	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10); //starting platform
+	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10); //starting platform
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
+  state.grid = [];
+  state.columns.push(state.col1, state.col2, state.col3, state.col4, state.col5, state.col6, state.col7, state.col8, state.col9, state.col1, state.col11, state.col12, state.col13, state.col14, state.col15,)
 
-
-	for (let i = 0; i < state.numberOfPlatforms; i ++) {
-    state.platform = new Platform(
-      p5,
-      p5.random(3, 97),
-      p5.random(3, 97),
-    );
-    var overlapping = false;
-    // for (let j = 0; j < state.platforms.length; j++) {
-    //   var other = state.platforms[j];
-    //   var d = p5.dist(state.platform.x, state.platform.y, other.x, other.y);
-    //   if (d < state.platform.y + 4 + other.y) {
-    //     overlapping = true;
-    //     break;
-    //   }
-    // }
-    if (!overlapping) {
-      state.platforms.push(state.platform);
+  //GRID DISPLAY
+  for (let a = 1; a < state.columns.length; a++) {
+    for (let i = 0; i < 15; i++) {
+      for (let k = 0; k < 6; k++) { 
+        const spreadx = state.windowWidth / 15 + 2
+        const spready = (state.windowHeight - 10) / 6 + 2
+        const gridPoint = {
+          x: Math.floor(spreadx * i + spreadx / 2),
+          y: Math.floor(spready * k + spready / 2)
+        }
+        state.columns[a].push(gridPoint)
+      }
     }
-
-	// while (state.platforms.length < state.numberOfPlatforms) {
-  //   state.platform = new Platform(
-  //     p5,
-  //     p5.random(3, 97),
-  //     p5.random(3, 97),
-  //   );
-  //   var overlapping = false;
-  //   // for (let j = 0; j < state.platforms.length; j++) {
-  //   //   var other = state.platforms[j];
-  //   //   var d = p5.dist(state.platform.x, state.platform.y, other.x, other.y);
-  //   //   if (d < state.platform.y + 4 + other.y) {
-  //   //     overlapping = true;
-  //   //     break;
-  //   //   }
-  //   // }
-  //   if (!overlapping) {
-  //     state.platforms.push(state.platform);
-  //   }
   }
 
+  // //GRID DISPLAY
+  // for (let i = 0; i < 15; i++) {
+  //   for (let k = 0; k < 6; k++) { 
+  //     const spreadx = state.windowWidth / 15 +2
+  //     const spready = (state.windowHeight - 10) / 6 + 2
+  //     const gridPoint = {
+  //       x: Math.floor(spreadx * i + spreadx / 2),
+  //       y: Math.floor(spready * k + spready / 2)
+  //     }
+  //     state.grid.push(gridPoint)
+  //   }
+  // }
+
+  //PLATFORM DISPLAY
+  for (let x = 0; x < state.numberOfPlatforms; x++) {
+    for (let a = 0; a < state.columns.length; a ++) {
+      const random = Math.floor(p5.random(state.columns[a].length -1))
+      const newPlatform = new Platform(
+        p5, 
+        state.columns[a][random].x,
+        state.columns[a][random].y,
+        )
+        state.columns[a].splice([random], 1)
+        state.platforms.push(newPlatform)
+      }
+  }
 
 
 

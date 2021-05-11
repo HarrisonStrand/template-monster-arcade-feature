@@ -30,7 +30,6 @@ export default function Player(p5, x, y) {
   this.onStartingPlatform = function() {
     if (this.pos.y <= state.startingPlatform.pos.y -1.9 && this.pos.y >= state.startingPlatform.pos.y - 4.01) {
       if (this.pos.x <= state.startingPlatform.pos.x + 6 && this.pos.x >= state.startingPlatform.pos.x - 6) {
-        console.log('land')
         this.vel.y *= 0;
         this.pos.y = state.startingPlatform.pos.y - 4;
       }
@@ -41,7 +40,6 @@ export default function Player(p5, x, y) {
     for (let i = 0; i < state.platforms.length; i++) {
       if (this.pos.y <= state.platforms[i].pos.y -1.9 && this.pos.y >= state.platforms[i].pos.y - 4.01) {
         if (this.pos.x <= state.platforms[i].pos.x + 6 && this.pos.x >= state.platforms[i].pos.x - 6) {
-          console.log('land')
           this.vel.y *= 0;
           this.pos.y = state.platforms[i].pos.y - 4;
         }
@@ -58,11 +56,11 @@ export default function Player(p5, x, y) {
     p5.rect(this.pos.x, this.pos.y, this.r, this.r);
     p5.pop();
 
-    p5.push()
-    p5.textSize(2)
-    p5.fill('white')
-    p5.text(`x:${Math.round(this.pos.x)}, y: ${Math.round(this.pos.y + 4)}`, this.pos.x + 1,this.pos.y + 1)
-    p5.pop()
+    // p5.push()
+    // p5.textSize(2)
+    // p5.fill('white')
+    // p5.text(`x:${Math.round(this.pos.x)}, y: ${Math.round(this.pos.y + 4)}`, this.pos.x + 1,this.pos.y + 1)
+    // p5.pop()
 
 
   }
