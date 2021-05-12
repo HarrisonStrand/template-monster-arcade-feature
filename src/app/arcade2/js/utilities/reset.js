@@ -37,20 +37,48 @@ export const reset = (p5, canvas) => {
     }
   }
 
-  //PLATFORM DISPLAY
+
+  const set1 = [
+    (state.columns[0][4]),
+    (state.columns[1][3]),
+    (state.columns[2][2]),
+    (state.columns[3][1]),
+    (state.columns[4][0]),
+    (state.columns[5][1]),
+    (state.columns[6][2]),
+    (state.columns[7][3]),
+    (state.columns[8][4]),
+    (state.columns[9][3]),
+    (state.columns[10][2]),
+    (state.columns[11][1]),
+    (state.columns[12][0]),
+    (state.columns[13][1]),
+    (state.columns[14][2])
+  ]
+
+  //PLATFORM RANDOM DISPLAY
   for (let x = 0; x < state.numberOfPlatforms; x++) {
-    for (let a = 0; a < state.columns.length; a +=2) {
-      const random = Math.floor(p5.random(state.columns[a].length))
-      const newPlatform = new Platform(
-        p5, 
-        state.columns[a][random].x,
-        state.columns[a][random].y,
-        )
-        state.columns[a].splice([random], 1)
-        state.platforms.push(newPlatform)
-      }
+    for (let a = 0; a < set1.length; a += 2) {
+        const newPlatform = new Platform(
+          p5, 
+          set1[a].x,
+          set1[a].y,
+          )
+          state.platforms.push(newPlatform)
+    }
   }
-
-
-
+//   //PLATFORM RANDOM DISPLAY
+//   for (let x = 0; x < state.numberOfPlatforms; x++) {
+//     for (let a = 0; a < state.columns.length; a +=2) {
+//       const set1 = [(state.columns[a][4]), (state.columns[a][2])]
+//       const random = Math.floor(p5.random(state.columns[a].length))
+//         const newPlatform = new Platform(
+//           p5, 
+//           state.columns[a][random].x,
+//           state.columns[a][random].y,
+//           )
+//           state.columns[a].splice(random, 1)
+//           state.platforms.push(newPlatform)
+//     }
+//   }
 }

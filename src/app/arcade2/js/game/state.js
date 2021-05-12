@@ -27,8 +27,8 @@ export var state = {
 	col13: [],
 	col14: [],
 	col15: [],
-	numberOfPlatforms: 3,
-	jumpAbility: true,
+	numberOfPlatforms: 1,
+	levelIndicator: 1,
 	rez: 10,
 	frameRate: 30,
 }

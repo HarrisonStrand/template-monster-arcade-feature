@@ -4,7 +4,7 @@ import { collide } from "../utilities/utilities";
 //Enemy.js
 export default function Enemy(p5, x, y) {
     this.r = 6; //enemy size
-    this.pos = p5.createVector(x, y);
+    this.pos = p5.createVector(x, p5.random(4, 80));
     this.vel = p5.createVector(-1, 0);
     this.acc = p5.createVector(0, 0);
     this.xdir = 0;
@@ -31,8 +31,13 @@ export default function Enemy(p5, x, y) {
     p5.stroke('green');
     p5.strokeWeight(p5.random(0.5, 0.7));
     p5.ellipseMode(p5.CENTER);
-
     p5.ellipse(this.pos.x, this.pos.y, this.r, this.r);
     p5.pop();
+
+    // p5.push()
+    // p5.textSize(2)
+    // p5.fill('white')
+    // p5.text(`x:${Math.round(this.pos.x)}, y: ${Math.round(this.pos.y)}`, this.pos.x + 1,this.pos.y + 1)
+    // p5.pop()
   }
 }
