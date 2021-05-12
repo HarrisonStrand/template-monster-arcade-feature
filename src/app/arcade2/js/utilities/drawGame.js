@@ -5,6 +5,7 @@ export const drawGame = (p5) => {
 	p5.scale(state.rez);
 	p5.background(0);
 	state.player.onStartingPlatform();
+	state.player.onEndingPlatform();
 	state.player.onPlatform();
 
 

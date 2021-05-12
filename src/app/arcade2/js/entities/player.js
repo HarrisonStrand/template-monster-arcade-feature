@@ -36,6 +36,15 @@ export default function Player(p5, x, y) {
     }
   }
 
+  this.onEndingPlatform = function() {
+    if (this.pos.y <= state.endingPlatform.pos.y -1.9 && this.pos.y >= state.endingPlatform.pos.y - 4.01) {
+      if (this.pos.x <= state.endingPlatform.pos.x + 6 && this.pos.x >= state.endingPlatform.pos.x - 6) {
+        this.vel.y *= 0;
+        this.pos.y = state.endingPlatform.pos.y - 4;
+      }
+    }
+  }
+
   this.onPlatform = function() {
     for (let i = 0; i < state.platforms.length; i++) {
       if (this.pos.y <= state.platforms[i].pos.y -1.9 && this.pos.y >= state.platforms[i].pos.y - 4.01) {

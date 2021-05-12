@@ -17,13 +17,13 @@ export const reset = (p5, canvas) => {
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10); //starting platform
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
   state.grid = [];
-  state.columns.push(state.col1, state.col2, state.col3, state.col4, state.col5, state.col6, state.col7, state.col8, state.col9, state.col1, state.col11, state.col12, state.col13, state.col14, state.col15,)
+  state.columns.push(state.col1, state.col2, state.col3 , state.col4, state.col5, state.col6, state.col7, state.col8, state.col9, state.col10, state.col11, state.col12, state.col13, state.col14, state.col15)
 
   //GRID DISPLAY
-  for (let a = 1; a < state.columns.length; a++) {
-    for (let i = 0; i < 15; i++) {
-      for (let k = 0; k < 6; k++) { 
-        const spreadx = state.windowWidth / 15 + 2
+  for (let a = 0; a < state.columns.length; a++) {
+    for (let i = 0; i < 1; i++) {
+      for (let k = 0; k < 5; k++) { 
+        const spreadx = state.windowWidth / 15 + 15
         const spready = (state.windowHeight - 10) / 6 + 2
         const gridPoint = {
           x: Math.floor(spreadx * i + spreadx / 2),
@@ -32,25 +32,15 @@ export const reset = (p5, canvas) => {
         state.columns[a].push(gridPoint)
       }
     }
+    for (let g = 0; g < state.columns[a].length; g ++) {
+      state.columns[a][g].x += a * 11; // POSSIBLE FIX FOR RESIZING
+    }
   }
-
-  // //GRID DISPLAY
-  // for (let i = 0; i < 15; i++) {
-  //   for (let k = 0; k < 6; k++) { 
-  //     const spreadx = state.windowWidth / 15 +2
-  //     const spready = (state.windowHeight - 10) / 6 + 2
-  //     const gridPoint = {
-  //       x: Math.floor(spreadx * i + spreadx / 2),
-  //       y: Math.floor(spready * k + spready / 2)
-  //     }
-  //     state.grid.push(gridPoint)
-  //   }
-  // }
 
   //PLATFORM DISPLAY
   for (let x = 0; x < state.numberOfPlatforms; x++) {
-    for (let a = 0; a < state.columns.length; a ++) {
-      const random = Math.floor(p5.random(state.columns[a].length -1))
+    for (let a = 0; a < state.columns.length; a +=2) {
+      const random = Math.floor(p5.random(state.columns[a].length))
       const newPlatform = new Platform(
         p5, 
         state.columns[a][random].x,

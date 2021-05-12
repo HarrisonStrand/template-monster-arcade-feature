@@ -17,9 +17,10 @@ export default function Platform(p5, x, y) {
     p5.stroke('white');
     p5.strokeWeight(p5.random(0.5, 0.7));
     p5.rectMode(p5.CENTER);
-
+    
     p5.rect(this.pos.x, this.pos.y, this.w, this.h);
     p5.pop();
+    
 
     // p5.push()
     // p5.textSize(2)
