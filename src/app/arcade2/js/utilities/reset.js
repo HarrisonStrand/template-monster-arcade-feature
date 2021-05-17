@@ -1,7 +1,9 @@
 import Player from '../entities/player';
 import Enemy from '../entities/enemy';
 import Platform from '../entities/platform';
-import { state } from "../game/state"; 
+import Lava from '../entities/lava';
+import Hud from '../utilities/hud'
+import { state } from "../game/state";
 
 export const reset = (p5, canvas) => {
 	canvas = p5.createCanvas(p5.windowWidth * .95, p5.windowHeight * .95);
@@ -16,6 +18,7 @@ export const reset = (p5, canvas) => {
 	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10); //starting platform
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10); //starting platform
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
+  state.hud = new Hud(state.mainFont);
   state.grid = [];
   state.columns.push(state.col1, state.col2, state.col3 , state.col4, state.col5, state.col6, state.col7, state.col8, state.col9, state.col10, state.col11, state.col12, state.col13, state.col14, state.col15)
 
@@ -35,6 +38,18 @@ export const reset = (p5, canvas) => {
     for (let g = 0; g < state.columns[a].length; g ++) {
       state.columns[a][g].x += a * 11; // POSSIBLE FIX FOR RESIZING
     }
+  }
+
+  for (let i = 0; i < state.windowWidth / 2; i++) {
+    state.lava[i] = new Lava(
+      p5,
+      i * 2,
+      state.windowHeight,
+      1,
+      2,
+      0,
+      'rgb(255, 0, 0)',
+    );
   }
 
 
@@ -74,7 +89,25 @@ export const reset = (p5, canvas) => {
     (state.columns[14][3])
   ]
 
-  state.platformSets.push(set1, set2)
+  const set3 = [
+    (state.columns[0][4]),
+    // (state.columns[1][3]),
+    // (state.columns[2][4]),
+    (state.columns[3][3]),
+    // (state.columns[4][0]),
+    (state.columns[5][3]),
+    (state.columns[6][2]),
+    // (state.columns[7][3]),
+    // (state.columns[8][2]),
+    // (state.columns[9][4]),
+    (state.columns[10][3]),
+    // (state.columns[11][3]),
+    // (state.columns[12][0]),
+    // (state.columns[13][1]),
+    (state.columns[14][3])
+  ]
+
+  state.platformSets.push(set1, set2, set3)
   let randomSet = state.platformSets[Math.floor(Math.random() * state.platformSets.length)]
   
   //PLATFORM RANDOM DISPLAY
@@ -88,18 +121,5 @@ export const reset = (p5, canvas) => {
         state.platforms.push(newPlatform)
       }
   }
-//   //PLATFORM RANDOM DISPLAY
-//   for (let x = 0; x < state.numberOfPlatforms; x++) {
-//     for (let a = 0; a < state.columns.length; a +=2) {
-//       const set1 = [(state.columns[a][4]), (state.columns[a][2])]
-//       const random = Math.floor(p5.random(state.columns[a].length))
-//         const newPlatform = new Platform(
-//           p5, 
-//           state.columns[a][random].x,
-//           state.columns[a][random].y,
-//           )
-//           state.columns[a].splice(random, 1)
-//           state.platforms.push(newPlatform)
-//     }
-//   }
+
 }

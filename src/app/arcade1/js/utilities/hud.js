@@ -37,7 +37,7 @@ export default function Hud(mainFont) {
       p5.noStroke()
       p5.fill(state.arcadeColor4);
       p5.rectMode(p5.CENTER);
-      p5.rect(windowWidth*(.95 - (i * .03)), 2, 2, 2);
+      p5.rect(windowWidth*(.90 - (i * -.03)), 2, 2, 2);
       p5.pop();
     }
     

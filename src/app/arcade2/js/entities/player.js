@@ -20,13 +20,6 @@ export default function Player(p5, x, y) {
     this.acc.set(0, 0);
   }
 
-  this.lava = function() {
-    if (this.pos.y >= state.windowHeight -4) {
-      this.vel.y *= 0;
-      this.pos.y = state.windowHeight -4;
-    }
-  }
-
   this.onStartingPlatform = function() {
     if (this.pos.y <= state.startingPlatform.pos.y -1.9 && this.pos.y >= state.startingPlatform.pos.y - 4.01) {
       if (this.pos.x <= state.startingPlatform.pos.x + 6 && this.pos.x >= state.startingPlatform.pos.x - 6) {
@@ -56,6 +49,8 @@ export default function Player(p5, x, y) {
     }
   }
 
+  
+
   this.render = function(p5) {
     p5.push();
     p5.noFill();
@@ -70,7 +65,6 @@ export default function Player(p5, x, y) {
     // p5.fill('white')
     // p5.text(`x:${Math.round(this.pos.x)}, y: ${Math.round(this.pos.y + 4)}`, this.pos.x + 1,this.pos.y + 1)
     // p5.pop()
-
 
   }
 }

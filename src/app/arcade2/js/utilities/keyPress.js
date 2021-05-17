@@ -3,7 +3,7 @@ import { state } from "../game/state";
 export const move = (p5) => {
   if (p5.keyIsDown(p5.RIGHT_ARROW)) {
     state.player.pos.x += 1;
-  } else if (p5.keyIsDown(p5.LEFT_ARROW)) {
+  } else if (p5.keyIsDown(p5.LEFT_ARROW) && (Math.floor(state.player.pos.y) != Math.floor(state.endingPlatform.pos.y - 4))) {
     state.player.pos.x += -1;
   }
 };
