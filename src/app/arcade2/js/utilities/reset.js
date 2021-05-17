@@ -2,7 +2,7 @@ import Player from '../entities/player';
 import Enemy from '../entities/enemy';
 import Platform from '../entities/platform';
 import Lava from '../entities/lava';
-import Hud from '../utilities/hud'
+import {Hud, Arrow} from '../utilities/hud'
 import { state } from "../game/state";
 
 export const reset = (p5, canvas) => {
@@ -19,7 +19,9 @@ export const reset = (p5, canvas) => {
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10); //starting platform
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
   state.hud = new Hud(state.mainFont);
+  state.arrow = new Arrow();
   state.grid = [];
+  state.enemies = [];
   state.columns.push(state.col1, state.col2, state.col3 , state.col4, state.col5, state.col6, state.col7, state.col8, state.col9, state.col10, state.col11, state.col12, state.col13, state.col14, state.col15)
 
   //GRID DISPLAY
@@ -73,44 +75,65 @@ export const reset = (p5, canvas) => {
 
   const set2 = [
     (state.columns[0][4]),
-    // (state.columns[1][3]),
     (state.columns[2][4]),
     (state.columns[3][3]),
-    // (state.columns[4][0]),
     (state.columns[5][3]),
     (state.columns[6][2]),
-    // (state.columns[7][3]),
     (state.columns[8][2]),
     (state.columns[9][4]),
-    // (state.columns[10][2]),
     (state.columns[11][3]),
-    // (state.columns[12][0]),
-    // (state.columns[13][1]),
     (state.columns[14][3])
   ]
 
   const set3 = [
     (state.columns[0][4]),
-    // (state.columns[1][3]),
-    // (state.columns[2][4]),
     (state.columns[3][3]),
-    // (state.columns[4][0]),
     (state.columns[5][3]),
     (state.columns[6][2]),
-    // (state.columns[7][3]),
-    // (state.columns[8][2]),
-    // (state.columns[9][4]),
     (state.columns[10][3]),
-    // (state.columns[11][3]),
-    // (state.columns[12][0]),
-    // (state.columns[13][1]),
     (state.columns[14][3])
   ]
 
-  state.platformSets.push(set1, set2, set3)
+  const set4 = [
+    (state.columns[2][4]),
+    (state.columns[3][2]),
+    (state.columns[5][3]),
+    (state.columns[5][1]),
+    (state.columns[9][2]),
+    (state.columns[10][3]),
+    (state.columns[14][3])
+  ]
+
+  const set5 = [
+    (state.columns[1][4]),
+    (state.columns[5][4]),
+    (state.columns[6][2]),
+    (state.columns[7][3]),
+    (state.columns[8][4]),
+    (state.columns[9][3]),
+    (state.columns[10][2]),
+    (state.columns[11][1]),
+    (state.columns[12][0]),
+    (state.columns[13][1]),
+    (state.columns[14][2])
+  ]
+
+  state.platformSets.push(set1, set2, set3, set4, set5)
   let randomSet = state.platformSets[Math.floor(Math.random() * state.platformSets.length)]
   
-  //PLATFORM RANDOM DISPLAY
+  //PLATFORM SET DISPLAY
+  // for (let x = 0; x < state.numberOfPlatforms; x++) {
+  //   for (let a = 0; a < set5.length; a ++) {
+  //     const newPlatform = new Platform(
+  //       p5, 
+  //       set5[a].x,
+  //       set5[a].y,
+  //       )
+  //       state.platforms.push(newPlatform)
+  //     }
+  // }
+  
+  //PLATFORM SET DISPLAY
   for (let x = 0; x < state.numberOfPlatforms; x++) {
     for (let a = 0; a < randomSet.length; a ++) {
       const newPlatform = new Platform(
@@ -120,6 +143,15 @@ export const reset = (p5, canvas) => {
         )
         state.platforms.push(newPlatform)
       }
+  }
+
+  for (let i = 0; i < state.numberOfEnemies; i ++) {
+    const newEnemy = new Enemy(
+      p5, 
+      state.windowWidth, 
+      state.windowHeight -6
+    )
+    state.enemies.push(newEnemy);
   }
 
 }

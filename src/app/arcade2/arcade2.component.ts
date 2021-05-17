@@ -16,7 +16,7 @@ import * as p5 from 'p5';
 import { state } from './js/game/state';
 import { reset } from './js/utilities/reset';
 import { drawGame } from './js/utilities/drawGame';
-import { jump, move } from './js/utilities/keyPress';
+import { jump, move, shoot } from './js/utilities/keyPress';
 // import {
 //   collide,
 //   getPowerUp,
@@ -53,6 +53,7 @@ export class Arcade2Component implements OnInit {
 
       p5.keyPressed = () => {
         jump(p5);
+        shoot(p5);
       };
     };
     let canvas = new p5(sketch);

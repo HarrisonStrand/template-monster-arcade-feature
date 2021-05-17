@@ -34,8 +34,10 @@ export default function Player(p5, x, y) {
       if (this.pos.x <= state.endingPlatform.pos.x + 6 && this.pos.x >= state.endingPlatform.pos.x - 6) {
         this.vel.y *= 0;
         this.pos.y = state.endingPlatform.pos.y - 4;
+        return true;
       }
     }
+    return false;
   }
 
   this.onPlatform = function() {

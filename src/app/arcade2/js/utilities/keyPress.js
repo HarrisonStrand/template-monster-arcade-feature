@@ -1,4 +1,5 @@
 import { state } from "../game/state";
+import Shot from '../entities/shot'
 
 export const move = (p5) => {
   if (p5.keyIsDown(p5.RIGHT_ARROW)) {
@@ -7,6 +8,20 @@ export const move = (p5) => {
     state.player.pos.x += -1;
   }
 };
+
+export const shoot = (p5) => {
+  if (p5.key == " ") {
+    state.bullets.push(
+      new Shot(
+        p5,
+        state.player.pos.x,
+        state.player.pos.y,
+        1.2,
+        state.player
+      )
+    );
+  }
+}
 
 export const jump = (p5) => {
   if (p5.keyCode == (p5.UP_ARROW)) {

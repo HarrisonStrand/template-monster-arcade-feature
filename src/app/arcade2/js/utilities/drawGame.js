@@ -1,8 +1,10 @@
 import { state } from '../game/state'
 import {
 	collide,
+	enemyReset,
 	playerReset
 } from '../utilities/utilities'
+import { reset } from './reset';
 
 
 export const drawGame = (p5) => {
@@ -17,8 +19,10 @@ export const drawGame = (p5) => {
 	state.player.applyForce(gravity);
 	state.player.update();
 	state.player.render(p5);
-	state.enemy.update();
-	state.enemy.render(p5);
+	for (let i = 0; i < state.enemies.length; i ++) {
+		state.enemies[i].render(p5);
+		state.enemies[i].update()
+	}
 	state.startingPlatform.render(p5);
 	state.endingPlatform.render(p5);
 
@@ -53,7 +57,49 @@ export const drawGame = (p5) => {
     }
 	}
 
-	
+	//ARROW INDICATOR
+	if (state.player.onEndingPlatform()) {
+		state.arrow.render(p5);
+	}
 
+	//HITTING NEXT LEVEL
+	if ((Math.floor(state.player.pos.y) == Math.floor(state.windowHeight -14)) && (Math.floor(state.player.pos.x -2) == Math.floor(state.windowWidth))) {
+		reset(p5);
+		state.levelIndicator += 1;
+	}
+
+	//HITTING ENEMY
+	for (let j = 0; j < state.enemies.length; j++) {
+		var other = state.enemies[j];
+		var d = p5.dist(state.player.pos.x, state.player.pos.y, other.pos.x, other.pos.y);
+		if (d < Math.floor(state.player.r -4) + Math.floor(other.r)) {
+			playerReset(p5);
+			// state.enemies.splice(j, 1)
+			state.livesLeft -= 1;
+		}
+	}
+
+	//ENEMY RESET
+	for (let i = 0; i < state.enemies.length; i ++) {
+		if (state.enemies[i].pos.x < 0) {
+			enemyReset(p5);
+		}
+	}
+
+	for(let i = 0; i < state.bullets.length; i++) {
+		for(let j = 0; j < state.enemies.length; j++) {
+			if (state.bullets[i].hits(state.enemies[j])) {
+				state.enemies.splice(j, 1);
+			}
+		}
+	}
+
+	for (var i = state.bullets.length - 1; i >= 0; i--) {
+		state.bullets[i].update(state.player);
+		state.bullets[i].render(p5);
+		if (state.bullets[i].offscreen()) {
+			state.bullets.splice(i, 1);
+		}
+	}
 
 }

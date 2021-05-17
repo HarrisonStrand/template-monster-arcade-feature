@@ -1,6 +1,6 @@
 import { state } from '../game/state'
 
-export default function Hud(mainFont) {
+export function Hud(mainFont) {
   this.mainFont = mainFont
 
   this.render = function(p5, levelIndicator, livesLeft) {
@@ -43,5 +43,26 @@ export default function Hud(mainFont) {
     }
 
 
+	}
+}
+export function Arrow() {
+
+  this.render = function(p5) {
+
+    let windowWidth = 0
+    if (state.windowWidth > 180) {
+      windowWidth = 180;
+    } else {
+      windowWidth = state.windowWidth
+    }
+
+    //LEVEL INDICATOR
+    p5.push()
+    p5.textSize(8);
+    p5.noFill()
+    p5.stroke('white')
+    p5.strokeWeight(p5.random(0.1, 0.3))
+    p5.text("\u2192", state.windowWidth -8, state.windowHeight - 22)
+    p5.pop()
 	}
 }
