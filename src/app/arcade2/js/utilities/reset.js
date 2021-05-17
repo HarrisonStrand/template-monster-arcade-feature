@@ -56,16 +56,37 @@ export const reset = (p5, canvas) => {
     (state.columns[14][2])
   ]
 
+  const set2 = [
+    (state.columns[0][4]),
+    // (state.columns[1][3]),
+    (state.columns[2][4]),
+    (state.columns[3][3]),
+    // (state.columns[4][0]),
+    (state.columns[5][3]),
+    (state.columns[6][2]),
+    // (state.columns[7][3]),
+    (state.columns[8][2]),
+    (state.columns[9][4]),
+    // (state.columns[10][2]),
+    (state.columns[11][3]),
+    // (state.columns[12][0]),
+    // (state.columns[13][1]),
+    (state.columns[14][3])
+  ]
+
+  state.platformSets.push(set1, set2)
+  let randomSet = state.platformSets[Math.floor(Math.random() * state.platformSets.length)]
+  
   //PLATFORM RANDOM DISPLAY
   for (let x = 0; x < state.numberOfPlatforms; x++) {
-    for (let a = 0; a < set1.length; a += 2) {
-        const newPlatform = new Platform(
-          p5, 
-          set1[a].x,
-          set1[a].y,
-          )
-          state.platforms.push(newPlatform)
-    }
+    for (let a = 0; a < randomSet.length; a ++) {
+      const newPlatform = new Platform(
+        p5, 
+        randomSet[a].x,
+        randomSet[a].y,
+        )
+        state.platforms.push(newPlatform)
+      }
   }
 //   //PLATFORM RANDOM DISPLAY
 //   for (let x = 0; x < state.numberOfPlatforms; x++) {
