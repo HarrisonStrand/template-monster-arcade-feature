@@ -14,10 +14,13 @@ export const drawGame = (p5) => {
 	state.player.onEndingPlatform();
 	state.player.onPlatform();
 
+	//PLAYER VELOCITY AND GRAVITY
 	var gravity = p5.createVector(0, 0.1);
 	state.player.applyForce(gravity);
 	state.player.update();
 	state.player.render(p5);
+
+	//ENEMIES
 	for (let i = 0; i < state.enemies.length; i ++) {
 		state.enemies[i].render(p5);
 		state.enemies[i].update()
@@ -35,20 +38,16 @@ export const drawGame = (p5) => {
 		}
 	}
 
+	//PLATFORMS
 	state.startingPlatform.render(p5);
 	state.endingPlatform.render(p5);
-
 	for (let i = 0; i < state.platforms.length; i ++) {
 		state.platforms[i].render(p5);
 	}
-
 	for (var i = 0; i < state.lava.length; i++) {
 		state.lava[i].render(p5);
 	}
-
 	state.hud.render(p5, state.levelIndicator);
-
-
 
 	//HITTING LAVA
 	for (let i = 0; i < state.lava.length; i++) {
@@ -58,7 +57,7 @@ export const drawGame = (p5) => {
     }
 	}
 
-	//ARROW INDICATOR
+	//NEXT LEVEL INDICATOR
 	if (state.player.onEndingPlatform()) {
 		state.arrow.render(p5);
 	}

@@ -2,15 +2,16 @@ import Player from '../entities/player';
 import Enemy from '../entities/enemy';
 import Platform from '../entities/platform';
 import Lava from '../entities/lava';
-import {Hud, Arrow} from '../utilities/hud'
+import { Hud, Arrow } from '../utilities/hud'
 import { state } from "../game/state";
 
 //add trail for player when jumping and moving
 //add enemy layers for more difficulty and more shots
 //add different platform sizes
-//add starting and ending platform indicators
 
 export const reset = (p5, canvas) => {
+
+  //CANVAS SETTINGS
 	canvas = p5.createCanvas(p5.windowWidth * .95, p5.windowHeight * .95);
 	canvas.parent('arcade2-container');
 	p5.pixelDensity(1);
@@ -19,12 +20,16 @@ export const reset = (p5, canvas) => {
 	state.windowWidth = (p5.windowWidth * 0.95) / state.rez;
   state.windowHeight = (p5.windowHeight * 0.95) / state.rez;
   p5.frameRate(state.frameRate);
+
+  //ENTITIY INITIALIZATION
 	state.player = new Player(p5, 4, state.windowHeight -25);
-	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'red', 6); //starting platform
-	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'green', 6); //ending platform
+	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'green', 6); //starting platform
+	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'red', 6); //ending platform
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
   state.hud = new Hud(state.mainFont);
   state.arrow = new Arrow();
+
+  //ARRAY INITIALIZATION
   state.grid = [];
   state.enemies = [];
   state.columns = [];
@@ -45,6 +50,8 @@ export const reset = (p5, canvas) => {
 	state.col13 = [],
 	state.col14 = [],
 	state.col15 = [],
+
+  //GRID ARRAY COLUMN LAYOUT
   state.columns.push(state.col1, state.col2, state.col3 , state.col4, state.col5, state.col6, state.col7, state.col8, state.col9, state.col10, state.col11, state.col12, state.col13, state.col14, state.col15)
 
   //GRID DISPLAY
@@ -61,10 +68,11 @@ export const reset = (p5, canvas) => {
       }
     }
     for (let g = 0; g < state.columns[a].length; g ++) {
-      state.columns[a][g].x += a * 11; // POSSIBLE FIX FOR RESIZING
+      state.columns[a][g].x += a * 11; // POSSIBLE FIX FOR DYNAMIC RESIZING
     }
   }
 
+  //LAVA DISPLAY
   for (let i = 0; i < state.windowWidth / 2; i++) {
     state.lava[i] = new Lava(
       p5,
@@ -77,7 +85,7 @@ export const reset = (p5, canvas) => {
     );
   }
 
-
+  //PLATFORM LAYOUT SETS
   const set1 = [
     (state.columns[0][4]),
     (state.columns[1][3]),
@@ -164,12 +172,13 @@ export const reset = (p5, canvas) => {
         randomSet[a].y,
         'white',
         'black',
-        6
+        12
         )
         state.platforms.push(newPlatform)
       }
   }
 
+  //ENEMIES DISPLAY
   for (let i = 0; i < state.numberOfEnemies; i ++) {
     const newEnemy = new Enemy(
       p5, 

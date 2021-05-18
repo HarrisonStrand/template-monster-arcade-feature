@@ -3,7 +3,7 @@ import { state } from '../game/state'
 export function Hud(mainFont) {
   this.mainFont = mainFont
 
-  this.render = function(p5, levelIndicator, livesLeft) {
+  this.render = function(p5, levelIndicator) {
 
     let windowWidth = 0
     if (state.windowWidth > 180) {
@@ -32,6 +32,7 @@ export function Hud(mainFont) {
     p5.text('Lives:', windowWidth * .78 , 3);
     p5.pop();
 
+    //BLUE SQUARE LIVES
     for (let i = 0; i < state.livesLeft; i++) {
       p5.push();
       p5.stroke('blue');
@@ -41,8 +42,6 @@ export function Hud(mainFont) {
       p5.rect(windowWidth * (.90 - (i * -.03)), 2, 2, 2);
       p5.pop();
     }
-
-
 	}
 }
 export function Arrow() {
@@ -56,7 +55,7 @@ export function Arrow() {
       windowWidth = state.windowWidth
     }
 
-    //LEVEL INDICATOR
+    //NEXT LEVEL INDICATOR
     p5.push()
     p5.textSize(8);
     p5.noFill()
