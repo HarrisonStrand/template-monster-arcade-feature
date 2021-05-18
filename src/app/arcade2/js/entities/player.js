@@ -1,5 +1,4 @@
 import { state } from "../game/state";
-import { collide } from "../utilities/utilities";
 
 //Player.js
 export default function Player(p5, x, y) {
@@ -21,8 +20,8 @@ export default function Player(p5, x, y) {
   }
 
   this.onStartingPlatform = function() {
-    if (this.pos.y <= state.startingPlatform.pos.y -1.9 && this.pos.y >= state.startingPlatform.pos.y - 4.01) {
-      if (this.pos.x <= state.startingPlatform.pos.x + 6 && this.pos.x >= state.startingPlatform.pos.x - 6) {
+    if (this.pos.y <= state.startingPlatform.pos.y -.6 && this.pos.y >= state.startingPlatform.pos.y - 4.01) {
+      if (this.pos.x <= state.startingPlatform.pos.x + state.startingPlatform.w && this.pos.x >= state.startingPlatform.pos.x - state.startingPlatform.w) {
         this.vel.y *= 0;
         this.pos.y = state.startingPlatform.pos.y - 4;
       }
@@ -30,8 +29,8 @@ export default function Player(p5, x, y) {
   }
 
   this.onEndingPlatform = function() {
-    if (this.pos.y <= state.endingPlatform.pos.y -1.9 && this.pos.y >= state.endingPlatform.pos.y - 4.01) {
-      if (this.pos.x <= state.endingPlatform.pos.x + 6 && this.pos.x >= state.endingPlatform.pos.x - 6) {
+    if (this.pos.y <= state.endingPlatform.pos.y -.6 && this.pos.y >= state.endingPlatform.pos.y - 4.01) {
+      if (this.pos.x <= state.endingPlatform.pos.x + state.endingPlatform.w && this.pos.x >= state.endingPlatform.pos.x - state.endingPlatform.w) {
         this.vel.y *= 0;
         this.pos.y = state.endingPlatform.pos.y - 4;
         return true;
@@ -42,8 +41,8 @@ export default function Player(p5, x, y) {
 
   this.onPlatform = function() {
     for (let i = 0; i < state.platforms.length; i++) {
-      if (this.pos.y <= state.platforms[i].pos.y -1.9 && this.pos.y >= state.platforms[i].pos.y - 4.01) {
-        if (this.pos.x <= state.platforms[i].pos.x + 6 && this.pos.x >= state.platforms[i].pos.x - 6) {
+      if (this.pos.y <= state.platforms[i].pos.y -.6 && this.pos.y >= state.platforms[i].pos.y - 4.01) {
+        if (this.pos.x <= state.platforms[i].pos.x + state.platforms[i].w && this.pos.x >= state.platforms[i].pos.x - state.platforms[i].w) {
           this.vel.y *= 0;
           this.pos.y = state.platforms[i].pos.y - 4;
         }

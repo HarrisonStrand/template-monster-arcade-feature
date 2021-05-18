@@ -5,6 +5,11 @@ import Lava from '../entities/lava';
 import {Hud, Arrow} from '../utilities/hud'
 import { state } from "../game/state";
 
+//add trail for player when jumping and moving
+//add enemy layers for more difficulty and more shots
+//add different platform sizes
+//add starting and ending platform indicators
+
 export const reset = (p5, canvas) => {
 	canvas = p5.createCanvas(p5.windowWidth * .95, p5.windowHeight * .95);
 	canvas.parent('arcade2-container');
@@ -15,13 +20,31 @@ export const reset = (p5, canvas) => {
   state.windowHeight = (p5.windowHeight * 0.95) / state.rez;
   p5.frameRate(state.frameRate);
 	state.player = new Player(p5, 4, state.windowHeight -25);
-	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10); //starting platform
-	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10); //starting platform
+	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'red', 6); //starting platform
+	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'green', 6); //ending platform
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
   state.hud = new Hud(state.mainFont);
   state.arrow = new Arrow();
   state.grid = [];
   state.enemies = [];
+  state.columns = [];
+  state.platforms = [];
+  state.platformSets = [];
+  state.col1 = [],
+	state.col2 = [],
+	state.col3 = [],
+	state.col4 = [],
+	state.col5 = [],
+	state.col6 = [],
+	state.col7 = [],
+	state.col8 = [],
+	state.col9 = [],
+	state.col10 = [],
+	state.col11 = [],
+	state.col12 = [],
+	state.col13 = [],
+	state.col14 = [],
+	state.col15 = [],
   state.columns.push(state.col1, state.col2, state.col3 , state.col4, state.col5, state.col6, state.col7, state.col8, state.col9, state.col10, state.col11, state.col12, state.col13, state.col14, state.col15)
 
   //GRID DISPLAY
@@ -110,24 +133,23 @@ export const reset = (p5, canvas) => {
     (state.columns[6][2]),
     (state.columns[7][3]),
     (state.columns[8][4]),
-    (state.columns[9][3]),
     (state.columns[10][2]),
-    (state.columns[11][1]),
-    (state.columns[12][0]),
-    (state.columns[13][1]),
     (state.columns[14][2])
   ]
 
   state.platformSets.push(set1, set2, set3, set4, set5)
   let randomSet = state.platformSets[Math.floor(Math.random() * state.platformSets.length)]
   
-  //PLATFORM SET DISPLAY
+  // // PLATFORM TEST DISPLAY
   // for (let x = 0; x < state.numberOfPlatforms; x++) {
   //   for (let a = 0; a < set5.length; a ++) {
   //     const newPlatform = new Platform(
   //       p5, 
   //       set5[a].x,
   //       set5[a].y,
+  //       'white',
+  //       'black',
+  //       6
   //       )
   //       state.platforms.push(newPlatform)
   //     }
@@ -140,6 +162,9 @@ export const reset = (p5, canvas) => {
         p5, 
         randomSet[a].x,
         randomSet[a].y,
+        'white',
+        'black',
+        6
         )
         state.platforms.push(newPlatform)
       }
@@ -154,4 +179,6 @@ export const reset = (p5, canvas) => {
     state.enemies.push(newEnemy);
   }
 
+
+  console.log(state.platforms)
 }

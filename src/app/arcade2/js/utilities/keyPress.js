@@ -26,13 +26,13 @@ export const shoot = (p5) => {
 export const jump = (p5) => {
   if (p5.keyCode == (p5.UP_ARROW)) {
     if (Math.floor(state.player.pos.y) == Math.floor(state.startingPlatform.pos.y - 4)) {
-      if (Math.floor(state.player.pos.x) <= Math.floor(state.startingPlatform.pos.x + 6) && Math.floor(state.player.pos.x) >= Math.floor(state.startingPlatform.pos.x - 6)) {
+      if (Math.floor(state.player.pos.x) <= Math.floor(state.startingPlatform.pos.x + state.startingPlatform.w) && Math.floor(state.player.pos.x) >= Math.floor(state.startingPlatform.pos.x - state.startingPlatform.w)) {
         state.player.applyForce(state.player.jump);
       }
     }
     for (let i = 0; i < state.platforms.length; i ++) {
       if (Math.floor(state.player.pos.y) == Math.floor(state.platforms[i].pos.y - 4)) {
-        if (Math.floor(state.player.pos.x) <= Math.floor(state.platforms[i].pos.x + 6) && Math.floor(state.player.pos.x) >= Math.floor(state.platforms[i].pos.x - 6)) {
+        if (Math.floor(state.player.pos.x) <= Math.floor(state.platforms[i].pos.x + state.platforms[i].w) && Math.floor(state.player.pos.x) >= Math.floor(state.platforms[i].pos.x - state.platforms[i].w)) {
           state.player.applyForce(state.player.jump);
         }
       }

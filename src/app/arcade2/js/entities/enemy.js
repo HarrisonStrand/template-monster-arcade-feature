@@ -5,7 +5,7 @@ import { collide } from "../utilities/utilities";
 export default function Enemy(p5, x, y) {
     this.r = 6; //enemy size
     this.pos = p5.createVector(x, p5.random(4, 80));
-    this.vel = p5.createVector(-1, 0);
+    this.vel = p5.createVector(-.7, 0);
     this.acc = p5.createVector(0, 0);
     this.xdir = 0;
     this.ydir = 0;

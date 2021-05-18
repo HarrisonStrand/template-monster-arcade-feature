@@ -1,9 +1,6 @@
-import { state } from "../game/state";
-import { collide } from "../utilities/utilities";
-
 //Platform.js
-export default function Platform(p5, x, y) {
-		this.w = 6;
+export default function Platform(p5, x, y, strokeColor, fillColor, width) {
+		this.w = width;
 		this.h = 1;
     this.pos = p5.createVector(x, y);
     this.vel = p5.createVector(0, 0);
@@ -13,8 +10,8 @@ export default function Platform(p5, x, y) {
 
   this.render = function(p5) {
     p5.push();
-    p5.noFill();
-    p5.stroke('white');
+    p5.fill(fillColor);
+    p5.stroke(strokeColor);
     p5.strokeWeight(p5.random(0.5, 0.7));
     p5.rectMode(p5.CENTER);
     

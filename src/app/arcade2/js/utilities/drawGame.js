@@ -14,7 +14,6 @@ export const drawGame = (p5) => {
 	state.player.onEndingPlatform();
 	state.player.onPlatform();
 
-
 	var gravity = p5.createVector(0, 0.1);
 	state.player.applyForce(gravity);
 	state.player.update();
@@ -23,6 +22,19 @@ export const drawGame = (p5) => {
 		state.enemies[i].render(p5);
 		state.enemies[i].update()
 	}
+
+	//GRID VISUAL
+	for (let i = 0; i < state.columns.length; i ++) {
+		for (let k = 0; k < state.columns[i].length; k ++) {
+			p5.push();
+			p5.fill('green')
+			p5.noStroke();
+			p5.rectMode(p5.CENTER);
+			p5.ellipse(state.columns[i][k].x, state.columns[i][k].y, 2, 2)
+			p5.pop();
+		}
+	}
+
 	state.startingPlatform.render(p5);
 	state.endingPlatform.render(p5);
 
@@ -36,17 +48,6 @@ export const drawGame = (p5) => {
 
 	state.hud.render(p5, state.levelIndicator);
 
-  // //GRID VISUAL
-	// for (let i = 0; i < state.columns.length; i ++) {
-	// 	for (let k = 0; k < state.columns[i].length; k ++) {
-	// 		p5.push();
-	// 		p5.fill('green')
-	// 		p5.noStroke();
-	// 		p5.rectMode(p5.CENTER);
-	// 		p5.ellipse(state.columns[i][k].x, state.columns[i][k].y, 2, 2)
-	// 		p5.pop();
-	// 	}
-	// }
 
 
 	//HITTING LAVA
@@ -72,7 +73,7 @@ export const drawGame = (p5) => {
 	for (let j = 0; j < state.enemies.length; j++) {
 		var other = state.enemies[j];
 		var d = p5.dist(state.player.pos.x, state.player.pos.y, other.pos.x, other.pos.y);
-		if (d < Math.floor(state.player.r -4) + Math.floor(other.r)) {
+		if (d < Math.floor(state.player.r -5) + Math.floor(other.r)) {
 			playerReset(p5);
 			// state.enemies.splice(j, 1)
 			state.livesLeft -= 1;
@@ -86,6 +87,7 @@ export const drawGame = (p5) => {
 		}
 	}
 
+	//SHOOTING ENEMY
 	for(let i = 0; i < state.bullets.length; i++) {
 		for(let j = 0; j < state.enemies.length; j++) {
 			if (state.bullets[i].hits(state.enemies[j])) {
@@ -94,6 +96,7 @@ export const drawGame = (p5) => {
 		}
 	}
 
+	//BULLETS OFFSCREEN & MOVE
 	for (var i = state.bullets.length - 1; i >= 0; i--) {
 		state.bullets[i].update(state.player);
 		state.bullets[i].render(p5);
