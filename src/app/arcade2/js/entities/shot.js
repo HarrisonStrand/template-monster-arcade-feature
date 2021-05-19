@@ -1,4 +1,6 @@
 import { state } from '../game/state'
+import { jump } from '../utilities/keyPress';
+import { playerReset } from '../utilities/utilities';
 
 export default function Shot(p5, x, y, r) {
   this.x = x;
@@ -20,7 +22,7 @@ export default function Shot(p5, x, y, r) {
   };
 
   this.update = function () {
-    this.x += this.xdir * 4;
+      this.x += this.xdir * 4;
   };
 
   this.hits = function(something) {

@@ -1,5 +1,4 @@
 import { state } from "../game/state";
-import { collide } from "../utilities/utilities";
 
 //Snake.js
 export default class Snake {

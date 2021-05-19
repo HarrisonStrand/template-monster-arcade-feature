@@ -26,16 +26,14 @@ export const reset = (p5, canvas) => {
 	state.player = new Player(p5, 4, state.windowHeight -25);
 	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'green', 6); //starting platform
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'red', 6); //ending platform
-	state.wall = new Wall(p5, state.windowWidth -4, state.windowHeight -10, 'grey', 'black', 6); //NOT RENDERED
-	// state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
-	// state.enemyLayer1 = new Layer1(p5, state.windowWidth, state.windowHeight -6);
-	// state.enemyLayer2 = new Layer2(p5, state.windowWidth, state.windowHeight -6);
   state.hud = new Hud(state.platformFont);
   state.arrow = new Arrow();
 
   //ARRAY INITIALIZATION
   state.grid = [];
   state.enemies = [];
+  state.enemyLayer1 = [];
+  state.enemyLayer2 = [];
   state.columns = [];
   state.platforms = [];
   state.platformSets = [];
@@ -188,38 +186,52 @@ export const reset = (p5, canvas) => {
 
   ]
 
+  const platformSet9 = [
+    (state.columns[1][4]),
+    (state.columns[2][4]),
+    (state.columns[3][4]),
+    (state.columns[4][4]),
+    (state.columns[5][4]),
+    (state.columns[6][4]),
+    (state.columns[7][4]),
+    (state.columns[8][4]),
+    (state.columns[9][4]),
+    (state.columns[10][4]),
+
+  ]
+
   state.platformSets.push(platformSet1, platformSet2, platformSet3, platformSet4, platformSet5, platformSet6, platformSet7, platformSet8)
   let randomPlatformSet = state.platformSets[Math.floor(Math.random() * state.platformSets.length)]
   
-  // // PLATFORM TEST DISPLAY
-  // for (let x = 0; x < state.numberOfPlatforms; x++) {
-  //   for (let a = 0; a < platformSet8.length; a ++) {
-  //     const newPlatform = new Platform(
-  //       p5, 
-  //       platformSet8[a].x,
-  //       platformSet8[a].y,
-  //       'white',
-  //       'black',
-  //       6
-  //       )
-  //       state.platforms.push(newPlatform)
-  //     }
-  // }
-  
-  //PLATFORM SET DISPLAY
+  // PLATFORM TEST DISPLAY
   for (let x = 0; x < state.numberOfPlatforms; x++) {
-    for (let a = 0; a < randomPlatformSet.length; a ++) {
+    for (let a = 0; a < platformSet9.length; a ++) {
       const newPlatform = new Platform(
         p5, 
-        randomPlatformSet[a].x,
-        randomPlatformSet[a].y,
+        platformSet9[a].x,
+        platformSet9[a].y,
         'white',
         'black',
-        p5.random(2,10)//MESS WITH SIZING??
+        6
         )
         state.platforms.push(newPlatform)
       }
   }
+  
+  // //PLATFORM SET DISPLAY
+  // for (let x = 0; x < state.numberOfPlatforms; x++) {
+  //   for (let a = 0; a < randomPlatformSet.length; a ++) {
+  //     const newPlatform = new Platform(
+  //       p5, 
+  //       randomPlatformSet[a].x,
+  //       randomPlatformSet[a].y,
+  //       'white',
+  //       'black',
+  //       p5.random(2,10)//MESS WITH SIZING??
+  //       )
+  //       state.platforms.push(newPlatform)
+  //     }
+  // }
   
 
   //ENEMIES DISPLAY

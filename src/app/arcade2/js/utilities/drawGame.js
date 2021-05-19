@@ -14,6 +14,7 @@ export const drawGame = (p5) => {
 	state.player.onPlatform();
 
 	//PLAYER VELOCITY AND GRAVITY
+	p5.angleMode(p5.DEGREES);
 	var gravity = p5.createVector(0, 0.1);
 	state.player.applyForce(gravity);
 	state.player.update();
@@ -92,6 +93,24 @@ export const drawGame = (p5) => {
 			state.livesLeft -= 1;
 		}
 	}
+	for (let j = 0; j < state.enemyLayer1.length; j++) {
+		var other = state.enemyLayer1[j];
+		var d = p5.dist(state.player.pos.x, state.player.pos.y, other.pos.x, other.pos.y);
+		if (d < Math.floor(state.player.r -5) + Math.floor(other.r)) {
+			playerReset(p5);
+			// state.enemies.splice(j, 1)
+			state.livesLeft -= 1;
+		}
+	}
+	for (let j = 0; j < state.enemyLayer2.length; j++) {
+		var other = state.enemyLayer2[j];
+		var d = p5.dist(state.player.pos.x, state.player.pos.y, other.pos.x, other.pos.y);
+		if (d < Math.floor(state.player.r -5) + Math.floor(other.r)) {
+			playerReset(p5);
+			// state.enemies.splice(j, 1)
+			state.livesLeft -= 1;
+		}
+	}
 
 	//ENEMY RESET
 	for (let i = 0; i < state.enemies.length; i ++) {
@@ -101,26 +120,29 @@ export const drawGame = (p5) => {
 	}
 
 	//SHOOTING ENEMY
-	for(let i = 0; i < state.bullets.length; i++) {
-		for(let j = 0; j < state.enemies.length; j++) {
+	for(let i = 0; i < state.bullets.length; i ++) {
+		for(let j = 0; j < state.enemies.length; j ++) {
 			if (state.bullets[i].hits(state.enemies[j])) {
 				state.enemies.splice(j, 1);
 				state.bullets.splice(i, 1);
 			}
 		}
-		for(let x = 0; x < state.enemyLayer1.length; x++) {
+	}
+	for(let i = 0; i < state.bullets.length; i ++) {
+		for(let x = 0; x < state.enemyLayer1.length; x ++) {
 			if (state.bullets[i].hits(state.enemyLayer1[x])) {
 				state.enemyLayer1.splice(x, 1);
-				// state.bullets.splice(i, 1);
+				state.bullets.splice(i, 1);
 			}
 		}
-		for(let r = 0; r < state.enemyLayer2.length; r++) {
+	}
+	for(let i = 0; i < state.bullets.length; i ++) {
+		for(let r = 0; r < state.enemyLayer2.length; r ++) {
 			if (state.bullets[i].hits(state.enemyLayer2[r])) {
 				state.enemyLayer2.splice(r, 1);
-				// state.bullets.splice(i, 1);
+				state.bullets.splice(i, 1);
 			}
 		}
-		
 	}
 
 	//BULLETS OFFSCREEN & MOVE
