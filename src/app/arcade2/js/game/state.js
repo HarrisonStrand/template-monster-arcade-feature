@@ -14,6 +14,7 @@ export var state = {
 	arrow: null,
 	bullets: [],
 	platforms: [],
+	walls: [],
 	grid: [],
 	columns: [],
 	enemies: [],

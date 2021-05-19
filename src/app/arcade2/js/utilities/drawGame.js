@@ -1,6 +1,5 @@
 import { state } from '../game/state'
 import {
-	collide,
 	enemyReset,
 	playerReset
 } from '../utilities/utilities'
@@ -47,7 +46,14 @@ export const drawGame = (p5) => {
 	for (var i = 0; i < state.lava.length; i++) {
 		state.lava[i].render(p5);
 	}
+
+	//HUD & MENU
 	state.hud.render(p5, state.levelIndicator);
+
+	//WALLS
+	for (let i = 0; i < state.walls.length; i++) {
+		state.walls[i].render(p5)
+	}
 
 	//HITTING LAVA
 	for (let i = 0; i < state.lava.length; i++) {
@@ -91,6 +97,7 @@ export const drawGame = (p5) => {
 		for(let j = 0; j < state.enemies.length; j++) {
 			if (state.bullets[i].hits(state.enemies[j])) {
 				state.enemies.splice(j, 1);
+				state.bullets.splice(i, 1);
 			}
 		}
 	}

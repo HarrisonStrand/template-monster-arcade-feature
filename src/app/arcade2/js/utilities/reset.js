@@ -1,6 +1,7 @@
 import Player from '../entities/player';
 import Enemy from '../entities/enemy';
 import Platform from '../entities/platform';
+import Wall from '../entities/wall';
 import Lava from '../entities/lava';
 import { Hud, Arrow } from '../utilities/hud'
 import { state } from "../game/state";
@@ -25,6 +26,7 @@ export const reset = (p5, canvas) => {
 	state.player = new Player(p5, 4, state.windowHeight -25);
 	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'green', 6); //starting platform
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'red', 6); //ending platform
+	state.wall = new Wall(p5, state.windowWidth -4, state.windowHeight -10, 'grey', 'black', 6); //NOT RENDERED
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
   state.hud = new Hud(state.mainFont);
   state.arrow = new Arrow();
@@ -86,7 +88,7 @@ export const reset = (p5, canvas) => {
   }
 
   //PLATFORM LAYOUT SETS
-  const set1 = [
+  const platformSet1 = [
     (state.columns[0][4]),
     (state.columns[1][3]),
     (state.columns[2][2]),
@@ -104,7 +106,7 @@ export const reset = (p5, canvas) => {
     (state.columns[14][2])
   ]
 
-  const set2 = [
+  const platformSet2 = [
     (state.columns[0][4]),
     (state.columns[2][4]),
     (state.columns[3][3]),
@@ -116,7 +118,7 @@ export const reset = (p5, canvas) => {
     (state.columns[14][3])
   ]
 
-  const set3 = [
+  const platformSet3 = [
     (state.columns[0][4]),
     (state.columns[3][3]),
     (state.columns[5][3]),
@@ -125,7 +127,7 @@ export const reset = (p5, canvas) => {
     (state.columns[14][3])
   ]
 
-  const set4 = [
+  const platformSet4 = [
     (state.columns[2][4]),
     (state.columns[3][2]),
     (state.columns[5][3]),
@@ -135,7 +137,7 @@ export const reset = (p5, canvas) => {
     (state.columns[14][3])
   ]
 
-  const set5 = [
+  const platformSet5 = [
     (state.columns[1][4]),
     (state.columns[5][4]),
     (state.columns[6][2]),
@@ -145,16 +147,55 @@ export const reset = (p5, canvas) => {
     (state.columns[14][2])
   ]
 
-  state.platformSets.push(set1, set2, set3, set4, set5)
-  let randomSet = state.platformSets[Math.floor(Math.random() * state.platformSets.length)]
+  const platformSet6 = [
+    (state.columns[1][4]),
+    (state.columns[2][3]),
+    (state.columns[1][2]),
+    (state.columns[2][1]),
+    (state.columns[7][3]),
+    (state.columns[10][3]),
+    (state.columns[13][3]),
+  ]
+  const platformSet7 = [
+    (state.columns[1][4]),
+    (state.columns[3][4]),
+    (state.columns[5][4]),
+    (state.columns[6][3]),
+    (state.columns[5][2]),
+    (state.columns[8][1]),
+    (state.columns[10][2]),
+    (state.columns[12][3]),
+  ]
+
+  const platformSet8 = [
+    (state.columns[1][4]),
+    (state.columns[1][3]),
+    (state.columns[1][2]),
+    (state.columns[1][1]),
+    (state.columns[2][1]),
+    (state.columns[3][1]),
+    (state.columns[4][1]),
+    (state.columns[5][1]),
+    (state.columns[6][1]),
+    (state.columns[7][1]),
+    (state.columns[8][1]),
+    (state.columns[9][1]),
+    (state.columns[10][1]),
+    (state.columns[11][1]),
+    (state.columns[12][1]),
+
+  ]
+
+  state.platformSets.push(platformSet1, platformSet2, platformSet3, platformSet4, platformSet5, platformSet6, platformSet7, platformSet8)
+  let randomPlatformSet = state.platformSets[Math.floor(Math.random() * state.platformSets.length)]
   
   // // PLATFORM TEST DISPLAY
   // for (let x = 0; x < state.numberOfPlatforms; x++) {
-  //   for (let a = 0; a < set5.length; a ++) {
+  //   for (let a = 0; a < platformSet8.length; a ++) {
   //     const newPlatform = new Platform(
   //       p5, 
-  //       set5[a].x,
-  //       set5[a].y,
+  //       platformSet8[a].x,
+  //       platformSet8[a].y,
   //       'white',
   //       'black',
   //       6
@@ -165,18 +206,19 @@ export const reset = (p5, canvas) => {
   
   //PLATFORM SET DISPLAY
   for (let x = 0; x < state.numberOfPlatforms; x++) {
-    for (let a = 0; a < randomSet.length; a ++) {
+    for (let a = 0; a < randomPlatformSet.length; a ++) {
       const newPlatform = new Platform(
         p5, 
-        randomSet[a].x,
-        randomSet[a].y,
+        randomPlatformSet[a].x,
+        randomPlatformSet[a].y,
         'white',
         'black',
-        12
+        6
         )
         state.platforms.push(newPlatform)
       }
   }
+  
 
   //ENEMIES DISPLAY
   for (let i = 0; i < state.numberOfEnemies; i ++) {
