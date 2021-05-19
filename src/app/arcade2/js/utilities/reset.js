@@ -28,7 +28,7 @@ export const reset = (p5, canvas) => {
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'red', 6); //ending platform
 	state.wall = new Wall(p5, state.windowWidth -4, state.windowHeight -10, 'grey', 'black', 6); //NOT RENDERED
 	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
-  state.hud = new Hud(state.mainFont);
+  state.hud = new Hud(state.platformFont);
   state.arrow = new Arrow();
 
   //ARRAY INITIALIZATION

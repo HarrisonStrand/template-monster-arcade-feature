@@ -9,7 +9,7 @@ export var state = {
 	w: null,
 	h: null,
 	clientLogo: null,
-	mainFont: null,
+	platformFont: null,
 	hud: null,
 	arrow: null,
 	bullets: [],

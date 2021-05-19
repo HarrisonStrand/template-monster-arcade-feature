@@ -1,7 +1,7 @@
 import { state } from '../game/state'
 
-export function Hud(mainFont) {
-  this.mainFont = mainFont
+export function Hud(platformFont) {
+  this.platformFont = platformFont
 
   this.render = function(p5, levelIndicator) {
 
@@ -14,7 +14,7 @@ export function Hud(mainFont) {
 
     //LEVEL INDICATOR
     p5.push()
-    p5.textFont(mainFont);
+    p5.textFont(platformFont);
     p5.textSize(3);
     p5.noFill()
     p5.stroke('white')
@@ -24,7 +24,7 @@ export function Hud(mainFont) {
 
     // LIVES LEFT
     p5.push();
-    p5.textFont(mainFont);
+    p5.textFont(platformFont);
     p5.textSize(3);
     p5.noFill();
     p5.stroke('white');
