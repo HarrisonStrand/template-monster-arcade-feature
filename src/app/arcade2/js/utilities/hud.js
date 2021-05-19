@@ -19,7 +19,7 @@ export function Hud(platformFont) {
     p5.noFill()
     p5.stroke('white')
     p5.strokeWeight(p5.random(0.1, 0.15))
-    p5.text('Level: ' + levelIndicator, 1, 3)
+    p5.text('Level: ' + levelIndicator, 1, 4)
     p5.pop()
 
     // LIVES LEFT
@@ -29,7 +29,7 @@ export function Hud(platformFont) {
     p5.noFill();
     p5.stroke('white');
     p5.strokeWeight(p5.random(0.1, 0.15));
-    p5.text('Lives:', windowWidth * .78 , 3);
+    p5.text('Lives:', windowWidth * .78 , 4);
     p5.pop();
 
     //BLUE SQUARE LIVES
@@ -39,7 +39,7 @@ export function Hud(platformFont) {
 			p5.noFill();
 			p5.strokeWeight(p5.random(.2, .4))
       p5.rectMode(p5.CENTER);
-      p5.rect(windowWidth * (.90 - (i * -.03)), 2, 2, 2);
+      p5.rect(windowWidth * (.92 - (i * -.03)), 3, 2, 2);
       p5.pop();
     }
 	}

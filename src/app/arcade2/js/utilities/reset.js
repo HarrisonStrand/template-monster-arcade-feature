@@ -1,5 +1,5 @@
 import Player from '../entities/player';
-import Enemy from '../entities/enemy';
+import { Enemy, Layer1, Layer2 } from '../entities/enemy';
 import Platform from '../entities/platform';
 import Wall from '../entities/wall';
 import Lava from '../entities/lava';
@@ -27,7 +27,9 @@ export const reset = (p5, canvas) => {
 	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'green', 6); //starting platform
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'red', 6); //ending platform
 	state.wall = new Wall(p5, state.windowWidth -4, state.windowHeight -10, 'grey', 'black', 6); //NOT RENDERED
-	state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
+	// state.enemy = new Enemy(p5, state.windowWidth, state.windowHeight -6);
+	// state.enemyLayer1 = new Layer1(p5, state.windowWidth, state.windowHeight -6);
+	// state.enemyLayer2 = new Layer2(p5, state.windowWidth, state.windowHeight -6);
   state.hud = new Hud(state.platformFont);
   state.arrow = new Arrow();
 
@@ -213,7 +215,7 @@ export const reset = (p5, canvas) => {
         randomPlatformSet[a].y,
         'white',
         'black',
-        6
+        p5.random(2,10)//MESS WITH SIZING??
         )
         state.platforms.push(newPlatform)
       }
@@ -225,11 +227,24 @@ export const reset = (p5, canvas) => {
     const newEnemy = new Enemy(
       p5, 
       state.windowWidth, 
-      state.windowHeight -6
+      p5.random(4, 80)
     )
-    state.enemies.push(newEnemy);
+    state.enemies.push(newEnemy)
   }
-
-
-  console.log(state.platforms)
+    for (let x = 0; x < state.enemies.length; x ++) {
+      const layer1 = new Layer1(
+        p5, 
+        state.windowWidth, 
+        state.enemies[x].pos.y
+      )
+      state.enemyLayer1.push(layer1)
+    }
+    for (let g = 0; g < state.enemies.length; g ++) {
+      const layer2 = new Layer2(
+        p5, 
+        state.windowWidth, 
+        state.enemies[g].pos.y
+      )
+      state.enemyLayer2.push(layer2)
+    }
 }

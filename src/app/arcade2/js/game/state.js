@@ -2,6 +2,8 @@ export var state = {
 
 	player: null,
 	enemy: null,
+	enemyLayer1: null,
+	enemyLayer2: null,
 	shoot: null,
 	startingPlatform: null,
 	endingPlatform: null,
@@ -18,6 +20,8 @@ export var state = {
 	grid: [],
 	columns: [],
 	enemies: [],
+	enemyLayer1: [],
+	enemyLayer2: [],
 	lava: [],
 	col1: [],
 	col2: [],

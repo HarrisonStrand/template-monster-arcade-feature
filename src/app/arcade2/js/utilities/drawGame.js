@@ -24,6 +24,14 @@ export const drawGame = (p5) => {
 		state.enemies[i].render(p5);
 		state.enemies[i].update()
 	}
+	for (let i = 0; i < state.enemyLayer1.length; i ++) {
+		state.enemyLayer1[i].render(p5);
+		state.enemyLayer1[i].update()
+	}
+	for (let i = 0; i < state.enemyLayer2.length; i ++) {
+		state.enemyLayer2[i].render(p5);
+		state.enemyLayer2[i].update()
+	}
 
 	//GRID VISUAL
 	for (let i = 0; i < state.columns.length; i ++) {
@@ -100,6 +108,19 @@ export const drawGame = (p5) => {
 				state.bullets.splice(i, 1);
 			}
 		}
+		for(let x = 0; x < state.enemyLayer1.length; x++) {
+			if (state.bullets[i].hits(state.enemyLayer1[x])) {
+				state.enemyLayer1.splice(x, 1);
+				// state.bullets.splice(i, 1);
+			}
+		}
+		for(let r = 0; r < state.enemyLayer2.length; r++) {
+			if (state.bullets[i].hits(state.enemyLayer2[r])) {
+				state.enemyLayer2.splice(r, 1);
+				// state.bullets.splice(i, 1);
+			}
+		}
+		
 	}
 
 	//BULLETS OFFSCREEN & MOVE
