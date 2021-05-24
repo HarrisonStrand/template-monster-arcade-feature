@@ -1,4 +1,5 @@
 export var state = {
+	menu: false,
 	gameOver: false,
 	player: null,
 	enemy: null,
