@@ -42,7 +42,49 @@ export function Hud(platformFont) {
       p5.rect(windowWidth * (.92 - (i * -.03)), 3, 2, 2);
       p5.pop();
     }
+
+    if(state.livesLeft < 0) {
+      state.gameOver = true;
+      //SEE THROUGH BACKGROUND
+      p5.push();
+      p5.background('rgba(0,0,0,.6)');
+      p5.pop();
+      
+      //GAME
+      p5.push();
+      p5.textFont(platformFont);
+      p5.textSize(state.windowWidth * .07);
+      p5.noFill();
+      p5.stroke('blue');
+      p5.strokeWeight(p5.random(0.2, 0.3));
+      p5.textAlign(p5.CENTER);
+      p5.text('GAME OVER', state.windowWidth /2, state.windowHeight /3);
+      p5.pop();
+      
+      //PRESS ENTER TO CONTINUE
+      p5.push();
+      p5.textFont(platformFont);
+      p5.textSize(state.windowWidth * .04);
+      p5.noFill();
+      p5.stroke('blue');
+      p5.strokeWeight(p5.random(0.2, 0.3));
+      p5.textAlign(p5.CENTER);
+      p5.text('press enter to continue', state.windowWidth /2, state.windowHeight /2);
+      p5.pop();
+      
+      //ESC TO MAIN MENU
+      p5.push();
+      p5.textFont(platformFont);
+      p5.textSize(state.windowWidth * .03);
+      p5.noFill();
+      p5.stroke('blue');
+      p5.strokeWeight(p5.random(0.2, 0.3));
+      p5.textAlign(p5.CENTER);
+      p5.text('esc - Main Menu', state.windowWidth / 2, state.windowHeight/1.5);
+      p5.pop();
+    }
 	}
+
 }
 export function Arrow() {
 

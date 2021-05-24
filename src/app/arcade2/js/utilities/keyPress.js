@@ -1,13 +1,18 @@
 import { state } from "../game/state";
 import Shot from '../entities/shot'
+import { reset } from "./reset";
 
 export const move = (p5) => {
-  if (p5.keyIsDown(p5.RIGHT_ARROW)) {
+  if (p5.keyIsDown(p5.RIGHT_ARROW) && state.gameOver == false) {
     state.player.pos.x += 1;
     state.player.xidir = 1;
   } else if (p5.keyIsDown(p5.LEFT_ARROW) && (Math.floor(state.player.pos.y) != Math.floor(state.endingPlatform.pos.y - 4))) {
     state.player.pos.x += -1;
     state.player.xdir = -1;
+  } else if (p5.keyCode == p5.ENTER && state.gameOver) {
+    reset(p5);
+    state.livesLeft = 3;
+    state.levelIndicator = 1;
   }
 };
 

@@ -8,7 +8,7 @@ import { reset } from './reset';
 
 export const drawGame = (p5) => {
 	p5.scale(state.rez);
-	p5.background(0);
+	p5.background(state.mountains);
 	state.player.onStartingPlatform();
 	state.player.onEndingPlatform();
 	state.player.onPlatform();
@@ -34,17 +34,17 @@ export const drawGame = (p5) => {
 		state.enemyLayer2[i].update()
 	}
 
-	//GRID VISUAL
-	for (let i = 0; i < state.columns.length; i ++) {
-		for (let k = 0; k < state.columns[i].length; k ++) {
-			p5.push();
-			p5.fill('green')
-			p5.noStroke();
-			p5.rectMode(p5.CENTER);
-			p5.ellipse(state.columns[i][k].x, state.columns[i][k].y, 2, 2)
-			p5.pop();
-		}
-	}
+	// //GRID VISUAL
+	// for (let i = 0; i < state.columns.length; i ++) {
+	// 	for (let k = 0; k < state.columns[i].length; k ++) {
+	// 		p5.push();
+	// 		p5.fill('green')
+	// 		p5.noStroke();
+	// 		p5.rectMode(p5.CENTER);
+	// 		p5.ellipse(state.columns[i][k].x, state.columns[i][k].y, 2, 2)
+	// 		p5.pop();
+	// 	}
+	// }
 
 	//PLATFORMS
 	state.startingPlatform.render(p5);
@@ -55,9 +55,6 @@ export const drawGame = (p5) => {
 	for (var i = 0; i < state.lava.length; i++) {
 		state.lava[i].render(p5);
 	}
-
-	//HUD & MENU
-	state.hud.render(p5, state.levelIndicator);
 
 	//WALLS
 	for (let i = 0; i < state.walls.length; i++) {
@@ -128,19 +125,19 @@ export const drawGame = (p5) => {
 			}
 		}
 	}
-	for(let i = 0; i < state.bullets.length; i ++) {
+	for(let p = 0; p < state.bullets.length; p ++) {
 		for(let x = 0; x < state.enemyLayer1.length; x ++) {
-			if (state.bullets[i].hits(state.enemyLayer1[x])) {
+			if (state.bullets[p].hits(state.enemyLayer1[x])) {
 				state.enemyLayer1.splice(x, 1);
-				state.bullets.splice(i, 1);
+				state.bullets.splice(p, 1);
 			}
 		}
 	}
-	for(let i = 0; i < state.bullets.length; i ++) {
+	for(let l = 0; l < state.bullets.length; l ++) {
 		for(let r = 0; r < state.enemyLayer2.length; r ++) {
-			if (state.bullets[i].hits(state.enemyLayer2[r])) {
+			if (state.bullets[l].hits(state.enemyLayer2[r])) {
 				state.enemyLayer2.splice(r, 1);
-				state.bullets.splice(i, 1);
+				state.bullets.splice(l, 1);
 			}
 		}
 	}
@@ -153,5 +150,8 @@ export const drawGame = (p5) => {
 			state.bullets.splice(i, 1);
 		}
 	}
+
+		//HUD & MENU
+		state.hud.render(p5, state.levelIndicator);
 
 }

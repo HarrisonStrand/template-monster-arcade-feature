@@ -19,6 +19,7 @@ export class Arcade2Component implements OnInit {
       p5.preload = () => {
         state.clientLogo = p5.loadImage('../../assets/img/HubbText.png');
         state.platformFont = p5.loadFont('../../assets/fonts/ARCADE_R.TTF');
+        state.mountains = p5.loadImage('../../assets/img/mountains1.jpeg');
       };
 
       p5.setup = () => {

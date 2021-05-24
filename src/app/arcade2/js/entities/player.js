@@ -85,7 +85,7 @@ export default function Player(p5, x, y) {
       p5.rotate(angleStop)
     }
     p5.rectMode(p5.CENTER)
-    p5.rect(0, 0, this.r +.5, 1)
+    p5.rect(0, 0, this.r +.2, 1)
     p5.pop();
 
     // p5.push()

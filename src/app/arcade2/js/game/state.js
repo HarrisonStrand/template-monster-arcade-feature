@@ -1,5 +1,5 @@
 export var state = {
-
+	gameOver: false,
 	player: null,
 	enemy: null,
 	enemyLayer1: null,
@@ -12,6 +12,7 @@ export var state = {
 	h: null,
 	clientLogo: null,
 	platformFont: null,
+	mountains: null,
 	hud: null,
 	arrow: null,
 	bullets: [],
