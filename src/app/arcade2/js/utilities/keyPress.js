@@ -9,10 +9,13 @@ export const move = (p5) => {
   } else if (p5.keyIsDown(p5.LEFT_ARROW) && (Math.floor(state.player.pos.y) != Math.floor(state.endingPlatform.pos.y - 4))) {
     state.player.pos.x += -1;
     state.player.xdir = -1;
-  } else if (p5.keyCode == p5.ENTER && state.gameOver) {
+  } else if (p5.keyCode == p5.ENTER && state.menu || p5.keyCode == p5.ENTER && state.gameOver) {
     reset(p5);
+    state.menu = false;
     state.livesLeft = 3;
     state.levelIndicator = 1;
+  } else if (p5.keyCode == p5.ESCAPE) {
+    state.menu = true;
   }
 };
 

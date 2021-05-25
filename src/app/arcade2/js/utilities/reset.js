@@ -1,7 +1,7 @@
 import Player from '../entities/player';
 import { Enemy, Layer1, Layer2 } from '../entities/enemy';
 import Platform from '../entities/platform';
-import Wall from '../entities/wall';
+import { MenuPlayer } from '../utilities/menu'
 import Lava from '../entities/lava';
 import { Hud, Arrow } from '../utilities/hud'
 import { state } from "../game/state";
@@ -241,31 +241,36 @@ export const reset = (p5, canvas) => {
   //       state.platforms.push(newPlatform)
   //     }
   // }
-  
-
+  if (state.levelIndicator > 2 && state.levelIndicator % 3 === 0) {
+    state.numberOfEnemies += 1;
+  }
   //ENEMIES DISPLAY
   for (let i = 0; i < state.numberOfEnemies; i ++) {
     const newEnemy = new Enemy(
       p5, 
       state.windowWidth, 
       p5.random(4, 80)
-    )
-    state.enemies.push(newEnemy)
-  }
+      )
+      state.enemies.push(newEnemy)
+    }
     for (let x = 0; x < state.numberOfEnemies; x ++) {
       const layer1 = new Layer1(
         p5, 
         state.windowWidth, 
         state.enemies[x].pos.y
-      )
-      state.enemyLayer1.push(layer1)
+        )
+        state.enemyLayer1.push(layer1)
     }
     for (let g = 0; g < state.numberOfEnemies; g ++) {
       const layer2 = new Layer2(
         p5, 
         state.windowWidth, 
         state.enemies[g].pos.y
-      )
-      state.enemyLayer2.push(layer2)
+        )
+        state.enemyLayer2.push(layer2)
     }
+
+
+
+    state.menuPlayer = new MenuPlayer(p5, state.windowWidth, state.windowHeight)
 }

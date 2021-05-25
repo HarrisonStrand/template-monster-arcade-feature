@@ -1,6 +1,7 @@
 export var state = {
-	menu: false,
+	menu: true,
 	gameOver: false,
+	menuPlayer: null,
 	player: null,
 	enemy: null,
 	enemyLayer1: null,
@@ -42,7 +43,7 @@ export var state = {
 	col15: [],
 	platformSets: [],
 	numberOfPlatforms: 1,
-	numberOfEnemies: 3,
+	numberOfEnemies: 0,
 	levelIndicator: 1,
 	livesLeft: 3,
 	rez: 10,

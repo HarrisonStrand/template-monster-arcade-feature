@@ -4,11 +4,16 @@ import {
 	playerReset
 } from '../utilities/utilities'
 import { reset } from './reset';
+import { drawMenu } from './menu'
 
 
 export const drawGame = (p5) => {
 	p5.scale(state.rez);
 	p5.background(state.mountains);
+	if (state.menu) {
+		drawMenu(p5, state.platformFont, state.windowWidth, state.windowHeight);
+		state.menuPlayer.render(p5, state.windowWidth, state.windowHeight)
+} else {
 	state.player.onStartingPlatform();
 	state.player.onEndingPlatform();
 	state.player.onPlatform();
@@ -21,18 +26,18 @@ export const drawGame = (p5) => {
 	state.player.render(p5);
 
 	//ENEMIES
-	for (let i = 0; i < state.enemies.length; i ++) {
-		state.enemies[i].render(p5);
-		state.enemies[i].update()
-	}
-	for (let i = 0; i < state.enemyLayer1.length; i ++) {
-		state.enemyLayer1[i].render(p5);
-		state.enemyLayer1[i].update()
-	}
-	for (let i = 0; i < state.enemyLayer2.length; i ++) {
-		state.enemyLayer2[i].render(p5);
-		state.enemyLayer2[i].update()
-	}
+		for (let i = 0; i < state.enemies.length; i ++) {
+			state.enemies[i].render(p5);
+			state.enemies[i].update()
+		}
+		for (let i = 0; i < state.enemyLayer1.length; i ++) {
+			state.enemyLayer1[i].render(p5);
+			state.enemyLayer1[i].update()
+		}
+		for (let i = 0; i < state.enemyLayer2.length; i ++) {
+			state.enemyLayer2[i].render(p5);
+			state.enemyLayer2[i].update()
+		}
 
 	// //GRID VISUAL
 	// for (let i = 0; i < state.columns.length; i ++) {
@@ -153,5 +158,5 @@ export const drawGame = (p5) => {
 
 		//HUD & MENU
 		state.hud.render(p5, state.levelIndicator);
-
+}
 }

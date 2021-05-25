@@ -36,10 +36,10 @@ export function Hud(platformFont) {
     for (let i = 0; i < state.livesLeft; i++) {
       p5.push();
       p5.stroke('blue');
-			p5.noFill();
+			p5.fill('blue');
 			p5.strokeWeight(p5.random(.2, .4))
-      p5.rectMode(p5.CENTER);
-      p5.rect(windowWidth * (.92 - (i * -.03)), 3, 2, 2);
+      p5.ellipseMode(p5.CENTER);
+      p5.ellipse(windowWidth * (.92 - (i * -.03)), 3, 3, 3);
       p5.pop();
     }
 
