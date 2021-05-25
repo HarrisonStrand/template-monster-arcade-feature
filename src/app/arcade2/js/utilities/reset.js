@@ -1,6 +1,7 @@
 import Player from '../entities/player';
 import { Enemy, Layer1, Layer2 } from '../entities/enemy';
 import Platform from '../entities/platform';
+import Background from '../entities/background'
 import { MenuPlayer } from '../utilities/menu'
 import Lava from '../entities/lava';
 import { Hud, Arrow } from '../utilities/hud'
@@ -11,7 +12,7 @@ import { state } from "../game/state";
 //add different platform sizes
 
 export const reset = (p5, canvas) => {
-
+  
   //CANVAS SETTINGS
 	canvas = p5.createCanvas(p5.windowWidth * .95, p5.windowHeight * .95);
 	canvas.parent('arcade2-container');
@@ -28,6 +29,7 @@ export const reset = (p5, canvas) => {
 	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'green', 8); //starting platform
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'red', 8); //ending platform
   state.hud = new Hud(state.platformFont);
+  state.backgroundImage = new Background(p5, state.windowWidth /2, state.windowHeight/2, state.windowWidth * 2.5, state.windowHeight * 2.5)
   state.arrow = new Arrow();
 
   //ARRAY INITIALIZATION

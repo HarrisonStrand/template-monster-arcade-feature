@@ -1,5 +1,4 @@
 import { state } from "../game/state";
-import { move, jump } from "../utilities/keyPress";
 
 //Player.js
 export default function Player(p5, x, y) {

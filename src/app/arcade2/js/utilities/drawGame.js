@@ -1,7 +1,8 @@
 import { state } from '../game/state'
 import {
 	enemyReset,
-	playerReset
+	playerReset,
+	backgroundReset
 } from '../utilities/utilities'
 import { reset } from './reset';
 import { drawMenu } from './menu'
@@ -9,18 +10,30 @@ import { drawMenu } from './menu'
 
 export const drawGame = (p5) => {
 	p5.scale(state.rez);
-	p5.background(state.mountains);
+	p5.background(0);
 	if (state.menu) {
 		drawMenu(p5, state.platformFont, state.windowWidth, state.windowHeight);
 		state.menuPlayer.render(p5, state.windowWidth, state.windowHeight)
 } else {
+	// if (!state.backgroundMusic.isPlaying()) {
+	// 	state.backgroundMusic.play();
+	// }
+	// state.backgroundImage.startingPosition();
 	state.player.onStartingPlatform();
 	state.player.onEndingPlatform();
 	state.player.onPlatform();
-
+	
 	//PLAYER VELOCITY AND GRAVITY
 	p5.angleMode(p5.DEGREES);
 	var gravity = p5.createVector(0, 0.1);
+	var gravity2 = p5.createVector(0, -0.1);
+	if (state.player.onPlatform()) {
+		gravity2 = p5.createVector(0, 0);
+		state.backgroundImage.vel.y *= 0;
+	}
+	state.backgroundImage.applyForce(gravity2)
+	state.backgroundImage.update();
+	state.backgroundImage.render(p5);
 	state.player.applyForce(gravity);
 	state.player.update();
 	state.player.render(p5);
@@ -70,6 +83,7 @@ export const drawGame = (p5) => {
 	for (let i = 0; i < state.lava.length; i++) {
     if (state.player.pos.y >= state.windowHeight -4) {
 			playerReset(p5);
+			backgroundReset(p5);
 			state.livesLeft -= 1;
     }
 	}

@@ -15,6 +15,8 @@ export var state = {
 	clientLogo: null,
 	platformFont: null,
 	mountains: null,
+	backgroundMusic: null,
+	backgroundImage: null,
 	hud: null,
 	arrow: null,
 	bullets: [],
