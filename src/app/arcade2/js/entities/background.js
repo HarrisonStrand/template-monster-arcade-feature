@@ -11,9 +11,13 @@ export default function Background(p5, x, y, w, h, image) {
 
 	this.applyForce = function(force) {
 		this.acc.add(force)
-		if (Math.floor(this.pos.y) <= state.windowWidth /2) {
+		if (Math.floor(this.pos.y) <= state.windowHeight /2) {
 			this.vel.y *=0;
-			this.pos.y = state.windowWidth /2;
+			this.pos.y = state.windowHeight /2;
+		}
+		if (Math.floor(this.pos.y) >= state.windowHeight * 1.7) {
+			this.vel.y *=0;
+			this.pos.y = state.windowHeight * 1.7;
 		}
 	}
 

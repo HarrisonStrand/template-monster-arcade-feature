@@ -4,6 +4,7 @@ import { state } from './js/game/state';
 import { reset } from './js/utilities/reset';
 import { drawGame } from './js/utilities/drawGame';
 import { jump, move, shoot } from './js/utilities/keyPress';
+import * as s from 'p5/lib/addons/p5.sound';
 
 @Component({
   selector: 'app-arcade2',
