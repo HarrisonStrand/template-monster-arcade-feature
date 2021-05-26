@@ -1,7 +1,7 @@
 import { state } from "../game/state";
 import Shot from '../entities/shot'
 import { reset } from "./reset";
-import { jumpSound, shootSound, music, backgroundMusic } from './utilities'
+import { jumpSound, shootSound } from './utilities'
 
 export const move = (p5) => {
   if (p5.keyIsDown(p5.RIGHT_ARROW) && state.gameOver == false) {
@@ -53,11 +53,5 @@ export const jump = (p5) => {
         }
       }
     }
-  }
-};
-
-export const mute = (p5) => {
-  if (p5.key == 'm') {
-    backgroundMusic.mute = true;
   }
 }

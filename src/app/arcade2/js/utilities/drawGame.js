@@ -5,7 +5,8 @@ import {
 	backgroundReset,
 	playerDieSound,
 	nextLevelSound,
-	enemyHitSound
+	enemyHitSound,
+	backgroundMusic
 } from '../utilities/utilities'
 import { reset } from './reset';
 import { drawMenu } from './menu'
@@ -16,7 +17,6 @@ export const drawGame = (p5) => {
 	p5.scale(state.rez);
 	p5.background(state.mountains);
 	if (state.menu) {
-
 		drawMenu(p5, state.platformFont, state.windowWidth, state.windowHeight);
 		state.menuPlayer.render(p5, state.windowWidth, state.windowHeight)
 
@@ -38,16 +38,15 @@ export const drawGame = (p5) => {
 			state.backgroundImage.image = state.backgrounds[i]
 		}
 
-		state.player.onStartingPlatform();
-		state.player.onEndingPlatform();
-		state.player.onPlatform();
-
 		//PLAYER VELOCITY AND GRAVITY
 		p5.angleMode(p5.DEGREES);
 		var gravity = p5.createVector(0, 0.1);
 		state.player.applyForce(gravity);
 		state.player.update();
 		state.player.render(p5);
+		state.player.onStartingPlatform();
+		state.player.onEndingPlatform();
+		state.player.onPlatform();
 
 		//ENEMIES
 			for (let i = 0; i < state.enemies.length; i ++) {

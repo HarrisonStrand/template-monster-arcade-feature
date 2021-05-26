@@ -21,16 +21,14 @@ export const enemyReset = (p5) => {
 	}
 };
 
-export const backgroundMusic = (p5) => {
-	const music = new Tone.Player({
-		"url" : "../../assets/sounds/background1.wav",
-		"autostart" : true,
-		'loop' : true,
-		'mute' : false
-	}).toDestination();
-	if (p5.key == 'm') {
-		music.mute = true;
-	}
+export const backgroundMusic = () => {
+	const music = new Tone.Player("../../assets/sounds/background1.wav").toDestination();
+	Tone.loaded().then(() => {
+		music.start();
+		music.autostart = true;
+		music.loop = true;
+		music.mute = false;
+	});
 }
 
 export const jumpSound = () => {
