@@ -1,6 +1,7 @@
 import { state } from "../game/state";
 import Shot from '../entities/shot'
 import { reset } from "./reset";
+import { jumpSound, shootSound, music, backgroundMusic } from './utilities'
 
 export const move = (p5) => {
   if (p5.keyIsDown(p5.RIGHT_ARROW) && state.gameOver == false) {
@@ -23,6 +24,7 @@ export const move = (p5) => {
 
 export const shoot = (p5) => {
   if (p5.key == " ") {
+    shootSound();
     state.bullets.push(
       new Shot(
         p5,
@@ -37,6 +39,7 @@ export const shoot = (p5) => {
 
 export const jump = (p5) => {
   if (p5.keyCode == (p5.UP_ARROW)) {
+    jumpSound();
     state.backgroundImage.applyForce(state.backgroundImage.jump)
     if (Math.floor(state.player.pos.y) == Math.floor(state.startingPlatform.pos.y - 4)) {
       if (Math.floor(state.player.pos.x) <= Math.floor(state.startingPlatform.pos.x + state.startingPlatform.w) && Math.floor(state.player.pos.x) >= Math.floor(state.startingPlatform.pos.x - state.startingPlatform.w)) {
@@ -52,3 +55,9 @@ export const jump = (p5) => {
     }
   }
 };
+
+export const mute = (p5) => {
+  if (p5.key == 'm') {
+    backgroundMusic.mute = true;
+  }
+}

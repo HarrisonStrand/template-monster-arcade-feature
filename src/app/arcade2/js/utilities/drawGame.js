@@ -2,7 +2,10 @@ import { state } from '../game/state'
 import {
 	enemyReset,
 	playerReset,
-	backgroundReset
+	backgroundReset,
+	playerDieSound,
+	nextLevelSound,
+	enemyHitSound
 } from '../utilities/utilities'
 import { reset } from './reset';
 import { drawMenu } from './menu'
@@ -91,6 +94,7 @@ export const drawGame = (p5) => {
 
 		//HITTING LAVA
 			if (state.player.pos.y >= state.windowHeight -4) {
+				playerDieSound();
 				playerReset(p5);
 				backgroundReset(p5);
 				state.livesLeft -= 1;
@@ -103,6 +107,7 @@ export const drawGame = (p5) => {
 
 		//HITTING NEXT LEVEL
 		if ((Math.floor(state.player.pos.y) == Math.floor(state.windowHeight -14)) && (Math.floor(state.player.pos.x -2) == Math.floor(state.windowWidth))) {
+			nextLevelSound();
 			reset(p5);
 			state.levelIndicator += 1;
 		}
@@ -112,6 +117,7 @@ export const drawGame = (p5) => {
 			var other = state.enemies[j];
 			var d = p5.dist(state.player.pos.x, state.player.pos.y, other.pos.x, other.pos.y);
 			if (d < Math.floor(state.player.r -5) + Math.floor(other.r)) {
+				playerDieSound();
 				playerReset(p5);
 				state.livesLeft -= 1;
 			}
@@ -144,6 +150,7 @@ export const drawGame = (p5) => {
 		for(let i = 0; i < state.bullets.length; i ++) {
 			for(let j = 0; j < state.enemies.length; j ++) {
 				if (state.bullets[i].hits(state.enemies[j])) {
+					enemyHitSound();
 					state.enemies.splice(j, 1);
 					state.bullets.splice(i, 1);
 				}
@@ -152,6 +159,7 @@ export const drawGame = (p5) => {
 		for(let p = 0; p < state.bullets.length; p ++) {
 			for(let x = 0; x < state.enemyLayer1.length; x ++) {
 				if (state.bullets[p].hits(state.enemyLayer1[x])) {
+					enemyHitSound();
 					state.enemyLayer1.splice(x, 1);
 					state.bullets.splice(p, 1);
 				}
@@ -160,6 +168,7 @@ export const drawGame = (p5) => {
 		for(let l = 0; l < state.bullets.length; l ++) {
 			for(let r = 0; r < state.enemyLayer2.length; r ++) {
 				if (state.bullets[l].hits(state.enemyLayer2[r])) {
+					enemyHitSound();
 					state.enemyLayer2.splice(r, 1);
 					state.bullets.splice(l, 1);
 				}

@@ -2,6 +2,7 @@ import Player from "../entities/player"
 import Background from '../entities/background'
 import { Enemy, Layer1, Layer2 } from "../entities/enemy"
 import { state } from '../game/state'
+import * as Tone from 'tone'
 
 export const playerReset = (p5) => {
   state.player = new Player(p5, 4, state.windowHeight -25);
@@ -19,3 +20,50 @@ export const enemyReset = (p5) => {
 		state.enemyLayer2[i] = new Layer2(p5, state.windowWidth, state.enemies[i].pos.y)
 	}
 };
+
+export const backgroundMusic = (p5) => {
+	const music = new Tone.Player({
+		"url" : "../../assets/sounds/background1.wav",
+		"autostart" : true,
+		'loop' : true,
+		'mute' : false
+	}).toDestination();
+	if (p5.key == 'm') {
+		music.mute = true;
+	}
+}
+
+export const jumpSound = () => {
+	const jumpFX = new Tone.Player("../../assets/sounds/JUMP.wav").toDestination();
+	Tone.loaded().then(() => {
+		jumpFX.start();
+	});
+}
+
+export const shootSound = () => {
+	const shootFX = new Tone.Player("../../assets/sounds/SHOOT.wav").toDestination();
+	Tone.loaded().then(() => {
+		shootFX.start();
+	});
+}
+
+export const playerDieSound = () => {
+	const playerDieFX = new Tone.Player("../../assets/sounds/PLAYER_DIE.wav").toDestination();
+	Tone.loaded().then(() => {
+		playerDieFX.start();
+	});
+}
+
+export const nextLevelSound = () => {
+	const nextLevelFX = new Tone.Player("../../assets/sounds/NEXT_LEVEL.wav").toDestination();
+	Tone.loaded().then(() => {
+		nextLevelFX.start();
+	});
+}
+
+export const enemyHitSound = () => {
+	const enemyHitFX = new Tone.Player("../../assets/sounds/ENEMY_HIT.wav").toDestination();
+	Tone.loaded().then(() => {
+		enemyHitFX.start();
+	});
+}

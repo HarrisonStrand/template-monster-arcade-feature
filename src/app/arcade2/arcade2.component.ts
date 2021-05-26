@@ -3,8 +3,8 @@ import * as p5 from 'p5';
 import { state } from './js/game/state';
 import { reset } from './js/utilities/reset';
 import { drawGame } from './js/utilities/drawGame';
-import { jump, move, shoot } from './js/utilities/keyPress';
-import * as s from 'p5/lib/addons/p5.sound';
+import { jump, move, shoot, mute } from './js/utilities/keyPress';
+import { backgroundMusic } from './js/utilities/utilities'
 
 @Component({
   selector: 'app-arcade2',
@@ -17,14 +17,14 @@ export class Arcade2Component implements OnInit {
   ngOnInit(): void {
 
     const sketch = (p5: any) => {
+      backgroundMusic(p5);
       p5.preload = () => {
         state.clientLogo = p5.loadImage('../../assets/img/HubbText.png');
         state.platformFont = p5.loadFont('../../assets/fonts/ARCADE_R.TTF');
         state.mountains = p5.loadImage('../../assets/img/mountains1.jpeg');
         state.mountains2 = p5.loadImage('../../assets/img/mountains2.png');
         state.mountains3 = p5.loadImage('../../assets/img/mountains3.jpeg');
-        // state.backgroundMusic = p5.loadSound('../../assets/sounds/background1.wav');
-      };
+      }
       
       p5.setup = () => {
         reset(p5);
