@@ -8,21 +8,12 @@ export default function Shot(p5, x, y, r) {
   this.r = r;
   this.xdir = 1;
 
-  this.render = function (p5) {
-    p5.push();
-    p5.stroke('red');
-    p5.noFill();
-    p5.strokeWeight(p5.random(.1, .5))
-    p5.ellipse(this.x, this.y, this.r, this.r);
-    p5.pop();
-  };
-
   this.setDir = function (x) {
     this.xdir = x;
   };
 
   this.update = function () {
-      this.x += this.xdir * 4;
+    this.x += this.xdir * 4;
   };
 
   this.hits = function(something) {
@@ -40,4 +31,15 @@ export default function Shot(p5, x, y, r) {
     }
     return false;
   }
+
+  this.render = function (p5) {
+
+    //BALL
+    p5.push();
+    p5.stroke('red');
+    p5.noFill();
+    p5.strokeWeight(p5.random(.1, .5))
+    p5.ellipse(this.x +2, this.y, this.r, this.r);
+    p5.pop();
+  };
 }

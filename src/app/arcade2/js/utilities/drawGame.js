@@ -9,10 +9,9 @@ import { drawMenu } from './menu'
 
 
 export const drawGame = (p5) => {
-
+	
 	p5.scale(state.rez);
 	p5.background(state.mountains);
-	
 	if (state.menu) {
 
 		drawMenu(p5, state.platformFont, state.windowWidth, state.windowHeight);
@@ -22,16 +21,6 @@ export const drawGame = (p5) => {
 		// if (!state.backgroundMusic.isPlaying()) {
 		// 	state.backgroundMusic.play();
 		// }
-		state.player.onStartingPlatform();
-		state.player.onEndingPlatform();
-		state.player.onPlatform();
-
-		//PLAYER VELOCITY AND GRAVITY
-		p5.angleMode(p5.DEGREES);
-		var gravity = p5.createVector(0, 0.1);
-		state.player.applyForce(gravity);
-		state.player.update();
-		state.player.render(p5);
 
 		//BACKGROUND PARALLAX AND IMAGE CHANGE
 		var gravity2 = p5.createVector(0, -0.1);
@@ -46,6 +35,16 @@ export const drawGame = (p5) => {
 			state.backgroundImage.image = state.backgrounds[i]
 		}
 
+		state.player.onStartingPlatform();
+		state.player.onEndingPlatform();
+		state.player.onPlatform();
+
+		//PLAYER VELOCITY AND GRAVITY
+		p5.angleMode(p5.DEGREES);
+		var gravity = p5.createVector(0, 0.1);
+		state.player.applyForce(gravity);
+		state.player.update();
+		state.player.render(p5);
 
 		//ENEMIES
 			for (let i = 0; i < state.enemies.length; i ++) {

@@ -9,6 +9,7 @@ export default function Player(p5, x, y) {
     this.jump = p5.createVector(0, -2);
     this.xdir = 0;
     this.ang = 0;
+    this.history = [];
 
   this.applyForce = function(force) {
     this.acc.add(force)
@@ -18,6 +19,13 @@ export default function Player(p5, x, y) {
     this.vel.add(this.acc);
     this.pos.add(this.vel);
     this.acc.set(0, 0);
+
+    var v = p5.createVector(this.pos.x, this.pos.y)
+    this.history.push(v);
+
+    if (this.history.length > 6) {
+      this.history.splice(0, 1);
+    }
   }
 
   this.onStartingPlatform = function() {
@@ -55,11 +63,20 @@ export default function Player(p5, x, y) {
     return false;
   }
 
-  
-
   this.render = function(p5) {
     
-    
+    //TRAIL
+    for (let i = 0; i < this.history.length; i++) {
+      var trailPosition = this.history[i];
+      p5.push();
+      p5.noFill();
+      p5.stroke('blue');
+      p5.strokeWeight(p5.random(0.5, 0.7));
+      p5.ellipse(trailPosition.x, trailPosition.y, i, i)
+      p5.pop();
+    }
+
+    //BALL
     p5.push();
     p5.fill('blue');
     p5.stroke('blue');
@@ -68,6 +85,7 @@ export default function Player(p5, x, y) {
     p5.ellipse(this.pos.x, this.pos.y, this.r, this.r);
     p5.pop();
     
+    //LINE
     p5.push();
     p5.fill('white')
     p5.stroke('black')
