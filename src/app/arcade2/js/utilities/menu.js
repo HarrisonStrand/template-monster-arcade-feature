@@ -12,8 +12,8 @@ export function MenuPlayer(p5, totalWidth, totalHeight) {
 	this.render = function(p5, totalWidth, totalHeight) {
     p5.push();
     p5.fill('blue');
-    p5.stroke('blue');
-    p5.strokeWeight(p5.random(0.5, 0.7));
+    p5.stroke('black');
+    p5.strokeWeight(p5.random(0.2, 0.3));
     p5.ellipseMode(p5.CENTER);
     p5.ellipse(this.pos.x, this.pos.y, this.r, this.r);
     p5.pop();
@@ -21,12 +21,12 @@ export function MenuPlayer(p5, totalWidth, totalHeight) {
     p5.push();
     p5.fill('white')
     p5.stroke('black')
-    p5.strokeWeight(.5);
+    p5.strokeWeight(.3);
     p5.translate(this.pos.x, this.pos.y)
 		let angleRight = this.ang += .1
 		p5.rotate(angleRight)
     p5.rectMode(p5.CENTER)
-    p5.rect(0, 0, this.r +.2, totalWidth /40)
+    p5.rect(0, 0, this.r +.08, totalWidth /40)
     p5.pop();
 
   }
@@ -34,14 +34,14 @@ export function MenuPlayer(p5, totalWidth, totalHeight) {
 
 export const drawMenu = (p5, platformFont, totalWidth, totalHeight, ) => {
 	p5.push();
-  p5.background(state.mountains);
+  p5.background(state.mountains2);
   p5.pop();
 
   //TITLE
   p5.push();
   p5.textFont(platformFont);
 	p5.fill('blue')
-  p5.stroke('blue');
+  p5.stroke('black');
   p5.strokeWeight(p5.random(0.3, 0.5));
   p5.textSize(totalWidth * 0.135);
   p5.textAlign(p5.CENTER);
@@ -53,7 +53,7 @@ export const drawMenu = (p5, platformFont, totalWidth, totalHeight, ) => {
   p5.push();
   p5.textFont(platformFont);
   p5.fill('blue');
-  p5.stroke('blue');
+  p5.stroke('black');
   p5.strokeWeight(p5.random(0.2, 0.3));
   p5.textSize(totalWidth * 0.025);
   p5.textAlign(p5.CENTER);
@@ -67,7 +67,7 @@ export const drawMenu = (p5, platformFont, totalWidth, totalHeight, ) => {
   p5.push();
   p5.textFont(platformFont);
   p5.fill('blue');
-  p5.stroke('blue');
+  p5.stroke('black');
   p5.strokeWeight(p5.random(0.2, 0.3));
   p5.textSize(totalWidth * 0.025);
   p5.textAlign(p5.CENTER);
@@ -77,21 +77,21 @@ export const drawMenu = (p5, platformFont, totalWidth, totalHeight, ) => {
     totalHeight / 2
   );
 	p5.fill('red');
-  p5.stroke('red');
+  p5.stroke('black');
 	p5.text(
     "LAVA",
     totalWidth / 2.12,
     totalHeight / 2
   );
 	p5.fill('blue');
-  p5.stroke('blue');
+  p5.stroke('black');
 	p5.text(
     "AND",
     totalWidth / 1.72,
     totalHeight / 2
   );
 	p5.fill('green');
-  p5.stroke('green');
+  p5.stroke('black');
 	p5.text(
     "ENEMIES",
     totalWidth / 1.37,
@@ -103,7 +103,7 @@ export const drawMenu = (p5, platformFont, totalWidth, totalHeight, ) => {
   p5.push();
   p5.textFont(platformFont);
   p5.fill('white')
-  p5.stroke('white');
+  p5.stroke('black');
   p5.strokeWeight(p5.random(0.1, 0.2));
   p5.textSize(totalWidth * 0.027);
   p5.textAlign(p5.CENTER);

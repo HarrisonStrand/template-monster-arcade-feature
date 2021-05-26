@@ -8,7 +8,8 @@ export const playerReset = (p5) => {
 };
 
 export const backgroundReset = (p5) => {
-  state.backgroundImage = new Background(p5, state.windowWidth /2, state.windowHeight /2, state.windowWidth * 2, state.windowHeight * 2)
+	let randomBackground = state.backgrounds[Math.floor(Math.random() * state.backgrounds.length)]
+  state.backgroundImage = new Background(p5, state.windowWidth /2, state.windowHeight /2, state.windowWidth * 2, state.windowHeight * 3.5, randomBackground)
 };
 
 export const enemyReset = (p5) => {

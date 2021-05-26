@@ -20,6 +20,8 @@ export class Arcade2Component implements OnInit {
         state.clientLogo = p5.loadImage('../../assets/img/HubbText.png');
         state.platformFont = p5.loadFont('../../assets/fonts/ARCADE_R.TTF');
         state.mountains = p5.loadImage('../../assets/img/mountains1.jpeg');
+        state.mountains2 = p5.loadImage('../../assets/img/mountains2.png');
+        state.mountains3 = p5.loadImage('../../assets/img/mountains3.jpeg');
         // state.backgroundMusic = p5.loadSound('../../assets/sounds/background1.wav');
       };
       

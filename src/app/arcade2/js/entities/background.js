@@ -1,14 +1,13 @@
 import { state } from '../game/state'
 
-export default function Background(p5, x, y, w, h) {
+export default function Background(p5, x, y, w, h, image) {
 	this.w = w;
 	this.h = h;
 	this.pos = p5.createVector(x, y);
 	this.vel = p5.createVector(0, 0);
 	this.acc = p5.createVector(0, 0);
 	this.jump = p5.createVector(0, +2);
-	this.xdir = 0;
-	this.ang = 0;
+	this.image = image
 
 	this.applyForce = function(force) {
 		this.acc.add(force)
@@ -27,7 +26,7 @@ export default function Background(p5, x, y, w, h) {
 	this.render = function(p5) {
 		p5.push();
 		p5.imageMode(p5.CENTER)
-		p5.image(state.mountains, this.pos.x, this.pos.y, this.w, this.h)
+		p5.image(this.image, this.pos.x, this.pos.y, this.w, this.h)
 		p5.pop();
 	}
 }

@@ -16,7 +16,7 @@ export const reset = (p5, canvas) => {
   //CANVAS SETTINGS
 	canvas = p5.createCanvas(p5.windowWidth * .95, p5.windowHeight * .95);
 	canvas.parent('arcade2-container');
-	p5.pixelDensity(1);
+	// p5.pixelDensity(1);
 	state.w = p5.windowWidth / state.rez;
   state.h = (p5.windowWidth * 0.714) / state.rez;
 	state.windowWidth = (p5.windowWidth * 0.95) / state.rez;
@@ -29,7 +29,9 @@ export const reset = (p5, canvas) => {
 	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'green', 8); //starting platform
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'red', 8); //ending platform
   state.hud = new Hud(state.platformFont);
-  state.backgroundImage = new Background(p5, state.windowWidth /2, state.windowHeight/2, state.windowWidth * 2.5, state.windowHeight * 2.5)
+  state.backgrounds.push(state.mountains, state.mountains2, state.mountains3);
+  let randomBackground = state.backgrounds[Math.floor(Math.random() * state.backgrounds.length)]
+  state.backgroundImage = new Background(p5, state.windowWidth /2, state.windowHeight/2, state.windowWidth * 2, state.windowHeight * 3.5, randomBackground)
   state.arrow = new Arrow();
 
   //ARRAY INITIALIZATION
