@@ -29,7 +29,7 @@ export function Hud(platformFont) {
     p5.noFill();
     p5.stroke('white');
     p5.strokeWeight(p5.random(0.1, 0.15));
-    p5.text('Lives:', windowWidth * .78 , 4);
+    p5.text('Lives:', windowWidth * .80 , 4);
     p5.pop();
 
     //BLUE SQUARE LIVES
@@ -54,8 +54,8 @@ export function Hud(platformFont) {
       p5.push();
       p5.textFont(platformFont);
       p5.textSize(state.windowWidth * .07);
-      p5.noFill();
-      p5.stroke('blue');
+      p5.fill('blue')
+      p5.stroke('black');
       p5.strokeWeight(p5.random(0.2, 0.3));
       p5.textAlign(p5.CENTER);
       p5.text('GAME OVER', state.windowWidth /2, state.windowHeight /3);
@@ -65,8 +65,8 @@ export function Hud(platformFont) {
       p5.push();
       p5.textFont(platformFont);
       p5.textSize(state.windowWidth * .04);
-      p5.noFill();
-      p5.stroke('blue');
+      p5.fill('blue')
+      p5.stroke('black');
       p5.strokeWeight(p5.random(0.2, 0.3));
       p5.textAlign(p5.CENTER);
       p5.text('press enter to continue', state.windowWidth /2, state.windowHeight /2);
@@ -76,8 +76,8 @@ export function Hud(platformFont) {
       p5.push();
       p5.textFont(platformFont);
       p5.textSize(state.windowWidth * .03);
-      p5.noFill();
-      p5.stroke('blue');
+      p5.fill('blue')
+      p5.stroke('black');
       p5.strokeWeight(p5.random(0.2, 0.3));
       p5.textAlign(p5.CENTER);
       p5.text('esc - Main Menu', state.windowWidth / 2, state.windowHeight/1.5);

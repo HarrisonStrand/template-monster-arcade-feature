@@ -2,7 +2,7 @@ import { state } from '../game/state'
 
 //Enemy.js
 export function Enemy(p5, x, y) {
-    this.r = 6; //enemy size
+    this.r = state.windowWidth/30; //enemy size
     this.pos = p5.createVector(x, y);
     this.vel = p5.createVector(-.7, 0);
     this.acc = p5.createVector(0, 0);
@@ -41,7 +41,7 @@ export function Enemy(p5, x, y) {
   }
 }
 export function Layer1(p5, x, y) {
-    this.r = 4; //enemy size
+    this.r = state.windowWidth/45; //enemy size
     this.pos = p5.createVector(x, y);
     this.vel = p5.createVector(-.7, 0);
     this.acc = p5.createVector(0, 0);
@@ -75,7 +75,7 @@ export function Layer1(p5, x, y) {
   }
 }
 export function Layer2(p5, x, y) {
-    this.r = 2; //enemy size
+    this.r = state.windowWidth/90; //enemy size
     this.pos = p5.createVector(x, y);
     this.vel = p5.createVector(-.7, 0);
     this.acc = p5.createVector(0, 0);

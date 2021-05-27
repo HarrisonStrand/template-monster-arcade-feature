@@ -21,9 +21,6 @@ export const drawGame = (p5) => {
 		state.menuPlayer.render(p5, state.windowWidth, state.windowHeight)
 
 		} else {
-		// if (!state.backgroundMusic.isPlaying()) {
-		// 	state.backgroundMusic.play();
-		// }
 
 		//BACKGROUND PARALLAX AND IMAGE CHANGE
 		var gravity2 = p5.createVector(0, -0.1);
@@ -37,6 +34,7 @@ export const drawGame = (p5) => {
 		for (let i = 0; i <= state.levelIndicator; i ++) {
 			state.backgroundImage.image = state.backgrounds[i]
 		}
+
 
 		//PLAYER VELOCITY AND GRAVITY
 		p5.angleMode(p5.DEGREES);

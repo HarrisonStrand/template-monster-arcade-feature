@@ -17,6 +17,7 @@ export const move = (p5) => {
     state.menu = false;
     state.livesLeft = 3;
     state.levelIndicator = 1;
+    state.numberOfEnemies = 0;
   } else if (p5.keyCode == p5.ESCAPE) {
     state.menu = true;
   }

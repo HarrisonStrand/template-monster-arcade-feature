@@ -23,7 +23,17 @@ export class Arcade2Component implements OnInit {
         state.platformFont = p5.loadFont('../../assets/fonts/ARCADE_R.TTF');
         state.mountains = p5.loadImage('../../assets/img/mountains1.jpeg');
         state.mountains2 = p5.loadImage('../../assets/img/mountains2.png');
-        state.mountains3 = p5.loadImage('../../assets/img/mountains3.jpeg');
+        state.mountains3 = p5.loadImage('../../assets/img/mountains3.png');
+        state.mountains4 = p5.loadImage('../../assets/img/mountains4.png');
+        state.mountains5 = p5.loadImage('../../assets/img/mountains5.png');
+        state.mountains6 = p5.loadImage('../../assets/img/mountains6.png');
+        state.mountains7 = p5.loadImage('../../assets/img/mountains7.png');
+        state.mountains8 = p5.loadImage('../../assets/img/mountains8.png');
+        state.mountains9 = p5.loadImage('../../assets/img/mountains9.png');
+        state.mountains10 = p5.loadImage('../../assets/img/mountains10.png');
+        state.mountains11 = p5.loadImage('../../assets/img/mountains11.png');
+        state.mountains12 = p5.loadImage('../../assets/img/mountains12.png');
+        state.mountains13 = p5.loadImage('../../assets/img/mountains13.png');
       }
       
       p5.setup = () => {
