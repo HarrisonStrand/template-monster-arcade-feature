@@ -6,7 +6,6 @@ import {
 	playerDieSound,
 	nextLevelSound,
 	enemyHitSound,
-	backgroundMusic
 } from '../utilities/utilities'
 import { reset } from './reset';
 import { drawMenu } from './menu'
@@ -77,11 +76,6 @@ export const drawGame = (p5) => {
 		state.endingPlatform.render(p5);
 		for (let i = 0; i < state.platforms.length; i ++) {
 			state.platforms[i].render(p5);
-		}
-
-		//WALLS
-		for (let i = 0; i < state.walls.length; i++) {
-			state.walls[i].render(p5)
 		}
 
 		//LAVA RENDERING
