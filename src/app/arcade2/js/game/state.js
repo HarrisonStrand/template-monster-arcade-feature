@@ -9,6 +9,7 @@ export var state = {
 	shoot: null,
 	startingPlatform: null,
 	endingPlatform: null,
+	endingPlatform2: null,
 	platform: null,
 	w: null,
 	h: null,

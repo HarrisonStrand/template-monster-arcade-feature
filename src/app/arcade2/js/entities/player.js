@@ -40,8 +40,17 @@ export default function Player(p5, x, y) {
   }
 
   this.onEndingPlatform = function() {
+    //ENDING PLATFORM ORIGINAL
     if (this.pos.y <= state.endingPlatform.pos.y -.6 && this.pos.y >= state.endingPlatform.pos.y - 4.01) {
       if (this.pos.x - this.r/2 <= state.endingPlatform.pos.x + state.endingPlatform.w/2 && this.pos.x + this.r/2 >= state.endingPlatform.pos.x - state.endingPlatform.w/2) {
+        this.vel.y *= 0;
+        this.pos.y = state.endingPlatform.pos.y - 4;
+        return true;
+      }
+    }
+    //ENDING PLATFORM CATCH
+    if (this.pos.y <= state.endingPlatform2.pos.y -.6 && this.pos.y >= state.endingPlatform2.pos.y - 4.01) {
+      if (this.pos.x - this.r/2 <= state.endingPlatform2.pos.x + state.endingPlatform2.w/2 && this.pos.x + this.r/2 >= state.endingPlatform2.pos.x - state.endingPlatform2.w/2) {
         this.vel.y *= 0;
         this.pos.y = state.endingPlatform.pos.y - 4;
         return true;

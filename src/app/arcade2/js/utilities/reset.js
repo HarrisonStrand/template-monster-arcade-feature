@@ -29,6 +29,7 @@ export const reset = (p5, canvas) => {
 	state.player = new Player(p5, 4, state.windowHeight -25);
 	state.startingPlatform = new Platform(p5, 4, state.windowHeight -10, 'white', 'green', 8); //starting platform
 	state.endingPlatform = new Platform(p5, state.windowWidth -4, state.windowHeight -10, 'white', 'red', 8); //ending platform
+	state.endingPlatform2 = new Platform(p5, state.windowWidth -4, state.windowHeight -8, 'white', 'red', 8); //ending platform
   state.hud = new Hud(state.platformFont);
   state.backgrounds.push(state.mountains, state.mountains2, state.mountains3, state.mountains4, state.mountains5, state.mountains6, state.mountains7, state.mountains8, state.mountains9, state.mountains10, state.mountains11, state.mountains12, state.mountains13);
   let randomBackground = state.backgrounds[Math.floor(Math.random() * state.backgrounds.length)]
@@ -155,8 +156,8 @@ export const reset = (p5, canvas) => {
 
   const platformSet6 = [
     (state.columns[1][4]),
-    (state.columns[2][3]),
     (state.columns[1][2]),
+    (state.columns[2][3]),
     (state.columns[2][1]),
     (state.columns[7][3]),
     (state.columns[10][3]),
@@ -166,8 +167,8 @@ export const reset = (p5, canvas) => {
     (state.columns[1][4]),
     (state.columns[3][4]),
     (state.columns[5][4]),
-    (state.columns[6][3]),
     (state.columns[5][2]),
+    (state.columns[6][3]),
     (state.columns[8][1]),
     (state.columns[10][2]),
     (state.columns[12][3]),
@@ -178,17 +179,11 @@ export const reset = (p5, canvas) => {
     (state.columns[1][3]),
     (state.columns[1][2]),
     (state.columns[1][1]),
-    (state.columns[2][1]),
     (state.columns[3][1]),
-    (state.columns[4][1]),
     (state.columns[5][1]),
-    (state.columns[6][1]),
     (state.columns[7][1]),
-    (state.columns[8][1]),
     (state.columns[9][1]),
-    (state.columns[10][1]),
     (state.columns[11][1]),
-    (state.columns[12][1]),
 
   ]
 
@@ -205,25 +200,166 @@ export const reset = (p5, canvas) => {
 
   const platformSet10 = [
     (state.columns[1][4]),
-    (state.columns[3][3]),
+    (state.columns[3][4]),
     (state.columns[5][4]),
-    (state.columns[7][3]),
+    (state.columns[7][4]),
     (state.columns[9][4]),
+    (state.columns[11][4]),
+
+  ]
+
+  const platformSet11 = [
+    (state.columns[1][4]),
+    (state.columns[3][3]),
+    (state.columns[5][2]),
+    (state.columns[7][1]),
     (state.columns[11][3]),
+    (state.columns[14][4]),
+
+  ]
+
+  const platformSet12 = [
+    (state.columns[1][4]),
+    (state.columns[2][1]),
+    (state.columns[3][2]),
+    (state.columns[4][3]),
+    (state.columns[5][4]),
+    (state.columns[6][1]),
+    (state.columns[10][4]),
+    (state.columns[11][3]),
+    (state.columns[14][4]),
+
+  ]
+
+  const platformSet13 = [
+    (state.columns[1][4]),
+    (state.columns[1][3]),
+    (state.columns[1][2]),
+    (state.columns[1][1]),
+    (state.columns[6][4]),
+    (state.columns[8][4]),
+    (state.columns[10][4]),
+    (state.columns[12][4]),
+
+  ]
+
+  const platformSet14 = [
+    (state.columns[1][3]),
+    (state.columns[3][4]),
+    (state.columns[4][2]),
+    (state.columns[5][1]),
+    (state.columns[5][0]),
+    (state.columns[9][3]),
+    (state.columns[12][3]),
+  ]
+
+  const platformSet15 = [
+    (state.columns[1][4]),
+    (state.columns[4][3]),
+    (state.columns[9][4]),
+    (state.columns[10][3]),
     (state.columns[13][4]),
 
   ]
 
-  state.platformSets.push(platformSet1, platformSet2, platformSet3, platformSet4, platformSet5, platformSet6, platformSet7, platformSet8, platformSet9)
+  const platformSet16 = [
+    (state.columns[1][4]),
+    (state.columns[2][3]),
+    (state.columns[3][2]),
+    (state.columns[7][4]),
+    (state.columns[8][3]),
+    (state.columns[9][2]),
+    (state.columns[13][4]),
+
+  ]
+
+  const platformSet17 = [
+    (state.columns[1][4]),
+    (state.columns[1][2]),
+    (state.columns[2][3]),
+    (state.columns[3][1]),
+    (state.columns[4][4]),
+    (state.columns[5][3]),
+    (state.columns[5][1]),
+    (state.columns[6][2]),
+    (state.columns[7][0]),
+    (state.columns[8][4]),
+    (state.columns[9][2]),
+    (state.columns[9][0]),
+    (state.columns[11][2]),
+    (state.columns[12][4]),
+    (state.columns[12][3]),
+    (state.columns[13][1]),
+
+  ]
+
+  const platformSet18 = [
+    (state.columns[1][3]),
+    (state.columns[2][4]),
+    (state.columns[2][2]),
+    (state.columns[3][0]),
+    (state.columns[4][3]),
+    (state.columns[4][1]),
+    (state.columns[7][3]),
+    (state.columns[7][1]),
+    (state.columns[8][0]),
+    (state.columns[9][1]),
+    (state.columns[10][4]),
+    (state.columns[11][2]),
+    (state.columns[13][4]),
+    (state.columns[13][0]),
+    (state.columns[14][2]),
+
+  ]
+
+  const platformSet19 = [
+    (state.columns[2][4]),
+    (state.columns[2][1]),
+    (state.columns[3][0]),
+    (state.columns[4][2]),
+    (state.columns[4][1]),
+    (state.columns[5][4]),
+    (state.columns[6][3]),
+    (state.columns[7][2]),
+    (state.columns[7][1]),
+    (state.columns[8][3]),
+    (state.columns[9][0]),
+    (state.columns[11][4]),
+    (state.columns[11][0]),
+    (state.columns[12][2]),
+    (state.columns[13][1]),
+    (state.columns[14][3]),
+
+  ]
+
+  const platformSet20 = [
+    (state.columns[0][1]),
+    (state.columns[2][4]),
+    (state.columns[2][2]),
+    (state.columns[2][0]),
+    (state.columns[4][3]),
+    (state.columns[4][0]),
+    (state.columns[5][1]),
+    (state.columns[7][1]),
+    (state.columns[8][3]),
+    (state.columns[9][0]),
+    (state.columns[10][2]),
+    (state.columns[11][4]),
+    (state.columns[12][0]),
+    (state.columns[13][2]),
+
+  ]
+
+  state.platformSets.push(platformSet1, platformSet2, platformSet3, platformSet4, platformSet5, platformSet6, platformSet7, platformSet8, platformSet9, platformSet10, platformSet11, platformSet12, platformSet13, platformSet14, platformSet15, platformSet16, platformSet17, platformSet18, platformSet19, platformSet20)
   let randomPlatformSet = state.platformSets[Math.floor(Math.random() * state.platformSets.length)]
   
   // // PLATFORM TEST DISPLAY
   // for (let x = 0; x < state.numberOfPlatforms; x++) {
-  //   for (let a = 0; a < platformSet10.length; a ++) {
+  //   for (let a = 0; a < platformSet20.length; a ++) {
   //     const newPlatform = new Platform(
   //       p5, 
-  //       platformSet10[a].x,
-  //       platformSet10[a].y,
+  //       platformSet20[a].x,
+  //       platformSet20[a].y,
   //       'white',
   //       'black',
   //       6
@@ -232,7 +368,7 @@ export const reset = (p5, canvas) => {
   //     }
   // }
   
-  //PLATFORM SET DISPLAY
+  // PLATFORM SET DISPLAY
   for (let x = 0; x < state.numberOfPlatforms; x++) {
     for (let a = 0; a < randomPlatformSet.length; a ++) {
       const newPlatform = new Platform(
@@ -246,9 +382,11 @@ export const reset = (p5, canvas) => {
         state.platforms.push(newPlatform)
       }
   }
+
   if (state.levelIndicator > 2 && state.levelIndicator % 3 === 0) {
     state.numberOfEnemies += 1;
   }
+
   //ENEMIES DISPLAY
   for (let i = 0; i < state.numberOfEnemies; i ++) {
     const newEnemy = new Enemy(
