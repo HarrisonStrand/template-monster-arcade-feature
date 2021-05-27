@@ -16,8 +16,8 @@ export function Hud(platformFont) {
     p5.push()
     p5.textFont(platformFont);
     p5.textSize(3);
-    p5.noFill()
-    p5.stroke('white')
+    p5.fill('white')
+    p5.stroke('black')
     p5.strokeWeight(p5.random(0.1, 0.15))
     p5.text('Level: ' + levelIndicator, 1, 4)
     p5.pop()
@@ -26,8 +26,8 @@ export function Hud(platformFont) {
     p5.push();
     p5.textFont(platformFont);
     p5.textSize(3);
-    p5.noFill();
-    p5.stroke('white');
+    p5.fill('white');
+    p5.stroke('black');
     p5.strokeWeight(p5.random(0.1, 0.15));
     p5.text('Lives:', windowWidth * .80 , 4);
     p5.pop();

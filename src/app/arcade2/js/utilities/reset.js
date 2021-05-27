@@ -377,7 +377,7 @@ export const reset = (p5, canvas) => {
         randomPlatformSet[a].y,
         'white',
         'black',
-        p5.random(2,10)//MESS WITH SIZING??
+        p5.random(3,10)//MESS WITH SIZING??
         )
         state.platforms.push(newPlatform)
       }

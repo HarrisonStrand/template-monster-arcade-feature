@@ -59,17 +59,17 @@ export const drawGame = (p5) => {
 				state.enemyLayer2[i].update()
 			}
 
-		//GRID VISUAL
-		for (let i = 0; i < state.columns.length; i ++) {
-			for (let k = 0; k < state.columns[i].length; k ++) {
-				p5.push();
-				p5.fill('green')
-				p5.noStroke();
-				p5.rectMode(p5.CENTER);
-				p5.ellipse(state.columns[i][k].x, state.columns[i][k].y, 2, 2)
-				p5.pop();
-			}
-		}
+		// //GRID VISUAL
+		// for (let i = 0; i < state.columns.length; i ++) {
+		// 	for (let k = 0; k < state.columns[i].length; k ++) {
+		// 		p5.push();
+		// 		p5.fill('green')
+		// 		p5.noStroke();
+		// 		p5.rectMode(p5.CENTER);
+		// 		p5.ellipse(state.columns[i][k].x, state.columns[i][k].y, 2, 2)
+		// 		p5.pop();
+		// 	}
+		// }
 
 		//PLATFORMS
 		state.startingPlatform.render(p5);
@@ -79,9 +79,9 @@ export const drawGame = (p5) => {
 		}
 
 		//LAVA RENDERING
-		// for (var i = 0; i < state.lava.length; i++) {
-		// 	state.lava[i].render(p5);
-		// }
+		for (var i = 0; i < state.lava.length; i++) {
+			state.lava[i].render(p5);
+		}
 
 		//HITTING LAVA
 			if (state.player.pos.y >= state.windowHeight -4) {
