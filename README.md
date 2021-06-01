@@ -22,10 +22,9 @@ This project is designed as a arcade game portal for Hubb as part of the virtual
 <br>
 
 ### Description
-
-This
-
 <hr/>
+
+This HTML page was designed with Figma and implimented with CSS front end design and gives users the ability to navigate to a game of their choosing using the play buttons as routes to the game title pages.
 
 <br>
 <br>
@@ -71,6 +70,13 @@ This game was designed as a combination of the classic game snake and pac-man wi
 <h4 align="center"> Harrison Strand</h4>
 <br>
 
+### Description
+
+<hr/>
+This game was designed as a simple platform jumper game that scrolls left to right. Using vector creation and framerate from p5.js library in combination with custom algorithms for game physics, collision detection, and design movement, users navigate through the game using the arrow keys to jump from the starting platform to the final platform befor progressing to the next level. Users can avoid colliding with enemies or the bottom lava, or shoot enemies to avoid losing lives.
+<br>
+<br>
+
 ### Title Menu
 
 <img src="./src/assets/img/bob-menu-example.png" width="500" height="auto" >
@@ -86,6 +92,39 @@ This game was designed as a combination of the classic game snake and pac-man wi
 ### Physics Example
 
 <img src="./src/assets/img/BOB-GIF.gif" width="500" height="auto" >
+<br>
+<br>
+
+<h1 align="center"> VEKTOR KOMMANDER</h1>
+<h2 align="center"> Author:</h2>
+<h4 align="center"> Grant Eadie & Ben Stoller</h4>
+<br>
+
+### Description
+
+This game was designed to be similar to the gameplay and progression of the classic game; Asteroids. Users can navigate the ship and shoot using the arrow keys and spacebar to destroy obstacles in the path of the player. Using p5.js library and custom algorithms for actions and level progression, this game uses retro style vector rendering and minimalistic design.
+<hr/>
+
+<br>
+<br>
+
+### Title Menu
+
+<!-- <img src="./src/assets/img/bob-menu-example.png" width="500" height="auto" > -->
+<br>
+<br>
+
+### Gameplay
+
+<!-- <img src="./src/assets/img/bob-play-example.png" width="500" height="auto" > -->
+<br>
+<br>
+
+### Physics Example
+
+<!-- <img src="./src/assets/img/BOB-GIF.gif" width="500" height="auto" > -->
+<br>
+<br>
 
 ## User Stories
 
@@ -96,39 +135,43 @@ This game was designed as a combination of the classic game snake and pac-man wi
 | ---- | ----------------------------------------------------------------------------------------- | -------- |
 | US01 | "As a user, I want to be able to see a main page and navigate to a specific game"         | True     |
 | US02 | "As a user, I want to be able to progress through levels in each game and collect points" | True     |
+| US03 | "As a user, I want to be able to swap colors according to company color scheme"           | True     |
 
 </details>
 <br>
 <br>
 
-### Project's Purpose:
-
-Arcade Page is designed to give the user a fun subsection of the virtual event space to play games.
-
 ### MVP
+<hr/>
+User has the ability to navigate to their desired game. Each game has interchangable variables to impliment client designs for colors and logos with use of JSON files.
+<br>
+<br>
 
-User has the ability to navigate through games and collect points
+### Tools/Frameworks/Resources
+<hr/>
 
-### Tools, frameworks, libraries, APIs, modules and/or other resources:
-
-Angular
-TypeScript
-p5.js Library
-JavaScript
-HTML
-CSS
+- Angular
+- TypeScript
+- p5.js Library
+- Tone.js
+- JavaScript
+- HTML
+- CSS
+- Figma
+<br>
+<br>
 
 ### Stretch Goals
+<hr/>
 
-Users have the ability to post high scores
-Users have the ability to play 3 different games
-Users have the ability to play games on hosted site
-
-### Additional tools, frameworks, libraries, APIs, or other resources
-
-Figma
+- Users have the ability to post high scores
+- Users have the ability to play 3 different games
+- Users have the ability to play games on hosted site
+<br>
+<br>
 
 ## Setup/Installation Requirements
+<hr/>
 
 ##### Software Requirements
 
@@ -137,7 +180,7 @@ Figma
 
 ##### Open Locally
 
-- Click on the link to my repository: [My Repository](https://github.com/HarrisonStrand/arcade-original-angular)
+- Click on the link to my repository: [My Repository](https://github.com/HarrisonStrand/template-monster-arcade-feature)
 - Click on the green "Code" button and copy the repository URL
 - Open your terminal and use the command `git clone ` into the directory you would like to clone the repository
 - Open in text editor to view code and make changes
@@ -183,8 +226,11 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br>
+<br>
 
 ## Learn More
+<hr/>
 
 <details>
   <summary>Expand</summary>
@@ -219,14 +265,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Known Bugs
 
-## Upcoming Edits
-
-- level progression clean up for platform jumper
-- level design detail for platform jumper
+  - resizing for mobile with BOB
+  - tone.js background sounds merge with arcade main page
+  - bugs with route navigation without refreshing the DOM
 
 ## Support and Contact Details
 
-If any further errors or bugs occur with installation, please email me, <harrisonstrand@gmail.com>.
+If any further errors or bugs occur with installation, please email us at, <harrisonstrand@gmail.com> or <gman9mm@live.com>
 
 ## Technologies Used
 
@@ -237,10 +282,11 @@ If any further errors or bugs occur with installation, please email me, <harriso
 - Javascript
 - CSS
 - p5.js
+- Tone.js
 - Figma
 
 ### License
 
 This software is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).
 
-Copyright (c) 2021 Harrison Strand<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8Q_3EVY7j95tTyemJwWxMR7jwvUK7gPe0_w&usqp=CAU" width="2%" height="auto">
+Copyright (c) 2021 Harrison Strand & Garrett Brown
