@@ -1,40 +1,107 @@
-
 <div align="center">
 
-# TemplateMonsterArcadeFeature
+# Retro Arcade Page
 
 </div>
 
 <div align="center">
-<img src="https://github.com/HarrisonStrand.png" width="200px" height="auto" >
 </div>
 <h3 align="center">Arcade Page Project, 3-28-2021</h3>
-<h4 align="center"> By Harrison Strand</h4>
+<h4 align="center"> By Harrison Strand & Garrett Brown</h4>
 
-## Description
+## Main Description
 
 This project is designed as a arcade game portal for Hubb as part of the virtual event space product. Users can navigate to the arcade main page and choose which game to play to take a break from their company webinars in the virtual space. This project was created with Angular and Typescript with use of p5.js library and Figma and CSS for front end design.
 
-<img src="./src/assets/img/main-page-example.png" width="500px" height="auto"><img src="./src/assets/img/snake-eater-example.png" width="500px" height="auto">
+<hr/>
+<br>
+
+<h1 align="center"> MAIN PAGE</h1>
+<h2 align="center"> Authors:</h2>
+<h4 align="center"> Harrison Strand & Garrett Brown</h4>
+<br>
+
+### Description
+
+This
+
+<hr/>
+
+<br>
+<br>
+
+### Main Menu
+
+<img src="./src/assets/img/arcade-page-example.png" width="500" height="auto" >
+<br>
+<br>
+
+<h1 align="center"> SNAKE EATER</h4>
+<h2 align="center"> Authors:</h2>
+<h4 align="center"> Harrison Strand & Garrett Brown</h4>
+<br>
+
+### Description
+
+<hr/>
+This game was designed as a combination of the classic game snake and pac-man with the addition of obstacles to avoid during gameplay. Using vector creation and framerate from p5.js library in combination with custom algorithms for game physics and gameplay, users navigate through the game using the arrow keys and progress through levels, gaining speed across coordinates while collecting points.
+<br>
+<br>
+
+### Title Menu
+
+<img src="./src/assets/img/snake-eater-menu-example.png" width="500" height="auto" >
+<br>
+<br>
+
+### Gameplay
+
+<img src="./src/assets/img/snake-eater-example.png" width="500" height="auto" >
+<br>
+<br>
+
+### Physics Example
+
+<img src="./src/assets/img/SNAKE-GIF.gif" width="500" height="auto" >
+<br>
+<br>
+
+<h1 align="center"> BOB</h1>
+<h2 align="center"> Author:</h2>
+<h4 align="center"> Harrison Strand</h4>
+<br>
+
+### Title Menu
+
+<img src="./src/assets/img/bob-menu-example.png" width="500" height="auto" >
+<br>
+<br>
+
+### Gameplay
+
+<img src="./src/assets/img/bob-play-example.png" width="500" height="auto" >
+<br>
+<br>
+
+### Physics Example
+
+<img src="./src/assets/img/BOB-GIF.gif" width="500" height="auto" >
 
 ## User Stories
 
 <details>
   <summary>Expand</summary>
 
-| ID   | User Story                                                                                            | Accepted |
-| ---- | ----------------------------------------------------------------------------------------------------- | -------- |
-| US01 | "As a user, I want to be able to see a main page and navigate to a specific game"                       | True     |
-| US02 | "As a user, I want to be able to progress through levels in each game and collect points"  | True     |
+| ID   | User Story                                                                                | Accepted |
+| ---- | ----------------------------------------------------------------------------------------- | -------- |
+| US01 | "As a user, I want to be able to see a main page and navigate to a specific game"         | True     |
+| US02 | "As a user, I want to be able to progress through levels in each game and collect points" | True     |
 
 </details>
+<br>
+<br>
 
-## Project Proposal
-<hr/>
-
-## Arcade Page
-
-### Project's Purpose or Goal: 
+### Project's Purpose:
 
 Arcade Page is designed to give the user a fun subsection of the virtual event space to play games.
 
@@ -149,7 +216,6 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 </details>
-
 
 ## Known Bugs
 
