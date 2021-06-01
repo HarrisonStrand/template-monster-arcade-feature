@@ -14,7 +14,7 @@ import { drawMenu } from './menu'
 export const drawGame = (p5) => {
 	
 	p5.scale(state.rez);
-	p5.background(state.mountains);
+	p5.background(255);
 	if (state.menu) {
 		drawMenu(p5, state.platformFont, state.windowWidth, state.windowHeight);
 		state.menuPlayer.render(p5, state.windowWidth, state.windowHeight)

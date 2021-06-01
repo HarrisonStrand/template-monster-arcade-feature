@@ -6,11 +6,6 @@ import { MenuPlayer } from '../utilities/menu'
 import Lava from '../entities/lava';
 import { Hud, Arrow } from '../utilities/hud'
 import { state } from "../game/state";
-import { backgroundMusic } from '../utilities/utilities'
-
-//add trail for player when jumping and moving
-//add enemy layers for more difficulty and more shots
-//add different platform sizes
 
 export const reset = (p5, canvas) => {
   
